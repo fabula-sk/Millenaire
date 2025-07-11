@@ -25,8 +25,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class MillBlocks {
+
+        public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Millenaire.MODID);
 
 	public static Block blockDecorativeStone;
 	public static Block blockDecorativeWood;
@@ -75,99 +79,99 @@ public class MillBlocks {
 
 		//Decorative
 		blockDecorativeStone = new BlockDecorativeStone().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockDecorativeStone");
-		GameRegistry.registerBlock(blockDecorativeStone, ItemBlockDecorativeStone.class, "blockDecorativeStone");
+                BLOCKS.register("blockDecorativeStone", () -> blockDecorativeStone);
 
 		blockDecorativeWood = new BlockDecorativeWood().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockDecorativeWood");
-		GameRegistry.registerBlock(blockDecorativeWood, ItemBlockDecorativeWood.class, "blockDecorativeWood");
+                BLOCKS.register("blockDecorativeWood", () -> blockDecorativeWood);
 
 		blockDecorativeEarth = new BlockDecorativeEarth().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockDecorativeEarth");
-		GameRegistry.registerBlock(blockDecorativeEarth, ItemBlockDecorativeEarth.class, "blockDecorativeEarth");
+                BLOCKS.register("blockDecorativeEarth", () -> blockDecorativeEarth);
 
 		blockSodPlanks = new BlockDecorativeSodPlank().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockSodPlank");
-		GameRegistry.registerBlock(blockSodPlanks, ItemBlockDecorativeSodPlank.class, "blockSodPlank");
+                BLOCKS.register("blockSodPlank", () -> blockSodPlanks);
 
 		emptySericulture = new BlockDecorativeUpdate(Material.wood, blockDecorativeWood.getDefaultState().withProperty(BlockDecorativeWood.VARIANT, BlockDecorativeWood.EnumType.SERICULTURE)).setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("emptySericulture");
-		GameRegistry.registerBlock(emptySericulture, "emptySericulture");
+                BLOCKS.register("emptySericulture", () -> emptySericulture);
 
 		mudBrick = new BlockDecorativeUpdate(Material.ground, blockDecorativeEarth.getDefaultState().withProperty(BlockDecorativeEarth.VARIANT, BlockDecorativeEarth.EnumType.DRIEDBRICK)).setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("mudBrick");
-		GameRegistry.registerBlock(mudBrick, "mudBrick");
+                BLOCKS.register("mudBrick", () -> mudBrick);
 
 		thatchSlab = new BlockDecorativeOrientedSlabHalf(Material.wood).setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("thatchSlab");
 		thatchSlabDouble = new BlockDecorativeOrientedSlabDouble(Material.wood, thatchSlab).setUnlocalizedName("thatchSlabDouble");
-		GameRegistry.registerBlock(thatchSlab, ItemOrientedSlab.class, "thatchSlab", thatchSlab, thatchSlabDouble);
-		GameRegistry.registerBlock(thatchSlabDouble, ItemOrientedSlab.class, "thatchSlabDouble", thatchSlab, thatchSlabDouble);
+                BLOCKS.register("thatchSlab", () -> thatchSlab);
+                BLOCKS.register("thatchSlabDouble", () -> thatchSlabDouble);
 		
 		thatchStairs = new BlockDecorativeOrientedStairs(blockDecorativeWood.getDefaultState().withProperty(BlockDecorativeWood.VARIANT, BlockDecorativeWood.EnumType.THATCH)).setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("thatchStairs");
-		GameRegistry.registerBlock(thatchStairs, "thatchStairs");
+                BLOCKS.register("thatchStairs", () -> thatchStairs);
 		
 		byzantineTile = new BlockDecorativeOriented(Material.rock).setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("byzantineTile");
-		GameRegistry.registerBlock(byzantineTile, "byzantineTile");
+                BLOCKS.register("byzantineTile", () -> byzantineTile);
 
-		byzantineStoneTile = new BlockDecorativeOriented(Material.rock).setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("byzantineStoneTile");
-		GameRegistry.registerBlock(byzantineStoneTile, "byzantineStoneTile");
+                byzantineStoneTile = new BlockDecorativeOriented(Material.rock).setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("byzantineStoneTile");
+                BLOCKS.register("byzantineStoneTile", () -> byzantineStoneTile);
 
 		byzantineTileSlab = new BlockDecorativeOrientedSlabHalf(Material.rock).setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("byzantineTileSlab");
 		byzantineTileSlabDouble = new BlockDecorativeOrientedSlabDouble(Material.rock, byzantineTileSlab).setUnlocalizedName("byzantineTileSlabDouble");
-		GameRegistry.registerBlock(byzantineTileSlab, ItemOrientedSlab.class, "byzantineTileSlab", byzantineTileSlab, byzantineTileSlabDouble);
-		GameRegistry.registerBlock(byzantineTileSlabDouble, ItemOrientedSlab.class, "byzantineTileSlabDouble", byzantineTileSlab, byzantineTileSlabDouble);
+                BLOCKS.register("byzantineTileSlab", () -> byzantineTileSlab);
+                BLOCKS.register("byzantineTileSlabDouble", () -> byzantineTileSlabDouble);
 
 		byzantineTileStairs = new BlockDecorativeOrientedStairs(byzantineStoneTile.getDefaultState()).setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("byzantineTileStairs");
-		GameRegistry.registerBlock(byzantineTileStairs, "byzantineTileStairs");
+                BLOCKS.register("byzantineTileStairs", () -> byzantineTileStairs);
 
-		paperWall = new BlockDecorativePane(Material.cloth).setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("paperWall");
-		GameRegistry.registerBlock(paperWall, "paperWall");
+                paperWall = new BlockDecorativePane(Material.cloth).setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("paperWall");
+                BLOCKS.register("paperWall", () -> paperWall);
 
-		blockCarving = new BlockDecorativeCarving(Material.rock).setUnlocalizedName("inuitCarving");
-		GameRegistry.registerBlock(blockCarving, "inuitCarving");
+                blockCarving = new BlockDecorativeCarving(Material.rock).setUnlocalizedName("inuitCarving");
+                BLOCKS.register("inuitCarving", () -> blockCarving);
 
 		//Crops
-		cropTurmeric = new BlockMillCrops(false, false).setCreativeTab(null).setUnlocalizedName("cropTurmeric");
-		GameRegistry.registerBlock(cropTurmeric, "cropTurmeric");
+                cropTurmeric = new BlockMillCrops(false, false).setCreativeTab(null).setUnlocalizedName("cropTurmeric");
+                BLOCKS.register("cropTurmeric", () -> cropTurmeric);
 
-		cropRice = new BlockMillCrops(true, false).setCreativeTab(null).setUnlocalizedName("cropRice");
-		GameRegistry.registerBlock(cropRice, "cropRice");
+                cropRice = new BlockMillCrops(true, false).setCreativeTab(null).setUnlocalizedName("cropRice");
+                BLOCKS.register("cropRice", () -> cropRice);
 
-		cropMaize = new BlockMillCrops(false, true).setCreativeTab(null).setUnlocalizedName("cropMaize");
-		GameRegistry.registerBlock(cropMaize, "cropMaize");
+                cropMaize = new BlockMillCrops(false, true).setCreativeTab(null).setUnlocalizedName("cropMaize");
+                BLOCKS.register("cropMaize", () -> cropMaize);
 
-		cropGrapeVine = new BlockMillCrops(false, false).setCreativeTab(null).setUnlocalizedName("cropGrapeVine");
-		GameRegistry.registerBlock(cropGrapeVine, "cropGrapeVine");
+                cropGrapeVine = new BlockMillCrops(false, false).setCreativeTab(null).setUnlocalizedName("cropGrapeVine");
+                BLOCKS.register("cropGrapeVine", () -> cropGrapeVine);
 
 		//Chests
-		blockMillChest = new BlockMillChest().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockMillChest");
-		GameRegistry.registerBlock(blockMillChest, "blockMillChest");
+                blockMillChest = new BlockMillChest().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockMillChest");
+                BLOCKS.register("blockMillChest", () -> blockMillChest);
 		GameRegistry.registerTileEntity(TileEntityMillChest.class, "tileEntityMillChest");
 
 		//Sign
-		blockMillSign = new BlockMillSign().setUnlocalizedName("blockMillSign");
-		GameRegistry.registerBlock(blockMillSign, "blockMillSign");
+                blockMillSign = new BlockMillSign().setUnlocalizedName("blockMillSign");
+                BLOCKS.register("blockMillSign", () -> blockMillSign);
 		GameRegistry.registerTileEntity(TileEntityMillSign.class, "tileEntityMillSign");
 
 		//Alchemists
-		blockAlchemists = new BlockAlchemists().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockAlchemists");
-		GameRegistry.registerBlock(blockAlchemists, "blockAlchemists");
+                blockAlchemists = new BlockAlchemists().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockAlchemists");
+                BLOCKS.register("blockAlchemists", () -> blockAlchemists);
 
 		//Paths
-		blockMillPath = new BlockMillPath().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockMillPath");
-		GameRegistry.registerBlock(blockMillPath, ItemMillPath.class, "blockMillPath");
+                blockMillPath = new BlockMillPath().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockMillPath");
+                BLOCKS.register("blockMillPath", () -> blockMillPath);
 
-		blockMillPathSlab = new BlockMillPathSlabHalf().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockMillPathSlab");
-		blockMillPathSlabDouble = new BlockMillPathSlabDouble().setUnlocalizedName("blockMillPathSlabDouble");
-		GameRegistry.registerBlock(blockMillPathSlab, ItemMillPathSlab.class, "blockMillPathSlab", blockMillPathSlab, blockMillPathSlabDouble);
-		GameRegistry.registerBlock(blockMillPathSlabDouble, ItemMillPathSlab.class, "blockMillPathSlabDouble", blockMillPathSlab, blockMillPathSlabDouble);
+                blockMillPathSlab = new BlockMillPathSlabHalf().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("blockMillPathSlab");
+                blockMillPathSlabDouble = new BlockMillPathSlabDouble().setUnlocalizedName("blockMillPathSlabDouble");
+                BLOCKS.register("blockMillPathSlab", () -> blockMillPathSlab);
+                BLOCKS.register("blockMillPathSlabDouble", () -> blockMillPathSlabDouble);
 
 		//Ores
-		galianiteOre = new BlockMillOre(BlockMillOre.EnumMillOre.GALIANITE).setUnlocalizedName("galianiteOre");
-    	GameRegistry.registerBlock(galianiteOre, "galianiteOre");
+                galianiteOre = new BlockMillOre(BlockMillOre.EnumMillOre.GALIANITE).setUnlocalizedName("galianiteOre");
+                BLOCKS.register("galianiteOre", () -> galianiteOre);
     	
     	//Village Stone
-    	villageStone = new BlockVillageStone().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("villageStone");
-		GameRegistry.registerBlock(villageStone, "villageStone");
+        villageStone = new BlockVillageStone().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("villageStone");
+                BLOCKS.register("villageStone", () -> villageStone);
 		GameRegistry.registerTileEntity(TileEntityVillageStone.class, "tileEntityVillageStone");
 		
 		//StoredPosition
-		storedPosition = new StoredPosition().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("storedPosition");
-		GameRegistry.registerBlock(storedPosition, "storedPosition");
+                storedPosition = new StoredPosition().setCreativeTab(Millenaire.tabMillenaire).setUnlocalizedName("storedPosition");
+                BLOCKS.register("storedPosition", () -> storedPosition);
 	}
 
 	public static void recipes() {

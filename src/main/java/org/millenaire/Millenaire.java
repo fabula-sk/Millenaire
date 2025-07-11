@@ -19,6 +19,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -32,7 +34,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = Millenaire.MODID, name = Millenaire.NAME, version = Millenaire.VERSION, guiFactory = Millenaire.GUIFACTORY)
-public class Millenaire 
+public class Millenaire
 {
 	public static final String MODID = "millenaire";
 	public static final String NAME = "Mill\u00e9naire";
@@ -43,9 +45,15 @@ public class Millenaire
 	
 	public List<Block> forbiddenBlocks;
 	
-	@Instance
-	public static Millenaire instance = new Millenaire();
-	public static SimpleNetworkWrapper simpleNetworkWrapper;
+        @Instance
+        public static Millenaire instance = new Millenaire();
+        public static SimpleNetworkWrapper simpleNetworkWrapper;
+
+        public Millenaire() {
+                MillBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+                MillItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+                EntityMillVillager.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        }
 	
 	public static final CreativeTabs tabMillenaire = new CreativeTabs("MillTab")
 	{
@@ -113,13 +121,14 @@ public class Millenaire
 	{
 		String parsing = MillConfig.forbiddenBlocks.substring(11);
 		forbiddenBlocks = new ArrayList<Block>();
-		for (final String name : parsing.split(", |,"))
-		{
-			if(Block.blockRegistry.containsKey(new ResourceLocation(name)))
-			{
-				forbiddenBlocks.add(Block.blockRegistry.getObject(new ResourceLocation(name)));
-			}
-		}
+                for (final String name : parsing.split(", |,"))
+                {
+                        Block b = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name));
+                        if (b != null)
+                        {
+                                forbiddenBlocks.add(b);
+                        }
+                }
 	}
 	
 	@EventHandler
