@@ -34,10 +34,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 
 public class EntityMillVillager extends EntityCreature
 {
-	public int villagerID;
+        public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Millenaire.MODID);
+        public static final RegistryObject<EntityType<EntityMillVillager>> MILL_VILLAGER = ENTITIES.register("mill_villager", () -> EntityType.Builder.create(EntityMillVillager::new, EntityClassification.MISC).size(0.6F, 1.95F).build("mill_villager"));
+        public int villagerID;
 	private MillCulture culture;
 	private VillagerType type;
 	private final static int TEXTURE = 13;
@@ -567,10 +574,10 @@ public class EntityMillVillager extends EntityCreature
 	
 	//////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	public static void preinitialize()
-	{
-		EntityRegistry.registerModEntity(EntityMillVillager.class, "millVillager", 0, Millenaire.instance, 80, 3, false);
-	}
+        public static void preinitialize()
+        {
+                // registration handled via DeferredRegister
+        }
 	
 	public static void prerender()
 	{
