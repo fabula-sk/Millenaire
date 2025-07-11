@@ -39,6 +39,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.DataParameter;
+import net.minecraft.entity.DataSerializers;
+import net.minecraft.entity.EntityDataManager;
 
 public class EntityMillVillager extends EntityCreature
 {
@@ -47,10 +50,10 @@ public class EntityMillVillager extends EntityCreature
         public int villagerID;
 	private MillCulture culture;
 	private VillagerType type;
-	private final static int TEXTURE = 13;
-	private final static int AGE = 14;
-	private final static int GENDER = 16;
-	private final static int NAME = 17;
+       private static final DataParameter<String> TEXTURE = EntityDataManager.createKey(EntityMillVillager.class, DataSerializers.STRING);
+       private static final DataParameter<Integer> AGE = EntityDataManager.createKey(EntityMillVillager.class, DataSerializers.VARINT);
+       private static final DataParameter<Integer> GENDER = EntityDataManager.createKey(EntityMillVillager.class, DataSerializers.VARINT);
+       private static final DataParameter<String> NAME = EntityDataManager.createKey(EntityMillVillager.class, DataSerializers.STRING);
 
 	private boolean isVillagerSleeping = false;
 	public boolean isPlayerInteracting = false;
@@ -106,39 +109,39 @@ public class EntityMillVillager extends EntityCreature
     }
 	
 	@Override
-	public void entityInit()
+       public void entityInit()
     {
         super.entityInit();
-        this.dataWatcher.addObject(TEXTURE, "texture");
-        this.dataWatcher.addObject(NAME, "name");
+        this.getDataManager().register(TEXTURE, "texture");
+        this.getDataManager().register(NAME, "name");
         //0 is Adult
-        this.dataWatcher.addObject(AGE, 0);
+        this.getDataManager().register(AGE, 0);
         //0 for male, 1 for female, 2 for Sym Female
-        this.dataWatcher.addObject(GENDER, 0);
+        this.getDataManager().register(GENDER, 0);
     }
 	
 	public EntityMillVillager setTypeAndGender(VillagerType typeIn, int genderIn)
 	{
-		this.type = typeIn;
-		this.dataWatcher.updateObject(GENDER, genderIn);
-		this.dataWatcher.updateObject(TEXTURE, type.getTexture());
-		return this;
-	}
+               this.type = typeIn;
+               this.getDataManager().set(GENDER, genderIn);
+               this.getDataManager().set(TEXTURE, type.getTexture());
+               return this;
+       }
 	
-	public void setChild() { this.dataWatcher.updateObject(AGE, 1); }
+       public void setChild() { this.getDataManager().set(AGE, 1); }
 	
-	public void setName(String nameIn) { this.dataWatcher.updateObject(NAME, nameIn); }
+       public void setName(String nameIn) { this.getDataManager().set(NAME, nameIn); }
 	
-	public String getTexture() { return this.dataWatcher.getWatchableObjectString(13); }
+       public String getTexture() { return this.getDataManager().get(TEXTURE); }
 	
-	public int getGender() { return dataWatcher.getWatchableObjectInt(GENDER); }
+       public int getGender() { return this.getDataManager().get(GENDER); }
 	
-	public String getName() { return this.dataWatcher.getWatchableObjectString(NAME); }
+       public String getName() { return this.getDataManager().get(NAME); }
 
 	public VillagerType getVillagerType() { return type; }
 	
 	@Override
-	public boolean isChild() { return (this.dataWatcher.getWatchableObjectInt(AGE) > 0); }
+       public boolean isChild() { return (this.getDataManager().get(AGE) > 0); }
 	
     public boolean allowLeashing() { return false; }
     
@@ -492,13 +495,13 @@ public class EntityMillVillager extends EntityCreature
 		super.writeToNBT(nbt);
 		nbt.setInteger("villagerID", villagerID);
 		nbt.setString("culture", culture.cultureName);
-		nbt.setInteger("gender", this.dataWatcher.getWatchableObjectInt(GENDER));
+               nbt.setInteger("gender", this.getDataManager().get(GENDER));
 		nbt.setString("villagerType", type.id);
 		nbt.setBoolean("sleeping", isVillagerSleeping);
 		
-		nbt.setString("texture", this.dataWatcher.getWatchableObjectString(TEXTURE));
-		nbt.setInteger("age", this.dataWatcher.getWatchableObjectInt(AGE));
-		nbt.setString("name", this.dataWatcher.getWatchableObjectString(NAME));
+               nbt.setString("texture", this.getDataManager().get(TEXTURE));
+               nbt.setInteger("age", this.getDataManager().get(AGE));
+               nbt.setString("name", this.getDataManager().get(NAME));
 		
 		NBTTagList nbttaglist = new NBTTagList();
         for (int i = 0; i < this.villagerInventory.getSizeInventory(); ++i)
@@ -533,13 +536,13 @@ public class EntityMillVillager extends EntityCreature
 			System.out.println("Fix this shit!");
 			culture.getChildType(GENDER);
 		}
-		this.dataWatcher.updateObject(GENDER, nbt.getInteger("gender"));
+               this.getDataManager().set(GENDER, nbt.getInteger("gender"));
 		type = culture.getVillagerType(nbt.getString("villagerType"));
 		isVillagerSleeping = nbt.getBoolean("sleeping");
 		
-		this.dataWatcher.updateObject(TEXTURE, nbt.getString("texture"));
-		this.dataWatcher.updateObject(AGE, nbt.getInteger("age"));
-		this.dataWatcher.updateObject(NAME, nbt.getString("name"));
+               this.getDataManager().set(TEXTURE, nbt.getString("texture"));
+               this.getDataManager().set(AGE, nbt.getInteger("age"));
+               this.getDataManager().set(NAME, nbt.getString("name"));
 		
 		NBTTagList nbttaglist = nbt.getTagList("Inventory", 10);
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
