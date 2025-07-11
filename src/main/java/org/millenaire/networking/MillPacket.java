@@ -5,6 +5,9 @@ import org.millenaire.blocks.MillBlocks;
 import org.millenaire.items.MillItems;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.network.NetworkEvent;
+import java.util.function.Supplier;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -49,15 +52,76 @@ public class MillPacket implements IMessage
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf) 
-	{
-		if(!messageIsValid)
-		{
-			return;
-		}
-		
-		buf.writeInt(eventID);
-	}
+        public void toBytes(ByteBuf buf)
+        {
+                if(!messageIsValid)
+                {
+                        return;
+                }
+
+                buf.writeInt(eventID);
+        }
+
+        public static void encode(MillPacket msg, PacketBuffer buf) {
+                msg.toBytes(buf);
+        }
+
+        public static MillPacket decode(PacketBuffer buf) {
+                MillPacket packet = new MillPacket();
+                packet.fromBytes(buf);
+                return packet;
+        }
+
+        public static void handle(MillPacket message, Supplier<NetworkEvent.Context> ctx) {
+                ctx.get().enqueueWork(() -> {
+                        EntityPlayerMP sendingPlayer = ctx.get().getSender();
+                        if (sendingPlayer != null) {
+                                if(message.getID() == 2) {
+                                        ItemStack heldItem = sendingPlayer.getHeldItem();
+                                        if(heldItem.getItem() == MillItems.wandNegation) {
+                                                World world = sendingPlayer.worldObj;
+                                                NBTTagCompound nbt = heldItem.getTagCompound();
+                                                int posX = nbt.getInteger("X");
+                                                int posY = nbt.getInteger("Y");
+                                                int posZ = nbt.getInteger("Z");
+                                                BlockVillageStone villStone = (BlockVillageStone)world.getBlockState(new BlockPos(posX, posY, posZ)).getBlock();
+                                                villStone.negate(world, new BlockPos(posX, posY, posZ), sendingPlayer);
+                                        } else {
+                                                System.err.println("Player not holding Wand of Negation when attempting to delete Village");
+                                        }
+                                }
+                                if(message.getID() == 3) {
+                                        ItemStack heldItem = sendingPlayer.getHeldItem();
+                                        if(heldItem.getItem() == MillItems.wandNegation) {
+                                                World world = sendingPlayer.worldObj;
+                                                NBTTagCompound nbt = heldItem.getTagCompound();
+                                                int id = nbt.getInteger("ID");
+                                                world.createExplosion(world.getEntityByID(id), world.getEntityByID(id).posX, world.getEntityByID(id).posY, world.getEntityByID(id).posZ, 0.0F, false);
+                                                world.playSoundAtEntity(world.getEntityByID(id), "game.player.hurt", 1.0F, 0.4F);
+                                                world.removeEntity(world.getEntityByID(id));
+                                        } else {
+                                                System.err.println("Player not holding Wand of Negation when attempting to delete Villager");
+                                        }
+                                }
+                                if(message.getID() == 4) {
+                                        ItemStack heldItem = sendingPlayer.getHeldItem();
+                                        if(heldItem.getItem() == MillItems.wandSummoning) {
+                                                World world = sendingPlayer.worldObj;
+                                                NBTTagCompound nbt = heldItem.getTagCompound();
+                                                int posX = nbt.getInteger("X");
+                                                int posY = nbt.getInteger("Y");
+                                                int posZ = nbt.getInteger("Z");
+                                                world.setBlockState(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.getDefaultState());
+                                        } else {
+                                                System.err.println("Player not holding Wand of Summoning when attempting to create Village");
+                                        }
+                                }
+                        } else {
+                                System.err.println("EntityPlayerMP was null when MillPacket was received");
+                        }
+                });
+                ctx.get().setPacketHandled(true);
+        }
 
 	public static class PacketHandlerOnServer implements IMessageHandler<MillPacket, IMessage>
 	{

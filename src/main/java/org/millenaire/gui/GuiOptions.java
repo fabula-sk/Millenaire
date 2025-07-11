@@ -47,15 +47,15 @@ public class GuiOptions extends GuiScreen
 		{
 			if(eventID == 2)
 			{
-				Millenaire.simpleNetworkWrapper.sendToServer(new MillPacket(2));
+                                Millenaire.channel.sendToServer(new MillPacket(2));
 			}
 			if(eventID == 3)
 			{
-				Millenaire.simpleNetworkWrapper.sendToServer(new MillPacket(3));
+                                Millenaire.channel.sendToServer(new MillPacket(3));
 			}
 			if(eventID == 4)
 			{
-				Millenaire.simpleNetworkWrapper.sendToServer(new MillPacket(4));
+                                Millenaire.channel.sendToServer(new MillPacket(4));
 			}
 			this.mc.displayGuiScreen(null);
 	        if (this.mc.currentScreen == null)
