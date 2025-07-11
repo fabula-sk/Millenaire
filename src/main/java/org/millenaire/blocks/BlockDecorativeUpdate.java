@@ -5,7 +5,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockDecorativeUpdate extends Block
@@ -25,7 +25,7 @@ public class BlockDecorativeUpdate extends Block
 
         if (i > 1)
         {
-        	worldIn.setBlockState(pos, updateState);
+        	worldIn.setBlock(pos, updateState);
         }
     }
 }

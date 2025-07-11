@@ -7,7 +7,7 @@ import org.millenaire.entities.EntityMillVillager;
 import org.millenaire.util.ResourceLocationUtil;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 

@@ -2,7 +2,7 @@ package org.millenaire.entities;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ITickable;
 

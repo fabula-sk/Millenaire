@@ -25,7 +25,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
@@ -195,7 +195,7 @@ public class PlanIO {
 			for(int x = 0; x < plan.width; x++) {
 				for(int y = 0; y < plan.height; y++) {
 					for(int z = 0; z < plan.length; z++) {
-						world.setBlockState(new BlockPos(x + startPos.getX() + 1, y + startPos.getY() + plan.depth, z + startPos.getZ() + 1), blocks[y][z][x], 2);
+						world.setBlock(new BlockPos(x + startPos.getX() + 1, y + startPos.getY() + plan.depth, z + startPos.getZ() + 1), blocks[y][z][x], 2);
 					}
 				}
 			}
@@ -212,7 +212,7 @@ public class PlanIO {
 		for(int x = 0; x < plan.width; x++) {
 			for(int y = 0; y < plan.height; y++) {
 				for(int z = 0; z < plan.length; z++) {
-					world.setBlockState(new BlockPos(x + loc.position.getX(), y + loc.position.getY() + plan.depth, z + loc.position.getZ()), blocks[y][z][x], 2);
+					world.setBlock(new BlockPos(x + loc.position.getX(), y + loc.position.getY() + plan.depth, z + loc.position.getZ()), blocks[y][z][x], 2);
 				}
 			}
 		}

@@ -9,7 +9,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityAIGateOpen extends EntityAIBase
@@ -156,12 +156,12 @@ public class EntityAIGateOpen extends EntityAIBase
     	
     	if(open)
     	{
-            worldIn.setBlockState(pos, state.withProperty(BlockFenceGate.OPEN, true));
+            worldIn.setBlock(pos, state.withProperty(BlockFenceGate.OPEN, true));
         }
     	
     	if(!open)
     	{
-            worldIn.setBlockState(pos, state.withProperty(BlockFenceGate.OPEN, false));
+            worldIn.setBlock(pos, state.withProperty(BlockFenceGate.OPEN, false));
         }
     }
 }
