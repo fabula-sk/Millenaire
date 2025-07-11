@@ -27,8 +27,8 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -47,7 +47,7 @@ public class Millenaire
 	
         @Instance
         public static Millenaire instance = new Millenaire();
-        public static SimpleNetworkWrapper simpleNetworkWrapper;
+        public static SimpleChannel channel;
 
         public Millenaire() {
                 FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -83,11 +83,12 @@ public class Millenaire
 
                 MillAchievement.preinitialize();
 
-                simpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel("MillChannel");
-                simpleNetworkWrapper.registerMessage(MillPacket.PacketHandlerOnServer.class, MillPacket.class, 0, Side.SERVER);
-                simpleNetworkWrapper.registerMessage(PacketImportBuilding.Handler.class, PacketImportBuilding.class, 1, Side.SERVER);
-                simpleNetworkWrapper.registerMessage(PacketSayTranslatedMessage.Handler.class, PacketSayTranslatedMessage.class, 2, Side.CLIENT);
-                simpleNetworkWrapper.registerMessage(PacketExportBuilding.Handler.class, PacketExportBuilding.class, 3, Side.SERVER);
+                channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, "main"), () -> "1", s -> true, s -> true);
+                int id = 0;
+                channel.registerMessage(id++, MillPacket.class, MillPacket::encode, MillPacket::decode, MillPacket::handle);
+                channel.registerMessage(id++, PacketImportBuilding.class, PacketImportBuilding::encode, PacketImportBuilding::decode, PacketImportBuilding::handle);
+                channel.registerMessage(id++, PacketSayTranslatedMessage.class, PacketSayTranslatedMessage::encode, PacketSayTranslatedMessage::decode, PacketSayTranslatedMessage::handle);
+                channel.registerMessage(id++, PacketExportBuilding.class, PacketExportBuilding::encode, PacketExportBuilding::decode, PacketExportBuilding::handle);
 
                 NetworkRegistry.INSTANCE.registerGuiHandler(instance, new MillGuiHandler());
                 GameRegistry.registerWorldGenerator(new VillageGenerator(), 1000);

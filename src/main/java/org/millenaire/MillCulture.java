@@ -17,7 +17,7 @@ import org.millenaire.util.JsonHelper.VillageTypes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 public class MillCulture 
 {
@@ -134,7 +134,7 @@ public class MillCulture
 	public void exportVillages(JsonHelper.VillageTypes villagetypes) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		//System.out.println(gson.toJson(villagetypes));
-		File f = new File(MinecraftServer.getServer().getDataDirectory().getAbsolutePath() + File.separator + "millenaire" + File.separator + "exports" + File.separator);
+                File f = new File(ServerLifecycleHooks.getCurrentServer().getDataDirectory().getAbsolutePath() + File.separator + "millenaire" + File.separator + "exports" + File.separator);
 		File f1 = new File(f, "villages.json");
 		try {
 			f.mkdirs();

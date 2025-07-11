@@ -40,12 +40,12 @@ public class ItemMillWand extends Item
 	{
 		if(worldIn.getBlockState(pos).getBlock() == Blocks.standing_sign && worldIn.isRemote && this == MillItems.wandNegation) {
 			PacketExportBuilding packet = new PacketExportBuilding(pos);
-			Millenaire.simpleNetworkWrapper.sendToServer(packet);
+                        Millenaire.channel.sendToServer(packet);
 			return true;
 		}
 		else if(worldIn.getBlockState(pos).getBlock() == Blocks.standing_sign && worldIn.isRemote && this == MillItems.wandSummoning) {
 			PacketImportBuilding packet =  new PacketImportBuilding(pos);
-			Millenaire.simpleNetworkWrapper.sendToServer(packet);
+                        Millenaire.channel.sendToServer(packet);
 			return true;
 		}
 		return false;
@@ -78,7 +78,7 @@ public class ItemMillWand extends Item
 				if(!worldIn.isRemote)
 				{	
 					System.out.println("Gold Creation");
-					Millenaire.simpleNetworkWrapper.sendTo(new PacketSayTranslatedMessage("message.notimplemented"), (EntityPlayerMP)playerIn);
+                                        Millenaire.channel.sendTo(new PacketSayTranslatedMessage("message.notimplemented"), (EntityPlayerMP)playerIn);
 					//Gui confirming action and desired village, then villageStone block is made and villageType assigned
 				}
 			}
@@ -94,7 +94,7 @@ public class ItemMillWand extends Item
 
 				if(!worldIn.isRemote)
 				{
-					Millenaire.simpleNetworkWrapper.sendTo(new PacketSayTranslatedMessage("message.notimplemented"), (EntityPlayerMP)playerIn);
+                                        Millenaire.channel.sendTo(new PacketSayTranslatedMessage("message.notimplemented"), (EntityPlayerMP)playerIn);
 //					playerIn.openGui(Millenaire.instance, 4, worldIn, playerIn.getPosition().getX(), playerIn.getPosition().getY(), playerIn.getPosition().getZ());
 				} 
 
