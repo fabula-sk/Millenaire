@@ -7,7 +7,11 @@ import org.millenaire.blocks.MillBlocks;
 import org.millenaire.entities.EntityMillVillager;
 import org.millenaire.generation.VillageGenerator;
 import org.millenaire.gui.MillAchievement;
-import org.millenaire.gui.MillGuiHandler;
+import org.millenaire.gui.MillMenus;
+import org.millenaire.gui.ParchmentScreen;
+import org.millenaire.gui.MillChestScreen;
+import org.millenaire.gui.OptionsScreen;
+import org.millenaire.gui.ChiefScreen;
 import org.millenaire.items.MillItems;
 import org.millenaire.networking.MillPacket;
 import org.millenaire.networking.PacketExportBuilding;
@@ -29,6 +33,7 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.client.registry.ScreenManager;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -58,6 +63,7 @@ public class Millenaire
                 MillBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
                 MillItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
                 EntityMillVillager.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+                MillMenus.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
                 MinecraftForge.EVENT_BUS.register(this);
         }
@@ -94,7 +100,6 @@ public class Millenaire
                 channel.registerMessage(id++, PacketSayTranslatedMessage.class, PacketSayTranslatedMessage::encode, PacketSayTranslatedMessage::decode, PacketSayTranslatedMessage::handle);
                 channel.registerMessage(id++, PacketExportBuilding.class, PacketExportBuilding::encode, PacketExportBuilding::decode, PacketExportBuilding::handle);
 
-                NetworkRegistry.INSTANCE.registerGuiHandler(instance, new MillGuiHandler());
                 GameRegistry.registerWorldGenerator(new VillageGenerator(), 1000);
         }
 
@@ -109,6 +114,11 @@ public class Millenaire
 
                 MillBlocks.render();
                 MillItems.render();
+
+                ScreenManager.registerFactory(MillMenus.PARCHMENT_MENU.get(), ParchmentScreen::new);
+                ScreenManager.registerFactory(MillMenus.CHEST_MENU.get(), MillChestScreen::new);
+                ScreenManager.registerFactory(MillMenus.OPTIONS_MENU.get(), OptionsScreen::new);
+                ScreenManager.registerFactory(MillMenus.CHIEF_MENU.get(), ChiefScreen::new);
 
                 isServer = false;
         }
