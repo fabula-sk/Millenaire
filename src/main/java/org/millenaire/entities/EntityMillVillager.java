@@ -5,6 +5,8 @@ import java.util.List;
 import org.millenaire.MillCulture;
 import org.millenaire.Millenaire;
 import org.millenaire.VillagerType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.millenaire.entities.ai.EntityAIGateOpen;
 import org.millenaire.gui.MillAchievement;
 import org.millenaire.pathing.MillPathNavigate;
@@ -49,7 +51,8 @@ public class EntityMillVillager extends EntityCreature
         public static final RegistryObject<EntityType<EntityMillVillager>> MILL_VILLAGER = ENTITIES.register("mill_villager", () -> EntityType.Builder.create(EntityMillVillager::new, EntityClassification.MISC).size(0.6F, 1.95F).build("mill_villager"));
         public int villagerID;
 	private MillCulture culture;
-	private VillagerType type;
+        private VillagerType type;
+        private static final Logger LOGGER = LogManager.getLogger(EntityMillVillager.class);
        private static final DataParameter<String> TEXTURE = EntityDataManager.createKey(EntityMillVillager.class, DataSerializers.STRING);
        private static final DataParameter<Integer> AGE = EntityDataManager.createKey(EntityMillVillager.class, DataSerializers.VARINT);
        private static final DataParameter<Integer> GENDER = EntityDataManager.createKey(EntityMillVillager.class, DataSerializers.VARINT);
@@ -531,14 +534,22 @@ public class EntityMillVillager extends EntityCreature
 			System.err.println("Villager failed to read from NBT correctly");
 			ex.printStackTrace();
 		}
-		if(culture == null)
-		{
-			System.out.println("Fix this shit!");
-			culture.getChildType(GENDER);
-		}
-               this.getDataManager().set(GENDER, nbt.getInteger("gender"));
-		type = culture.getVillagerType(nbt.getString("villagerType"));
-		isVillagerSleeping = nbt.getBoolean("sleeping");
+                this.getDataManager().set(GENDER, nbt.getInteger("gender"));
+                if(culture == null)
+                {
+                        LOGGER.warn("Unknown culture '{}' for villager {}. Using default.", nbt.getString("culture"), villagerID);
+                        culture = MillCulture.normanCulture;
+                        type = culture.getChildType(getGender());
+                }
+                else
+                {
+                        type = culture.getVillagerType(nbt.getString("villagerType"));
+                        if (type == null)
+                        {
+                                type = culture.getChildType(getGender());
+                        }
+                }
+                isVillagerSleeping = nbt.getBoolean("sleeping");
 		
                this.getDataManager().set(TEXTURE, nbt.getString("texture"));
                this.getDataManager().set(AGE, nbt.getInteger("age"));
