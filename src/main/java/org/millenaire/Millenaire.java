@@ -19,21 +19,21 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = Millenaire.MODID, name = Millenaire.NAME, version = Millenaire.VERSION, guiFactory = Millenaire.GUIFACTORY)
+
+@Mod(Millenaire.MODID)
 public class Millenaire
 {
 	public static final String MODID = "millenaire";
@@ -50,9 +50,14 @@ public class Millenaire
         public static SimpleNetworkWrapper simpleNetworkWrapper;
 
         public Millenaire() {
+                FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+                FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+
                 MillBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
                 MillItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
                 EntityMillVillager.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+
+                MinecraftForge.EVENT_BUS.register(this);
         }
 	
 	public static final CreativeTabs tabMillenaire = new CreativeTabs("MillTab")
@@ -60,62 +65,48 @@ public class Millenaire
 		public Item getTabIconItem() { return MillItems.denierOr; }
 	};
 	
-	@EventHandler
-    public void preinit(FMLPreInitializationEvent event)
-    {
-		MillConfig.preinitialize();
-		MinecraftForge.EVENT_BUS.register(new RaidEvent.RaidEventHandler());
-		
-		setForbiddenBlocks();
-		
-		MillBlocks.preinitialize();
-		MillBlocks.recipes();
-		
-		MillItems.preinitialize();
-		MillItems.recipies();
-		EntityMillVillager.preinitialize();
-		
-		MillCulture.preinitialize();
-		
-		MillAchievement.preinitialize();
-		
-		if(event.getSide() == Side.CLIENT)
-		{
-			MillBlocks.prerender();
-			MillItems.prerender();
-			
-			EntityMillVillager.prerender();
-			
-			MillConfig.eventRegister();
-			
-			isServer = false;
-		}
-		
-		simpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel("MillChannel");
-		simpleNetworkWrapper.registerMessage(MillPacket.PacketHandlerOnServer.class, MillPacket.class, 0, Side.SERVER);
-		simpleNetworkWrapper.registerMessage(PacketImportBuilding.Handler.class, PacketImportBuilding.class, 1, Side.SERVER);
-		simpleNetworkWrapper.registerMessage(PacketSayTranslatedMessage.Handler.class, PacketSayTranslatedMessage.class, 2, Side.CLIENT);
-		simpleNetworkWrapper.registerMessage(PacketExportBuilding.Handler.class, PacketExportBuilding.class, 3, Side.SERVER);
-    }
-	
-	@EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new MillGuiHandler());
-		GameRegistry.registerWorldGenerator(new VillageGenerator(), 1000);
-		
-		if(event.getSide() == Side.CLIENT)
-    	{	
-			MillBlocks.render();
-			MillItems.render();
-    	}
-    }
-	
-	@EventHandler
-    public void postinit(FMLPostInitializationEvent event)
-    {
-		
-    }
+        private void setup(final FMLCommonSetupEvent event)
+        {
+                MillConfig.preinitialize();
+                MinecraftForge.EVENT_BUS.register(new RaidEvent.RaidEventHandler());
+
+                setForbiddenBlocks();
+
+                MillBlocks.preinitialize();
+                MillBlocks.recipes();
+
+                MillItems.preinitialize();
+                MillItems.recipies();
+                EntityMillVillager.preinitialize();
+
+                MillCulture.preinitialize();
+
+                MillAchievement.preinitialize();
+
+                simpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel("MillChannel");
+                simpleNetworkWrapper.registerMessage(MillPacket.PacketHandlerOnServer.class, MillPacket.class, 0, Side.SERVER);
+                simpleNetworkWrapper.registerMessage(PacketImportBuilding.Handler.class, PacketImportBuilding.class, 1, Side.SERVER);
+                simpleNetworkWrapper.registerMessage(PacketSayTranslatedMessage.Handler.class, PacketSayTranslatedMessage.class, 2, Side.CLIENT);
+                simpleNetworkWrapper.registerMessage(PacketExportBuilding.Handler.class, PacketExportBuilding.class, 3, Side.SERVER);
+
+                NetworkRegistry.INSTANCE.registerGuiHandler(instance, new MillGuiHandler());
+                GameRegistry.registerWorldGenerator(new VillageGenerator(), 1000);
+        }
+
+        private void clientSetup(final FMLClientSetupEvent event)
+        {
+                MillBlocks.prerender();
+                MillItems.prerender();
+
+                EntityMillVillager.prerender();
+
+                MillConfig.eventRegister();
+
+                MillBlocks.render();
+                MillItems.render();
+
+                isServer = false;
+        }
 	
 	private void setForbiddenBlocks()
 	{
@@ -131,6 +122,8 @@ public class Millenaire
                 }
 	}
 	
-	@EventHandler
-	public void serverLoad(FMLServerStartingEvent event) { event.registerServerCommand(new MillCommand()); }
+        @SubscribeEvent
+        public void serverLoad(FMLServerStartingEvent event) {
+                event.registerServerCommand(new MillCommand());
+        }
 }
