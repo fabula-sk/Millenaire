@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.entity.Entity;
 import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.pathfinder.WalkNodeProcessor;
 
 public class MillWalkNodeProcessor extends WalkNodeProcessor

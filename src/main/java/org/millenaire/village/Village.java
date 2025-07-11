@@ -16,7 +16,7 @@ import org.millenaire.entities.EntityMillVillager;
 import org.millenaire.pathing.MillPathNavigate;
 import org.millenaire.util.ResourceLocationUtil;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 
 public class Village {

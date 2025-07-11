@@ -28,7 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
@@ -442,7 +442,7 @@ public class EntityMillVillager extends EntityCreature
 		
 		if(isPlayerInteracting)
 		{
-			List<EntityPlayer> playersNear = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(posX - 5, posY - 1, posZ - 5, posX + 5, posY + 1, posZ + 5));
+			List<EntityPlayer> playersNear = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AABB(posX - 5, posY - 1, posZ - 5, posX + 5, posY + 1, posZ + 5));
 			
 			if(playersNear.isEmpty())
 				isPlayerInteracting = false;

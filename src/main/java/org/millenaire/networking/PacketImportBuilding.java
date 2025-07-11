@@ -7,7 +7,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 import java.util.function.Supplier;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;

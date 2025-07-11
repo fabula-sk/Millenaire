@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -111,7 +111,7 @@ public class MillPacket implements IMessage
                                                 int posX = nbt.getInteger("X");
                                                 int posY = nbt.getInteger("Y");
                                                 int posZ = nbt.getInteger("Z");
-                                                world.setBlockState(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.getDefaultState());
+                                                world.setBlock(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.getDefaultState());
                                         } else {
                                                 System.err.println("Player not holding Wand of Summoning when attempting to create Village");
                                         }
@@ -207,7 +207,7 @@ public class MillPacket implements IMessage
 					int posY = nbt.getInteger("Y");
 					int posZ = nbt.getInteger("Z");
 					
-					world.setBlockState(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.getDefaultState());
+					world.setBlock(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.getDefaultState());
 				}
 			}
 		}

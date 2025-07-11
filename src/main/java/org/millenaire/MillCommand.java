@@ -12,7 +12,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 

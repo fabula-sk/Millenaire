@@ -10,8 +10,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -105,7 +105,7 @@ public class ItemMillAmulet extends Item
 			final int radius = 20;
 			double closestDistance = Double.MAX_VALUE;
 
-			final List<EntityMob> entities = worldIn.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(entityIn.lastTickPosX, entityIn.lastTickPosY, entityIn.lastTickPosZ, entityIn.lastTickPosX + 1.0D, entityIn.lastTickPosY + 1.0D, entityIn.lastTickPosZ + 1.0D).expand(20, 20, 20));
+			final List<EntityMob> entities = worldIn.getEntitiesWithinAABB(EntityMob.class, new AABB(entityIn.lastTickPosX, entityIn.lastTickPosY, entityIn.lastTickPosZ, entityIn.lastTickPosX + 1.0D, entityIn.lastTickPosY + 1.0D, entityIn.lastTickPosZ + 1.0D).expand(20, 20, 20));
 
 			for (final Entity ent : entities) 
 			{

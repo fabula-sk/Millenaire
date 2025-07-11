@@ -7,7 +7,7 @@ import org.millenaire.VillageTracker;
 import org.millenaire.blocks.MillBlocks;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
@@ -44,7 +44,7 @@ public class VillageGenerator implements IWorldGenerator {
 		else {
 			EntityPlayer generatingPlayer = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), -1);
 			if(rand.nextInt(50) == 1 && world.getChunkFromBlockCoords(pos).isLoaded()) {
-				world.setBlockState(pos, MillBlocks.villageStone.getDefaultState());
+				world.setBlock(pos, MillBlocks.villageStone.getDefaultState());
 			}
 			return false;
 		}

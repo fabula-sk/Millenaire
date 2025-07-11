@@ -18,7 +18,7 @@ import org.millenaire.village.Village;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 

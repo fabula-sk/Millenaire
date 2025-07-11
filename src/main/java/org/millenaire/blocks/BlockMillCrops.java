@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -53,7 +53,7 @@ public class BlockMillCrops extends BlockCrops
                 {
                 	if (rand.nextInt((int)(25.0F / f) + 1) == 0)
                 	{
-                		worldIn.setBlockState(pos, state.withProperty(AGE, i + 1), 2);
+                		worldIn.setBlock(pos, state.withProperty(AGE, i + 1), 2);
                 	}
                 }
             }
