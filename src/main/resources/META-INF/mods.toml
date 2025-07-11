@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[8,)"
+license="MIT"
+showAsResourcePack=false
+
+[[mods]]
+modId="millenaire"
+version="${file.jarVersion}"
+displayName="Millénaire"
+displayURL="http://www.millenaire.org"
+credits='''The entire Millenaire Community for being patient and amazing
+Boss -- The current developer of the mod
+GalianRyu -- Reviving the project & a large portion of the code for 1.8.9
+Kinniken -- Original Author
+Zoythrus -- My Awesome Community Manager :)
+Rasseru -- Japanese Culture
+Ticlon -- Byzantine Culture
+Felinoel -- Inuit Culture'''
+authors="Kinniken, GalianRyu, Boss"
+description='''Authentic 11th Century Villages transported to your Minecraft Adventure'''
