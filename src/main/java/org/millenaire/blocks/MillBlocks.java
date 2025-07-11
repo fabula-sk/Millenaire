@@ -27,10 +27,17 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class MillBlocks {
 
         public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Millenaire.MODID);
+        public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Millenaire.MODID);
+
+        public static RegistryObject<BlockEntityType<TileEntityMillChest>> MILL_CHEST_TILE;
+        public static RegistryObject<BlockEntityType<TileEntityMillSign>> MILL_SIGN_TILE;
+        public static RegistryObject<BlockEntityType<TileEntityVillageStone>> VILLAGE_STONE_TILE;
 
 	public static Block blockDecorativeStone;
 	public static Block blockDecorativeWood;
@@ -140,12 +147,12 @@ public class MillBlocks {
 		//Chests
                 blockMillChest = new BlockMillChest().setCreativeTab(Millenaire.tabMillenaire);
                 BLOCKS.register("blockMillChest", () -> blockMillChest);
-		GameRegistry.registerTileEntity(TileEntityMillChest.class, "tileEntityMillChest");
+                MILL_CHEST_TILE = TILE_ENTITIES.register("mill_chest", () -> BlockEntityType.Builder.of(TileEntityMillChest::new, blockMillChest).build(null));
 
 		//Sign
                 blockMillSign = new BlockMillSign();
                 BLOCKS.register("blockMillSign", () -> blockMillSign);
-		GameRegistry.registerTileEntity(TileEntityMillSign.class, "tileEntityMillSign");
+                MILL_SIGN_TILE = TILE_ENTITIES.register("mill_sign", () -> BlockEntityType.Builder.of(TileEntityMillSign::new, blockMillSign).build(null));
 
 		//Alchemists
                 blockAlchemists = new BlockAlchemists().setCreativeTab(Millenaire.tabMillenaire);
@@ -167,7 +174,7 @@ public class MillBlocks {
     	//Village Stone
         villageStone = new BlockVillageStone().setCreativeTab(Millenaire.tabMillenaire);
                 BLOCKS.register("villageStone", () -> villageStone);
-		GameRegistry.registerTileEntity(TileEntityVillageStone.class, "tileEntityVillageStone");
+                VILLAGE_STONE_TILE = TILE_ENTITIES.register("village_stone", () -> BlockEntityType.Builder.of(TileEntityVillageStone::new, villageStone).build(null));
 		
 		//StoredPosition
                 storedPosition = new StoredPosition().setCreativeTab(Millenaire.tabMillenaire);

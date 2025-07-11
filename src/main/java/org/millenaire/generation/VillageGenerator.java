@@ -9,29 +9,23 @@ import org.millenaire.blocks.MillBlocks;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraftforge.fml.common.IWorldGenerator;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 
-public class VillageGenerator implements IWorldGenerator {
+// IWorldGenerator is deprecated on modern Forge versions; use biome loading events instead.
 
-	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		
-		if(world.provider.getDimensionId() == 0) {
-			BlockPos pos1 = new BlockPos(chunkX * 16, 0, chunkZ * 16);
-			//System.out.println("testing1");
-			try {
-				generateVillageAt(random, world.getHeight(pos1), world);
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+public class VillageGenerator {
+
+       /**
+        * Hook for modern Forge world generation. Called during {@link BiomeLoadingEvent}.
+        */
+       public static void onBiomeLoading(BiomeLoadingEvent event) {
+               // TODO integrate generation logic with new biome loading system
+       }
 	
 	/**
 	 * Attempt to generate the village
 	 */
-	private boolean generateVillageAt(Random rand, BlockPos pos, World world) {
+       private static boolean generateVillageAt(Random rand, BlockPos pos, World world) {
 		if(!MillConfig.generateVillages && !MillConfig.generateLoneBuildings || (world.getSpawnPoint().distanceSq(pos) < MillConfig.spawnDistance)) {
 			return false;
 		}

@@ -36,7 +36,6 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.client.registry.ScreenManager;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 
@@ -61,6 +60,7 @@ public class Millenaire
                 FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
 
                 MillBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+                MillBlocks.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
                 MillItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
                 EntityMillVillager.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
                 MillMenus.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -100,7 +100,7 @@ public class Millenaire
                 channel.registerMessage(id++, PacketSayTranslatedMessage.class, PacketSayTranslatedMessage::encode, PacketSayTranslatedMessage::decode, PacketSayTranslatedMessage::handle);
                 channel.registerMessage(id++, PacketExportBuilding.class, PacketExportBuilding::encode, PacketExportBuilding::decode, PacketExportBuilding::handle);
 
-                GameRegistry.registerWorldGenerator(new VillageGenerator(), 1000);
+                MinecraftForge.EVENT_BUS.addListener(VillageGenerator::onBiomeLoading);
         }
 
         private void clientSetup(final FMLClientSetupEvent event)
