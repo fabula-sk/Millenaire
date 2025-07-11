@@ -13,6 +13,8 @@ import org.millenaire.networking.MillPacket;
 import org.millenaire.networking.PacketExportBuilding;
 import org.millenaire.networking.PacketImportBuilding;
 import org.millenaire.networking.PacketSayTranslatedMessage;
+import org.millenaire.capability.PlayerCropProvider;
+import org.millenaire.capability.CapabilityEvents;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -68,6 +70,8 @@ public class Millenaire
         private void setup(final FMLCommonSetupEvent event)
         {
                 MillConfig.preinitialize();
+                PlayerCropProvider.register();
+                new CapabilityEvents();
                 MinecraftForge.EVENT_BUS.register(new RaidEvent.RaidEventHandler());
 
                 setForbiddenBlocks();
