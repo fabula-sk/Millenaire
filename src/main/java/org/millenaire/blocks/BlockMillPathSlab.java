@@ -120,43 +120,7 @@ public class BlockMillPathSlab extends BlockSlab
         }
     }
 
-	@Override
-    public IBlockState getStateFromMeta(int meta)
-    {
-        IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockMillPath.EnumType.byMetadata(meta & 7));
-
-        if (this.isDouble())
-        {
-            iblockstate = iblockstate.withProperty(SEAMLESS, (meta & 8) != 0);
-        }
-        else
-        {
-            iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
-        }
-
-        return iblockstate;
-    }
-
-	@Override
-    public int getMetaFromState(IBlockState state)
-    {
-        byte b0 = 0;
-        int i = b0 | ((BlockMillPath.EnumType)state.getValue(VARIANT)).getMetadata();
-
-        if (this.isDouble())
-        {
-            if (state.getValue(SEAMLESS))
-            {
-                i |= 8;
-            }
-        }
-        else if (state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP)
-        {
-            i |= 8;
-        }
-
-        return i;
-    }
+    // Metadata handling removed in favor of pure block states
     
     @Override
     protected BlockState createBlockState()
