@@ -48,17 +48,7 @@ public class BlockDecorativeStone extends Block
         return super.getUnlocalizedName() + "." + BlockDecorativeStone.EnumType.byMetadata(meta).getUnlocalizedName();
     }
 
-	@Override
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(VARIANT, BlockDecorativeStone.EnumType.byMetadata(meta));
-    }
-
-	@Override
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((BlockDecorativeStone.EnumType)state.getValue(VARIANT)).getMetadata();
-    }
+    // Metadata handling removed in favor of pure block states
 
     @Override
     protected BlockState createBlockState() { return new BlockState(this, VARIANT); }

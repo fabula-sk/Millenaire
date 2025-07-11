@@ -20,21 +20,7 @@ public class BlockDecorativeOriented extends BlockDirectional
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
-	@Override
-	public IBlockState getStateFromMeta(int meta)
-    {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
-
-        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
-        {
-            enumfacing = EnumFacing.NORTH;
-        }
-
-        return this.getDefaultState().withProperty(FACING, enumfacing);
-    }
-	
-	@Override
-    public int getMetaFromState(IBlockState state) { return (state.getValue(FACING)).getIndex(); }
+    // Metadata handling removed in favor of pure block states
 	
 	@Override
 	protected BlockState createBlockState() { return new BlockState(this, FACING); }
