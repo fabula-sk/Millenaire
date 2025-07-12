@@ -1,91 +1,61 @@
 package org.millenaire;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map.Entry;
 
 import org.millenaire.blocks.MillBlocks;
 import org.millenaire.blocks.StoredPosition;
 import org.millenaire.building.BuildingTypes;
 
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommand;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
-public class MillCommand extends CommandBase
-{
-	@Override
-	public int compareTo(ICommand arg0) { return 0; }
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.network.chat.Component;
 
-	@Override
-	public String getCommandName() { return "mill"; }
+/**
+ * Brigadier implementation of the old Mill command.
+ */
+public class MillCommand {
 
-	@Override
-	public String getCommandUsage(ICommandSender sender) { return "mill <villages, loneBuildings, showBuildPoints>"; }
+    private static final String[] OPTIONS = {"village", "loneBuildings", "showBuildPoints"};
 
-	@Override
-	public List<String> getCommandAliases() { return new ArrayList<String>() {{ add("mill"); }}; }
+    /**
+     * Register this command to the dispatcher.
+     */
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+        dispatcher.register(Commands.literal("mill")
+            .then(Commands.argument("action", StringArgumentType.word())
+                .suggests((context, builder) -> SharedSuggestionProvider.suggest(OPTIONS, builder))
+                .executes(MillCommand::execute)));
+    }
 
-	@Override
-	public void processCommand(ICommandSender sender, String[] args)
-	{
-		if(args.length != 1)
-		{
-			sender.addChatMessage(new ChatComponentText("invalid argument: use villages, loneBuildings, or showBuildPoints"));
-			return;
-		}
-		
-		if(args[0].equalsIgnoreCase("village"))
-		{
-			//Spit out direction and distance to all villages
-			
-			//test code. remove before command use.
-			for(Entry ent : BuildingTypes.getCache().entrySet()) {
-				sender.addChatMessage(new ChatComponentText(ent.getKey() + " - " + ent.getValue()));
-			}
-		}
-		else if(args[0].equalsIgnoreCase("loneBuildings"))
-		{
-			//Spit out Distance and direction to all lone buildings
-		}
-		else if(args[0].equalsIgnoreCase("showBuildPoints"))
-		{
-			if(((StoredPosition)MillBlocks.storedPosition).getShowParticles())
-			{
-				((StoredPosition) MillBlocks.storedPosition).setShowParticles(false);
-			}
-			else
-			{
-				((StoredPosition) MillBlocks.storedPosition).setShowParticles(true);
-			}
-		}
-	}
+    private static int execute(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+        String action = StringArgumentType.getString(context, "action");
+        CommandSourceStack source = context.getSource();
 
-	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender sender) 
-	{
-		if(sender.getCommandSenderEntity() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
+        switch (action) {
+            case "village":
+                for (Entry<?, ?> ent : BuildingTypes.getCache().entrySet()) {
+                    source.sendSuccess(Component.literal(ent.getKey() + " - " + ent.getValue()), false);
+                }
+                break;
+            case "loneBuildings":
+                source.sendSuccess(Component.literal("loneBuildings not implemented"), false);
+                break;
+            case "showBuildPoints":
+                StoredPosition posBlock = (StoredPosition) MillBlocks.storedPosition;
+                posBlock.setShowParticles(!posBlock.getShowParticles());
+                source.sendSuccess(Component.literal("Toggled build point particles"), true);
+                break;
+            default:
+                source.sendFailure(Component.literal("Invalid argument"));
+                break;
+        }
 
-			return FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().canSendCommands((player).getGameProfile());
-		}
-
-		return false;
-	}
-
-	@Override
-	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) 
-	{
-		return getListOfStringsMatchingLastWord(args, "village", "loneBuildings", "showBuildPoints");
-	}
-
-	@Override
-	public boolean isUsernameIndex(String[] args, int index) 
-	{
-		return false;
-	}
+        return 1;
+    }
 }
