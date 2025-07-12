@@ -16,17 +16,17 @@ import org.millenaire.networking.PacketImportBuilding;
 import org.millenaire.networking.PacketSayTranslatedMessage;
 
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.network.chat.Component;
+import net.minecraft.core.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,14 +36,14 @@ public class ItemMillWand extends Item
 	ItemMillWand() { this.setMaxStackSize(1); }
 
 	@Override
-	public boolean onItemUseFirst(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+        public boolean onItemUseFirst(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ)
 	{
-		if(worldIn.getBlockState(pos).getBlock() == Blocks.standing_sign && worldIn.isRemote && this == MillItems.wandNegation) {
+                if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isRemote && this == MillItems.wandNegation) {
 			PacketExportBuilding packet = new PacketExportBuilding(pos);
                         Millenaire.channel.sendToServer(packet);
 			return true;
 		}
-		else if(worldIn.getBlockState(pos).getBlock() == Blocks.standing_sign && worldIn.isRemote && this == MillItems.wandSummoning) {
+                else if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isRemote && this == MillItems.wandSummoning) {
 			PacketImportBuilding packet =  new PacketImportBuilding(pos);
                         Millenaire.channel.sendToServer(packet);
 			return true;
@@ -52,22 +52,22 @@ public class ItemMillWand extends Item
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+        public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ)
 	{
 		if(this == MillItems.wandNegation)
 		{
 			if(worldIn.getBlockState(pos).getBlock() == MillBlocks.villageStone)
 			{
-				NBTTagCompound nbt = new NBTTagCompound();
-				stack.setTagCompound(nbt);
-				nbt.setInteger("X", pos.getX());
-				nbt.setInteger("Y", pos.getY());
-				nbt.setInteger("Z", pos.getZ());
+                                CompoundTag nbt = new CompoundTag();
+                                stack.setTag(nbt);
+                                nbt.putInt("X", pos.getX());
+                                nbt.putInt("Y", pos.getY());
+                                nbt.putInt("Z", pos.getZ());
 
-				if(worldIn.isRemote)
-				{
-					playerIn.openGui(Millenaire.instance, 2, worldIn, playerIn.getPosition().getX(), playerIn.getPosition().getY(), playerIn.getPosition().getZ());
-				}
+                                if(worldIn.isRemote)
+                                {
+                                        // TODO migrate GUI opening to new Menu API
+                                }
 			}
 		}
 
@@ -86,11 +86,11 @@ public class ItemMillWand extends Item
 			{	
 				System.out.println("Obsidian Creation");
 
-				NBTTagCompound nbt = new NBTTagCompound();
-				stack.setTagCompound(nbt);
-				nbt.setInteger("X", pos.getX());
-				nbt.setInteger("Y", pos.getY());
-				nbt.setInteger("Z", pos.getZ());
+                                CompoundTag nbt = new CompoundTag();
+                                stack.setTag(nbt);
+                                nbt.putInt("X", pos.getX());
+                                nbt.putInt("Y", pos.getY());
+                                nbt.putInt("Z", pos.getZ());
 
 				if(!worldIn.isRemote)
 				{
@@ -151,11 +151,11 @@ public class ItemMillWand extends Item
 					{
 						if(hasCrop)
 						{
-							playerIn.addChatMessage(new ChatComponentText(playerIn.getDisplayNameString() + " can no longer plant " + worldIn.getBlockState(pos).getBlock().getLocalizedName()));
+                                                        playerIn.sendSystemMessage(Component.literal(playerIn.getDisplayNameString() + " can no longer plant " + worldIn.getBlockState(pos).getBlock().getLocalizedName()));
 						}
 						else
 						{
-                            playerIn.addChatMessage(new ChatComponentText(playerIn.getDisplayNameString() + " already could not plant " + worldIn.getBlockState(pos).getBlock().getLocalizedName()));
+                            playerIn.sendSystemMessage(Component.literal(playerIn.getDisplayNameString() + " already could not plant " + worldIn.getBlockState(pos).getBlock().getLocalizedName()));
                         }
 					}
 				}
@@ -173,11 +173,11 @@ public class ItemMillWand extends Item
 					{
 						if(succeeded)
 						{
-                            playerIn.addChatMessage(new ChatComponentText(playerIn.getDisplayNameString() + " can now plant " + worldIn.getBlockState(pos).getBlock().getLocalizedName()));
+                            playerIn.sendSystemMessage(Component.literal(playerIn.getDisplayNameString() + " can now plant " + worldIn.getBlockState(pos).getBlock().getLocalizedName()));
                         }
 						else
 						{
-                            playerIn.addChatMessage(new ChatComponentText(playerIn.getDisplayNameString() + " can already plant " + worldIn.getBlockState(pos).getBlock().getLocalizedName()));
+                            playerIn.sendSystemMessage(Component.literal(playerIn.getDisplayNameString() + " can already plant " + worldIn.getBlockState(pos).getBlock().getLocalizedName()));
                         }
 					}
 				}
@@ -207,7 +207,7 @@ public class ItemMillWand extends Item
 
 				if(worldIn.isRemote)
 				{
-					playerIn.addChatMessage(new ChatComponentText(playerIn.getDisplayNameString() + " can now plant everything"));
+                                        playerIn.sendSystemMessage(Component.literal(playerIn.getDisplayNameString() + " can now plant everything"));
 				}
 			}
 			//Lock and Unlock Chests
@@ -219,11 +219,11 @@ public class ItemMillWand extends Item
 				{
 					if(isLocked)
 					{
-                        playerIn.addChatMessage(new ChatComponentText("Chest is now Locked"));
+                        playerIn.sendSystemMessage(Component.literal("Chest is now Locked"));
                     }
 					else
 					{
-                        playerIn.addChatMessage(new ChatComponentText("Chest is now Unlocked"));
+                        playerIn.sendSystemMessage(Component.literal("Chest is now Unlocked"));
                     }
 				}
 			}
@@ -244,14 +244,14 @@ public class ItemMillWand extends Item
 				CommonUtilities.changeMoney(playerIn);
 				if(worldIn.isRemote)
 				{
-                    playerIn.addChatMessage(new ChatComponentText("Fixing Denier in " + playerIn.getDisplayNameString() + "'s Inventory"));
+                    playerIn.sendSystemMessage(Component.literal("Fixing Denier in " + playerIn.getDisplayNameString() + "'s Inventory"));
                 }
 			}
 		}
 
 		if(this == MillItems.tuningFork)
 		{
-			IBlockState state = worldIn.getBlockState(pos);
+                        BlockState state = worldIn.getBlockState(pos);
 			String output = state.getBlock().getUnlocalizedName() + " -";
 
 			for(IProperty prop : state.getProperties().keySet())
@@ -260,7 +260,7 @@ public class ItemMillWand extends Item
 				output = output.concat(" " + prop.getName() + ":" + state.getValue(prop).toString());
 			}
 
-			playerIn.addChatMessage(new ChatComponentText(output));
+                        playerIn.sendSystemMessage(Component.literal(output));
 		}
 
 		return false;
@@ -273,14 +273,14 @@ public class ItemMillWand extends Item
 		{
 			((EntityMillVillager)entity).isPlayerInteracting = true;
 
-			NBTTagCompound nbt = new NBTTagCompound();
-			player.getHeldItem().setTagCompound(nbt); 
-			nbt.setInteger("ID", entity.getEntityId());
+                        CompoundTag nbt = new CompoundTag();
+                        player.getMainHandItem().setTag(nbt);
+                        nbt.putInt("ID", entity.getEntityId());
 
-			if(player.worldObj.isRemote)
-			{
-				player.openGui(Millenaire.instance, 3, player.worldObj, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
-			}
+                        if(player.level.isClientSide)
+                        {
+                                // TODO migrate GUI opening to new Menu API
+                        }
 		}
 		return false;
 	}

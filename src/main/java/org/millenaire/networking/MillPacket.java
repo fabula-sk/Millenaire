@@ -4,20 +4,19 @@ import org.millenaire.blocks.BlockVillageStone;
 import org.millenaire.blocks.MillBlocks;
 import org.millenaire.items.MillItems;
 
-import io.netty.buffer.ByteBuf;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraftforge.fmllegacy.network.simpleimpl.IMessage;
+import net.minecraftforge.fmllegacy.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fmllegacy.network.simpleimpl.MessageContext;
+import net.minecraftforge.api.distmarker.Dist;
 
 public class MillPacket implements IMessage
 {
@@ -79,8 +78,8 @@ public class MillPacket implements IMessage
                                 if(message.getID() == 2) {
                                         ItemStack heldItem = sendingPlayer.getHeldItem();
                                         if(heldItem.getItem() == MillItems.wandNegation) {
-                                                World world = sendingPlayer.worldObj;
-                                                NBTTagCompound nbt = heldItem.getTagCompound();
+                                                Level world = sendingPlayer.level;
+                                                CompoundTag nbt = heldItem.getTag();
                                                 int posX = nbt.getInteger("X");
                                                 int posY = nbt.getInteger("Y");
                                                 int posZ = nbt.getInteger("Z");
@@ -93,8 +92,8 @@ public class MillPacket implements IMessage
                                 if(message.getID() == 3) {
                                         ItemStack heldItem = sendingPlayer.getHeldItem();
                                         if(heldItem.getItem() == MillItems.wandNegation) {
-                                                World world = sendingPlayer.worldObj;
-                                                NBTTagCompound nbt = heldItem.getTagCompound();
+                                                Level world = sendingPlayer.level;
+                                                CompoundTag nbt = heldItem.getTag();
                                                 int id = nbt.getInteger("ID");
                                                 world.createExplosion(world.getEntityByID(id), world.getEntityByID(id).posX, world.getEntityByID(id).posY, world.getEntityByID(id).posZ, 0.0F, false);
                                                 world.playSoundAtEntity(world.getEntityByID(id), "game.player.hurt", 1.0F, 0.4F);
@@ -106,8 +105,8 @@ public class MillPacket implements IMessage
                                 if(message.getID() == 4) {
                                         ItemStack heldItem = sendingPlayer.getHeldItem();
                                         if(heldItem.getItem() == MillItems.wandSummoning) {
-                                                World world = sendingPlayer.worldObj;
-                                                NBTTagCompound nbt = heldItem.getTagCompound();
+                                                Level world = sendingPlayer.level;
+                                                CompoundTag nbt = heldItem.getTag();
                                                 int posX = nbt.getInteger("X");
                                                 int posY = nbt.getInteger("Y");
                                                 int posZ = nbt.getInteger("Z");
@@ -128,7 +127,7 @@ public class MillPacket implements IMessage
 		@Override
 		public IMessage onMessage(final MillPacket message, MessageContext ctx) 
 		{
-			if(ctx.side != Side.SERVER) 
+                        if(ctx.side != Dist.DEDICATED_SERVER)
 			{
 				System.err.println("MillPacket received on wrong side: " + ctx.side);
 				return null;
@@ -146,8 +145,8 @@ public class MillPacket implements IMessage
 				return null;
 			}
 			
-			final WorldServer playerWorldServer = sendingPlayer.getServerForPlayer();
-			playerWorldServer.addScheduledTask(() -> processMessage(message, sendingPlayer));
+                        final ServerLevel playerWorldServer = sendingPlayer.serverLevel();
+                        playerWorldServer.getServer().execute(() -> processMessage(message, sendingPlayer));
 			
 			return null;
 		}
@@ -163,8 +162,8 @@ public class MillPacket implements IMessage
 				}
 				else
 				{
-					World world = sendingPlayer.worldObj;
-					NBTTagCompound nbt = heldItem.getTagCompound();
+                                        Level world = sendingPlayer.level;
+                                        CompoundTag nbt = heldItem.getTag();
 					int posX = nbt.getInteger("X");
 					int posY = nbt.getInteger("Y");
 					int posZ = nbt.getInteger("Z");
@@ -182,8 +181,8 @@ public class MillPacket implements IMessage
 				}
 				else
 				{
-					World world = sendingPlayer.worldObj;
-					NBTTagCompound nbt = heldItem.getTagCompound();
+                                        Level world = sendingPlayer.level;
+                                        CompoundTag nbt = heldItem.getTag();
 					int id = nbt.getInteger("ID");
 					
 					world.createExplosion(world.getEntityByID(id), world.getEntityByID(id).posX, world.getEntityByID(id).posY, world.getEntityByID(id).posZ, 0.0F, false);
@@ -201,8 +200,8 @@ public class MillPacket implements IMessage
 				}
 				else
 				{
-					World world = sendingPlayer.worldObj;
-					NBTTagCompound nbt = heldItem.getTagCompound();
+                                        Level world = sendingPlayer.level;
+                                        CompoundTag nbt = heldItem.getTag();
 					int posX = nbt.getInteger("X");
 					int posY = nbt.getInteger("Y");
 					int posZ = nbt.getInteger("Z");

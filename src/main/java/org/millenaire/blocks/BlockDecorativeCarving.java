@@ -5,10 +5,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.millenaire.Millenaire;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
 
 public class BlockDecorativeCarving extends BlockDecorativeOriented {
 
@@ -30,13 +30,13 @@ public class BlockDecorativeCarving extends BlockDecorativeOriented {
     public float getAmbientOcclusionLightValue() { return 0.85F; }
 
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-	{
-		IBlockState iblockstate = worldIn.getBlockState(pos);
+        public void setBlockBoundsBasedOnState(BlockGetter worldIn, BlockPos pos)
+        {
+                BlockState iblockstate = worldIn.getBlockState(pos);
 
 		if (iblockstate.getBlock() == this)
 		{
-			if (iblockstate.getValue(FACING) == EnumFacing.NORTH || iblockstate.getValue(FACING) == EnumFacing.SOUTH)
+                        if (iblockstate.getValue(FACING) == Direction.NORTH || iblockstate.getValue(FACING) == Direction.SOUTH)
 			{
 				this.setBlockBounds(0.25F, 0.0F, 0.0F, 0.75F, 0.5F, 1.0F);
 			}
