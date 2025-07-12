@@ -19,8 +19,6 @@ import org.millenaire.pathing.MillPathNavigate;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockNewLog;
-import net.minecraft.block.BlockOldLog;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockStoneSlab;
 import net.minecraft.block.BlockWoodSlab;
@@ -33,7 +31,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 
 public class BuildingPlan 
 {
@@ -240,20 +241,20 @@ public class BuildingPlan
 		}
 	}
 	
-	private void addToCost(String odString, int amount)
-	{
-		for(int i = 0; i > resCost.size(); i++)
-		{
-			if(odString.matches(resCost.get(i).getString()))
-			{
-				resCost.get(i).add(amount);
-			}
-			else
-			{
-				resCost.add(new ResourceCost(odString, amount));
-			}
-		}
-	}
+       private void addToCost(TagKey<Item> tag, int amount)
+       {
+               for(int i = 0; i > resCost.size(); i++)
+               {
+                       if(tag != null && tag.equals(resCost.get(i).getTag()))
+                       {
+                               resCost.get(i).add(amount);
+                       }
+                       else
+                       {
+                               resCost.add(new ResourceCost(tag, amount));
+                       }
+               }
+       }
 	
 	private boolean freeBuild(IBlockState state)
 	{
@@ -280,18 +281,18 @@ public class BuildingPlan
 						System.err.println("BlockState is null at " + i + "/" + j + "/" + k);
 					}
 
-					if (state.getBlock() == Blocks.log && state.getValue(BlockOldLog.VARIANT) == BlockPlanks.EnumType.OAK)
-						plankOakCost += 4;
-					else if (state.getBlock() == Blocks.log && state.getValue(BlockOldLog.VARIANT) == BlockPlanks.EnumType.SPRUCE)
-						plankSpruceCost += 4;
-					else if (state.getBlock() == Blocks.log && state.getValue(BlockOldLog.VARIANT) == BlockPlanks.EnumType.BIRCH)
-						plankBirchCost += 4;
-					else if (state.getBlock() == Blocks.log && state.getValue(BlockOldLog.VARIANT) == BlockPlanks.EnumType.JUNGLE)
-						plankJungleCost += 4;
-					else if (state.getBlock() == Blocks.log && state.getValue(BlockNewLog.VARIANT) == BlockPlanks.EnumType.ACACIA)
-						plankAcaciaCost += 4;
-					else if (state.getBlock() == Blocks.log && state.getValue(BlockNewLog.VARIANT) == BlockPlanks.EnumType.DARK_OAK)
-						plankJungleCost += 4;
+                                       if (state.is(BlockTags.OAK_LOGS))
+                                               plankOakCost += 4;
+                                       else if (state.is(BlockTags.SPRUCE_LOGS))
+                                               plankSpruceCost += 4;
+                                       else if (state.is(BlockTags.BIRCH_LOGS))
+                                               plankBirchCost += 4;
+                                       else if (state.is(BlockTags.JUNGLE_LOGS))
+                                               plankJungleCost += 4;
+                                       else if (state.is(BlockTags.ACACIA_LOGS))
+                                               plankAcaciaCost += 4;
+                                       else if (state.is(BlockTags.DARK_OAK_LOGS))
+                                               plankJungleCost += 4;
 					else if (state.getBlock() == Blocks.planks && state.getValue(BlockPlanks.VARIANT) == BlockPlanks.EnumType.OAK)
 						plankOakCost++;
 					else if (state.getBlock() == Blocks.planks && state.getValue(BlockPlanks.VARIANT) == BlockPlanks.EnumType.SPRUCE)
@@ -379,8 +380,8 @@ public class BuildingPlan
 						plankAcaciaCost++;
 					else if (state.getBlock() == Blocks.wooden_slab && state.getValue(BlockWoodSlab.VARIANT) == BlockPlanks.EnumType.DARK_OAK)
 						plankDarkCost++;
-					else if (state.getBlock() == Blocks.wool)
-						addToCost(new ItemStack (Blocks.wool, 1, OreDictionary.WILDCARD_VALUE), 1);
+                                       else if (state.getBlock() == Blocks.wool)
+                                               addToCost(ItemTags.WOOL, 1);
 					else if (state.getBlock() == Blocks.nether_wart)
 						addToCost(new ItemStack(Items.nether_wart), 1);
 					else if (state.getBlock() == Blocks.double_stone_slab && state.getValue(BlockStoneSlab.VARIANT) == BlockStoneSlab.EnumType.STONE)
@@ -441,11 +442,11 @@ public class BuildingPlan
 						plankDarkCost += 2;
 					else if (state.getBlock() == Blocks.trapdoor)
 						plankCost += 6;
-					else if (state.getBlock() == Blocks.bed && state.getValue(BlockBed.PART) == BlockBed.EnumPartType.FOOT)
-					{
-						plankCost += 3;
-						addToCost(new ItemStack(Blocks.wool, 1, OreDictionary.WILDCARD_VALUE), 3);
-					}					
+                                       else if (state.getBlock() == Blocks.bed && state.getValue(BlockBed.PART) == BlockBed.EnumPartType.FOOT)
+                                       {
+                                               plankCost += 3;
+                                               addToCost(ItemTags.WOOL, 3);
+                                       }
 					else if (state.getBlock() == MillBlocks.emptySericulture)
 						plankCost += 4;
 					else if (state.getBlock() != Blocks.air && !freeBuild(state))
@@ -456,40 +457,40 @@ public class BuildingPlan
 			}
 		}
 
-		if (plankCost > 0) 
-		{
-			addToCost("logWood", (int) Math.max(Math.ceil(plankCost * 1.0 / 4), 1));
-		}
+               if (plankCost > 0)
+               {
+                       addToCost(ItemTags.LOGS, (int) Math.max(Math.ceil(plankCost * 1.0 / 4), 1));
+               }
 
-		if (plankOakCost > 0) 
-		{
-			addToCost(new ItemStack(Blocks.log, 1, Blocks.log.getMetaFromState(Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK))), (int) Math.max(Math.ceil(plankOakCost * 1.0 / 4), 1));
-		}
+               if (plankOakCost > 0)
+               {
+                       addToCost(ItemTags.OAK_LOGS, (int) Math.max(Math.ceil(plankOakCost * 1.0 / 4), 1));
+               }
 
-		if (plankSpruceCost > 0) 
-		{
-			addToCost(new ItemStack(Blocks.log, 1, Blocks.log.getMetaFromState(Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE))), (int) Math.max(Math.ceil(plankSpruceCost * 1.0 / 4), 1));
-		}
+               if (plankSpruceCost > 0)
+               {
+                       addToCost(ItemTags.SPRUCE_LOGS, (int) Math.max(Math.ceil(plankSpruceCost * 1.0 / 4), 1));
+               }
 
-		if (plankBirchCost > 0) 
-		{
-			addToCost(new ItemStack(Blocks.log, 1, Blocks.log.getMetaFromState(Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH))), (int) Math.max(Math.ceil(plankBirchCost * 1.0 / 4), 1));
-		}
+               if (plankBirchCost > 0)
+               {
+                       addToCost(ItemTags.BIRCH_LOGS, (int) Math.max(Math.ceil(plankBirchCost * 1.0 / 4), 1));
+               }
 
-		if (plankJungleCost > 0) 
-		{
-			addToCost(new ItemStack(Blocks.log, 1, Blocks.log.getMetaFromState(Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE))), (int) Math.max(Math.ceil(plankJungleCost * 1.0 / 4), 1));
-		}
+               if (plankJungleCost > 0)
+               {
+                       addToCost(ItemTags.JUNGLE_LOGS, (int) Math.max(Math.ceil(plankJungleCost * 1.0 / 4), 1));
+               }
 		
-		if (plankAcaciaCost > 0) 
-		{
-			addToCost(new ItemStack(Blocks.log2, 1, Blocks.log2.getMetaFromState(Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA))), (int) Math.max(Math.ceil(plankJungleCost * 1.0 / 4), 1));
-		}
+               if (plankAcaciaCost > 0)
+               {
+                       addToCost(ItemTags.ACACIA_LOGS, (int) Math.max(Math.ceil(plankJungleCost * 1.0 / 4), 1));
+               }
 		
-		if (plankDarkCost > 0) 
-		{
-			addToCost(new ItemStack(Blocks.log2, 1, Blocks.log2.getMetaFromState(Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK))), (int) Math.max(Math.ceil(plankJungleCost * 1.0 / 4), 1));
-		}
+               if (plankDarkCost > 0)
+               {
+                       addToCost(ItemTags.DARK_OAK_LOGS, (int) Math.max(Math.ceil(plankJungleCost * 1.0 / 4), 1));
+               }
 
 		if (glassPaneCost > 0) {
 			addToCost(new ItemStack(Blocks.glass), (int) Math.max(Math.ceil(glassPaneCost * 6.0 / 16), 1));
@@ -1069,60 +1070,47 @@ public class BuildingPlan
 	//
 	public static class ResourceCost
 	{
-		int amount;
-		ItemStack stack;
-		String odString;
+               int amount;
+               ItemStack stack;
+               TagKey<Item> tag;
 		
-		public ResourceCost(ItemStack stackIn, int amountIn)
-		{
-			amount = amountIn;
-			stack = stackIn;
-			odString = null;
-		}
-		
-		public ResourceCost(String nameIn, int amountIn)
-		{
-			amount = amountIn;
-			stack = null;
-			odString = nameIn;
-		}
+               public ResourceCost(ItemStack stackIn, int amountIn)
+               {
+                       amount = amountIn;
+                       stack = stackIn;
+                       tag = null;
+               }
+
+               public ResourceCost(TagKey<Item> tagIn, int amountIn)
+               {
+                       amount = amountIn;
+                       stack = null;
+                       tag = tagIn;
+               }
 		
 		public ItemStack getStack()
 		{
 			return stack;
 		}
 		
-		public String getString()
-		{
-			return odString;
-		}
+
+               public TagKey<Item> getTag()
+               {
+                       return tag;
+               }
 		
 		public void add (int amountIn)
 		{
 			amount += amountIn;
 		}
 		
-		public int getCost(ItemStack stackIn)
-		{
-			if(stackIn.getIsItemStackEqual(stack))
-				return amount;
-			else
-			{
-				List<ItemStack> odStack = OreDictionary.getOres(odString, true);
-				
-				if(odStack.isEmpty())
-				{
-					System.err.println("Error! - Resource computed with unidentifed OreID.");
-					return 0;
-				}
-
-				for (ItemStack anOdStack : odStack) {
-					if (stackIn.getIsItemStackEqual(anOdStack))
-						return amount;
-				}
-			}
-			
-			return 0;
-		}
+               public int getCost(ItemStack stackIn)
+               {
+                       if (stack != null && ItemStack.areItemStacksEqual(stack, stackIn))
+                               return amount;
+                       if (tag != null && stackIn.is(tag))
+                               return amount;
+                       return 0;
+               }
 	}
 }
