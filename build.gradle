@@ -1,26 +1,24 @@
 
 buildscript {
     repositories {
-        maven { url = "https://maven.minecraftforge.net" }
+        maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
     }
     dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:6.0.16"
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
     }
 }
 
 apply plugin: "net.minecraftforge.gradle"
 
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
-}
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 project.group = "org.millenaire.millenaire"
 project.version = "1.8.9-7.0.0-A2.3"
 
 
 minecraft {
-    mappings channel: 'official', version: '1.20.1'
+    mappings channel: 'official', version: '1.14.4'
 }
 
 repositories {
@@ -29,10 +27,10 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:1.20.1-47.0.39"
+    minecraft 'net.minecraftforge:forge:1.14.4-28.2.26'
 }
 
-tasks.named('jar') {
-    archiveBaseName.set("millenaire")
-    archiveVersion.set(project.version)
+jar {
+    baseName = 'millenaire'
+    version = project.version
 }
