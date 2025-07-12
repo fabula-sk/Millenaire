@@ -2,17 +2,13 @@ package org.millenaire.networking;
 
 import org.millenaire.building.PlanIO;
 
-import io.netty.buffer.ByteBuf;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import net.minecraft.core.BlockPos;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketImportBuilding implements IMessage {
+public class PacketImportBuilding {
 
 	BlockPos pos;
 	
@@ -21,30 +17,13 @@ public class PacketImportBuilding implements IMessage {
 	}
 	
 	public PacketImportBuilding(BlockPos startPos) { this.pos = startPos; }
-	
-	@Override
-	public void fromBytes(ByteBuf buf) {
-		int x, y, z;
-		x = buf.readInt();
-		y = buf.readInt();
-		z = buf.readInt();
-		pos = new BlockPos(x, y, z);
-	}
-
-	@Override
-        public void toBytes(ByteBuf buf) {
-                buf.writeInt(pos.getX());
-                buf.writeInt(pos.getY());
-                buf.writeInt(pos.getZ());
-        }
-
-        public static void encode(PacketImportBuilding msg, PacketBuffer buf) {
+        public static void encode(PacketImportBuilding msg, FriendlyByteBuf buf) {
                 buf.writeInt(msg.pos.getX());
                 buf.writeInt(msg.pos.getY());
                 buf.writeInt(msg.pos.getZ());
         }
 
-        public static PacketImportBuilding decode(PacketBuffer buf) {
+        public static PacketImportBuilding decode(FriendlyByteBuf buf) {
                 return new PacketImportBuilding(new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
         }
 
@@ -53,16 +32,4 @@ public class PacketImportBuilding implements IMessage {
                 ctx.get().setPacketHandled(true);
         }
 
-	public static class Handler implements IMessageHandler<PacketImportBuilding, IMessage> {
-
-		@Override
-		public IMessage onMessage(PacketImportBuilding message, MessageContext ctx) {
-                        ServerLifecycleHooks.getCurrentServer().addScheduledTask(() -> handle(message, ctx));
-			return null;
-		}
-		
-		private void handle(PacketImportBuilding message, MessageContext ctx) {
-			PlanIO.importBuilding(ctx.getServerHandler().playerEntity, message.pos);
-		}
-	}
 }

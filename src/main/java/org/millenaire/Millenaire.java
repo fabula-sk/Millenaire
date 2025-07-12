@@ -13,10 +13,7 @@ import org.millenaire.gui.MillChestScreen;
 import org.millenaire.gui.OptionsScreen;
 import org.millenaire.gui.ChiefScreen;
 import org.millenaire.items.MillItems;
-import org.millenaire.networking.MillPacket;
-import org.millenaire.networking.PacketExportBuilding;
-import org.millenaire.networking.PacketImportBuilding;
-import org.millenaire.networking.PacketSayTranslatedMessage;
+import org.millenaire.networking.MillNetwork;
 import org.millenaire.capability.PlayerCropProvider;
 import org.millenaire.capability.CapabilityEvents;
 
@@ -34,8 +31,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.client.registry.ScreenManager;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.fml.relauncher.Side;
 
 
@@ -53,7 +50,7 @@ public class Millenaire
 	
         @Instance
         public static Millenaire instance = new Millenaire();
-        public static SimpleChannel channel;
+        public static SimpleChannel channel = MillNetwork.CHANNEL;
 
         public Millenaire() {
                 FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -93,12 +90,7 @@ public class Millenaire
 
                 MillAchievement.preinitialize();
 
-                channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, "main"), () -> "1", s -> true, s -> true);
-                int id = 0;
-                channel.registerMessage(id++, MillPacket.class, MillPacket::encode, MillPacket::decode, MillPacket::handle);
-                channel.registerMessage(id++, PacketImportBuilding.class, PacketImportBuilding::encode, PacketImportBuilding::decode, PacketImportBuilding::handle);
-                channel.registerMessage(id++, PacketSayTranslatedMessage.class, PacketSayTranslatedMessage::encode, PacketSayTranslatedMessage::decode, PacketSayTranslatedMessage::handle);
-                channel.registerMessage(id++, PacketExportBuilding.class, PacketExportBuilding::encode, PacketExportBuilding::decode, PacketExportBuilding::handle);
+                MillNetwork.init();
 
                 MinecraftForge.EVENT_BUS.addListener(VillageGenerator::onBiomeLoading);
         }
