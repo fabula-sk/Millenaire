@@ -18,7 +18,8 @@ import org.millenaire.capability.PlayerCropProvider;
 import org.millenaire.capability.CapabilityEvents;
 
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -65,10 +66,11 @@ public class Millenaire
                 MinecraftForge.EVENT_BUS.register(this);
         }
 	
-	public static final CreativeTabs tabMillenaire = new CreativeTabs("MillTab")
-	{
-		public Item getTabIconItem() { return MillItems.denierOr; }
-	};
+    public static final ItemGroup tabMillenaire = new ItemGroup("milltab")
+    {
+            @Override
+            public ItemStack makeIcon() { return new ItemStack(MillItems.denierOr); }
+    };
 	
         private void setup(final FMLCommonSetupEvent event)
         {
