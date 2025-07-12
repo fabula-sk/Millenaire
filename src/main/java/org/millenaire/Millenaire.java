@@ -129,8 +129,8 @@ public class Millenaire
                 }
 	}
 	
-        @SubscribeEvent
-        public void serverLoad(FMLServerStartingEvent event) {
-                event.registerServerCommand(new MillCommand());
-        }
+       @SubscribeEvent
+       public void serverLoad(FMLServerStartingEvent event) {
+               MillCommand.register(event.getServer().getCommands().getDispatcher());
+       }
 }
