@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/crossTimberFrame",
+"parent": "millenaire:block/cross_timber_frame",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

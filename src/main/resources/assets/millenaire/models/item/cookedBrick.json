@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/cookedBrick",
+"parent": "millenaire:block/cooked_brick",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

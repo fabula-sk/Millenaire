@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/mudBrick",
+"parent": "millenaire:block/mud_brick",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

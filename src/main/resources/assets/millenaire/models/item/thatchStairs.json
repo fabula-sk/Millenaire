@@ -1,5 +1,5 @@
 {
-    "parent": "millenaire:block/thatchStairs",
+    "parent": "millenaire:block/thatch_stairs",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

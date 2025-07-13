@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/blockMillChest",
+"parent": "millenaire:block/block_mill_chest",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

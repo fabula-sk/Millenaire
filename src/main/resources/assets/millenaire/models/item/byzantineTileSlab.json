@@ -1,5 +1,5 @@
 {
-    "parent": "millenaire:block/byzantineTileSlabHalf",
+    "parent": "millenaire:block/byzantine_tileSlabHalf",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

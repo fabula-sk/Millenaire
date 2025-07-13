@@ -1,5 +1,5 @@
 {
-    "parent": "millenaire:block/sodBirch",
+    "parent": "millenaire:block/sod_birch",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

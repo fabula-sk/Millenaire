@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/byzantineTile",
+"parent": "millenaire:block/byzantine_tile",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

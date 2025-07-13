@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/dirtWall",
+"parent": "millenaire:block/dirt_wall",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],
