@@ -1,7 +1,7 @@
 {
     "parent": "block/cube_bottom_top",
     "textures": {
-        "side": "millenaire:blocks/sodPine",
+        "side": "millenaire:blocks/sod_pine",
         "top": "minecraft:blocks/planks_spruce",
         "bottom": "minecraft:blocks/planks_spruce"
     }
