@@ -151,7 +151,7 @@ public class TileEntityVillageStone extends TileEntity
 				currentVillagerType = cultureIn.getChildType(1);
 			}
 
-			EntityMillVillager newVillager = new EntityMillVillager(worldIn, villagerID, cultureIn);
+                        EntityMillVillager newVillager = new EntityMillVillager(EntityMillVillager.MILL_VILLAGER.get(), worldIn, villagerID, cultureIn);
 			newVillager.setTypeAndGender(currentVillagerType, currentGender);
 
 			return newVillager;

@@ -62,7 +62,7 @@ public class Village {
 			for(BuildingProject proj : type.startingBuildings) {
 				BuildingPlan p = PlanIO.loadSchematic(PlanIO.getBuildingTag(ResourceLocationUtil.getRL(proj.ID).getResourcePath(), culture, true), culture, proj.lvl);
 				
-				EntityMillVillager v = new EntityMillVillager(world, 100100, culture);
+                                EntityMillVillager v = new EntityMillVillager(EntityMillVillager.MILL_VILLAGER.get(), world, 100100, culture);
 				v.setPosition(mainBlock.getX(), mainBlock.getY(), mainBlock.getZ());
 				v.setTypeAndGender(MillCulture.normanCulture.getVillagerType("normanKnight"), 1);
 				world.spawnEntityInWorld(v);
