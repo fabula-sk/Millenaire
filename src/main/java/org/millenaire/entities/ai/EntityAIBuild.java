@@ -2,14 +2,14 @@ package org.millenaire.entities.ai;
 
 import org.millenaire.entities.EntityMillVillager;
 
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
 
-public class EntityAIBuild extends EntityAIBase
+public class EntityAIBuild extends Goal
 {
-	private EntityLiving theEntity;
+        private LivingEntity theEntity;
 	
-	public EntityAIBuild(EntityLiving entityIn)
+        public EntityAIBuild(LivingEntity entityIn)
 	{
 		this.theEntity = entityIn;
 
@@ -23,22 +23,22 @@ public class EntityAIBuild extends EntityAIBase
         }
 	}
 
-	/**
-     * Returns whether the EntityAIBase should begin execution.
+    /**
+     * Returns whether the goal should begin execution.
      */
-	@Override
-	public boolean shouldExecute() { return false; }
+        @Override
+        public boolean canUse() { return false; }
 
 	/**
-     * Returns whether an in-progress EntityAIBase should continue executing
+     * Returns whether an in-progress goal should continue executing
      */
-	@Override
-    public boolean continueExecuting() { return false; }
+        @Override
+    public boolean canContinueToUse() { return false; }
 	
 	/**
      * Execute a one shot task or start executing a continuous task
      */
-    public void startExecuting()
+    public void start()
     {
     	
     }
@@ -46,7 +46,7 @@ public class EntityAIBuild extends EntityAIBase
     /**
      * Updates the task
      */
-    public void updateTask()
+    public void tick()
     {
     	
     }
@@ -55,7 +55,7 @@ public class EntityAIBuild extends EntityAIBase
      * Resets the task
      */
     @Override
-    public void resetTask()
+    public void stop()
     {
     	
     }

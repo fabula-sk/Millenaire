@@ -4,17 +4,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityAIGateOpen extends EntityAIBase
+public class EntityAIGateOpen extends Goal
 {
-    private EntityLiving theEntity;
+    private LivingEntity theEntity;
     private BlockPos gatePosition = BlockPos.ORIGIN;
     /** The gate block */
     private BlockFenceGate gateBlock;
@@ -29,7 +29,7 @@ public class EntityAIGateOpen extends EntityAIBase
     /** The temporisation before the entity close the door (in ticks, always 20 = 1 second) */
     private int closeGateTemporisation;
 
-    public EntityAIGateOpen(EntityLiving entityIn, boolean shouldClose)
+    public EntityAIGateOpen(LivingEntity entityIn, boolean shouldClose)
     {
         this.theEntity = entityIn;
 
@@ -43,10 +43,10 @@ public class EntityAIGateOpen extends EntityAIBase
     }
 
     /**
-     * Returns whether the EntityAIBase should begin execution.
+     * Returns whether the goal should begin execution.
      */
     @Override
-    public boolean shouldExecute()
+    public boolean canUse()
     {
     	//System.out.println("AI called - should execute");
         if (!this.theEntity.isCollidedHorizontally)
@@ -90,19 +90,19 @@ public class EntityAIGateOpen extends EntityAIBase
     }
 
     /**
-     * Returns whether an in-progress EntityAIBase should continue executing
+     * Returns whether an in-progress goal should continue executing
      */
     @Override
-    public boolean continueExecuting()
+    public boolean canContinueToUse()
     {
-        return this.closeGate && this.closeGateTemporisation > 0 && super.continueExecuting();
+        return this.closeGate && this.closeGateTemporisation > 0;
     }
 
     /**
      * Execute a one shot task or start executing a continuous task
      */
     @Override
-    public void startExecuting()
+    public void start()
     {
         this.closeGateTemporisation = 20;
         this.toggleGate(gateBlock, this.theEntity.worldObj, this.gatePosition, true);
@@ -112,7 +112,7 @@ public class EntityAIGateOpen extends EntityAIBase
      * Updates the task
      */
     @Override
-    public void updateTask()
+    public void tick()
     {
     	--this.closeGateTemporisation;
     	
@@ -127,7 +127,7 @@ public class EntityAIGateOpen extends EntityAIBase
     }
     
     @Override
-    public void resetTask()
+    public void stop()
     {
         if (this.closeGate)
         {

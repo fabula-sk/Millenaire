@@ -17,11 +17,10 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIOpenDoor;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityAIWatchClosest2;
+import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryBasic;
@@ -89,12 +88,12 @@ public class EntityMillVillager extends EntityCreature
 	{
 		//((PathNavigateGround)this.getNavigator()).setBreakDoors(true);
 		//((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
-        this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIOpenDoor(this, true));
-		this.tasks.addTask(1, new EntityAIGateOpen(this, true));
-		this.tasks.addTask(7, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 0.5F));
-		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityMillVillager.class, 6.0F));
-		this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+                this.goalSelector.addGoal(1, new OpenDoorGoal(this, true));
+                this.goalSelector.addGoal(1, new EntityAIGateOpen(this, true));
+                this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, EntityPlayer.class, 3.0F, 0.5F));
+                this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, EntityMillVillager.class, 6.0F));
+                this.goalSelector.addGoal(9, new RandomStrollGoal(this, 0.6D));
 	}
 	
 	@Override
