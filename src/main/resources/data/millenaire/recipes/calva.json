@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "millenaire:cider_apple"},
+    {"item": "millenaire:cider_apple"},
+    {"item": "millenaire:cider_apple"},
+    {"item": "millenaire:cider_apple"},
+    {"item": "millenaire:cider_apple"},
+    {"item": "millenaire:cider_apple"}
+  ],
+  "result": {"item": "millenaire:calva"}
+}

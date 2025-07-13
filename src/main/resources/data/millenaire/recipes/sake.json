@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "millenaire:rice"},
+    {"item": "millenaire:rice"},
+    {"item": "millenaire:rice"},
+    {"item": "millenaire:rice"},
+    {"item": "millenaire:rice"},
+    {"item": "millenaire:rice"}
+  ],
+  "result": {"item": "millenaire:sake"}
+}
