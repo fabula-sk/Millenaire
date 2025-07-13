@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "millenaire:rice"},
+    {"item": "millenaire:turmeric"},
+    {"item": "minecraft:cod"}
+  ],
+  "result": {"item": "millenaire:ikayaki"}
+}

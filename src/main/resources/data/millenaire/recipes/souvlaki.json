@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA"
+  ],
+  "key": {
+    "A": {"item": "millenaire:maize"},
+    "B": {"item": "minecraft:chicken"}
+  },
+  "result": {"item": "millenaire:souvlaki"}
+}
