@@ -43,7 +43,7 @@ public class ItemMillSign extends Item
 			}
 			else
 			{
-				worldIn.setBlock(pos, MillBlocks.blockMillSign.getDefaultState().withProperty(BlockMillSign.FACING, side)/*Blocks.wall_sign.getDefaultState().withProperty(BlockWallSign.FACING, side)*/, 3);
+                                worldIn.setBlockState(pos, MillBlocks.blockMillSign.getDefaultState().withProperty(BlockMillSign.FACING, side)/*Blocks.wall_sign.getDefaultState().withProperty(BlockWallSign.FACING, side)*/, 3);
 
 
 				--stack.stackSize;

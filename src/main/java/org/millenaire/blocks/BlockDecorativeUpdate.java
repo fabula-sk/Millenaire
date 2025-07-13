@@ -25,7 +25,7 @@ public class BlockDecorativeUpdate extends Block
 
         if (i > 1)
         {
-        	worldIn.setBlock(pos, updateState);
+                worldIn.setBlockState(pos, updateState);
         }
     }
 }

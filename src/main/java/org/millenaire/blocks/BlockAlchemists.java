@@ -5,6 +5,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -22,8 +24,8 @@ public class BlockAlchemists extends Block
 	private void alchemistExplosion(final World world, final int i, final int j, final int k)
 	{
 		world.setBlockToAir(new BlockPos(i, j, k));
-		world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, i + 0.5D, j + 0.5D, k+ 0.5D, 0.0D, 0.0D, 0.0D);
-		world.playSoundEffect(i, j, k, "random.explode", 8.0F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.9F);
+                world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, i + 0.5D, j + 0.5D, k+ 0.5D, 0.0D, 0.0D, 0.0D);
+                world.playSound(null, new BlockPos(i, j, k), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 8.0F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.9F);
 		
 		for (int y = EXPLOSIONRADIUS; y >= -EXPLOSIONRADIUS; y--) 
 		{

@@ -52,7 +52,7 @@ public class BlockMillCrops extends BlockCrops
                 {
                 	if (rand.nextInt((int)(25.0F / f) + 1) == 0)
                 	{
-                		worldIn.setBlock(pos, state.withProperty(AGE, i + 1), 2);
+                                worldIn.setBlockState(pos, state.withProperty(AGE, i + 1), 2);
                 	}
                 }
             }

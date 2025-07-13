@@ -156,12 +156,12 @@ public class EntityAIGateOpen extends Goal
     	
     	if(open)
     	{
-            worldIn.setBlock(pos, state.withProperty(BlockFenceGate.OPEN, true));
+            worldIn.setBlockState(pos, state.withProperty(BlockFenceGate.OPEN, true));
         }
     	
     	if(!open)
     	{
-            worldIn.setBlock(pos, state.withProperty(BlockFenceGate.OPEN, false));
+            worldIn.setBlockState(pos, state.withProperty(BlockFenceGate.OPEN, false));
         }
     }
 }
