@@ -195,7 +195,7 @@ public class PlanIO {
 			for(int x = 0; x < plan.width; x++) {
 				for(int y = 0; y < plan.height; y++) {
 					for(int z = 0; z < plan.length; z++) {
-						world.setBlock(new BlockPos(x + startPos.getX() + 1, y + startPos.getY() + plan.depth, z + startPos.getZ() + 1), blocks[y][z][x], 2);
+                                                world.setBlockState(new BlockPos(x + startPos.getX() + 1, y + startPos.getY() + plan.depth, z + startPos.getZ() + 1), blocks[y][z][x], 2);
 					}
 				}
 			}
@@ -212,7 +212,7 @@ public class PlanIO {
 		for(int x = 0; x < plan.width; x++) {
 			for(int y = 0; y < plan.height; y++) {
 				for(int z = 0; z < plan.length; z++) {
-					world.setBlock(new BlockPos(x + loc.position.getX(), y + loc.position.getY() + plan.depth, z + loc.position.getZ()), blocks[y][z][x], 2);
+                                        world.setBlockState(new BlockPos(x + loc.position.getX(), y + loc.position.getY() + plan.depth, z + loc.position.getZ()), blocks[y][z][x], 2);
 				}
 			}
 		}

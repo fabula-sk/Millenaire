@@ -12,6 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.fmllegacy.network.simpleimpl.IMessage;
 import net.minecraftforge.fmllegacy.network.simpleimpl.IMessageHandler;
@@ -96,7 +98,7 @@ public class MillPacket implements IMessage
                                                 CompoundTag nbt = heldItem.getTag();
                                                 int id = nbt.getInteger("ID");
                                                 world.createExplosion(world.getEntityByID(id), world.getEntityByID(id).posX, world.getEntityByID(id).posY, world.getEntityByID(id).posZ, 0.0F, false);
-                                                world.playSoundAtEntity(world.getEntityByID(id), "game.player.hurt", 1.0F, 0.4F);
+                                                world.playSound(null, world.getEntityByID(id).getPosition(), SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1.0F, 0.4F);
                                                 world.removeEntity(world.getEntityByID(id));
                                         } else {
                                                 System.err.println("Player not holding Wand of Negation when attempting to delete Villager");
@@ -110,7 +112,7 @@ public class MillPacket implements IMessage
                                                 int posX = nbt.getInteger("X");
                                                 int posY = nbt.getInteger("Y");
                                                 int posZ = nbt.getInteger("Z");
-                                                world.setBlock(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.getDefaultState());
+                                                world.setBlockState(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.getDefaultState());
                                         } else {
                                                 System.err.println("Player not holding Wand of Summoning when attempting to create Village");
                                         }
@@ -186,7 +188,7 @@ public class MillPacket implements IMessage
 					int id = nbt.getInteger("ID");
 					
 					world.createExplosion(world.getEntityByID(id), world.getEntityByID(id).posX, world.getEntityByID(id).posY, world.getEntityByID(id).posZ, 0.0F, false);
-					world.playSoundAtEntity(world.getEntityByID(id), "game.player.hurt", 1.0F, 0.4F);
+                                        world.playSound(null, world.getEntityByID(id).getPosition(), SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1.0F, 0.4F);
 					//Will need to be actual removal (without respawn).
 					world.removeEntity(world.getEntityByID(id));
 				}
@@ -206,7 +208,7 @@ public class MillPacket implements IMessage
 					int posY = nbt.getInteger("Y");
 					int posZ = nbt.getInteger("Z");
 					
-					world.setBlock(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.getDefaultState());
+                                        world.setBlockState(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.getDefaultState());
 				}
 			}
 		}

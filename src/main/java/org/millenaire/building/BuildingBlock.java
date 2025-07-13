@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenSavannaTree;
@@ -67,9 +68,8 @@ public class BuildingBlock
 	{
 		if (specialBlock != BuildingBlock.PRESERVEGROUNDDEPTH && specialBlock != BuildingBlock.PRESERVEGROUNDSURFACE && specialBlock != BuildingBlock.CLEARTREE) 
 		{
-			worldIn.setBlock(position, blockState);
-			String soundName = blockState.getBlock().stepSound.getPlaceSound();
-			worldIn.playSoundEffect(position.getX() + 0.5D, position.getY() + 0.5D, position.getZ() + 0.5D, soundName, 0.3F, 0.6F);
+                    worldIn.setBlockState(position, blockState);
+                    worldIn.playSound(null, position, blockState.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 0.3F, 0.6F);
 		}
 		
 		if (specialBlock == BuildingBlock.PRESERVEGROUNDDEPTH || specialBlock == BuildingBlock.PRESERVEGROUNDSURFACE) 
@@ -110,21 +110,18 @@ public class BuildingBlock
 				}
 
 				assert targetblock != null;
-				worldIn.setBlock(position, targetblock.getDefaultState());
-				String soundName = targetblock.stepSound.getPlaceSound();
-				worldIn.playSoundEffect(position.getX() + 0.5D, position.getY() + 0.5D, position.getZ() + 0.5D, soundName, 0.3F, 0.6F);
+                                worldIn.setBlockState(position, targetblock.getDefaultState());
+                                worldIn.playSound(null, position, targetblock.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 0.3F, 0.6F);
 			} 
 			else if (onGeneration && validGroundBlock == Blocks.dirt && worldIn.getBlockState(position.up()) == null) 
 			{
-				worldIn.setBlock(position, Blocks.grass.getDefaultState());
-				String soundName = Blocks.grass.stepSound.getPlaceSound();
-				worldIn.playSoundEffect(position.getX() + 0.5D, position.getY() + 0.5D, position.getZ() + 0.5D, soundName, 0.3F, 0.6F);
+                                worldIn.setBlockState(position, Blocks.grass.getDefaultState());
+                                worldIn.playSound(null, position, Blocks.grass.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 0.3F, 0.6F);
 			} 
 			else if (validGroundBlock != block && !(validGroundBlock == Blocks.dirt && block == Blocks.grass)) 
 			{
-				worldIn.setBlock(position, validGroundBlock.getDefaultState());
-				String soundName = validGroundBlock.stepSound.getPlaceSound();
-				worldIn.playSoundEffect(position.getX() + 0.5D, position.getY() + 0.5D, position.getZ() + 0.5D, soundName, 0.3F, 0.6F);
+                                worldIn.setBlockState(position, validGroundBlock.getDefaultState());
+                                worldIn.playSound(null, position, validGroundBlock.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 0.3F, 0.6F);
 			}
 		}
 		else if (specialBlock == BuildingBlock.CLEARTREE) 
@@ -133,9 +130,8 @@ public class BuildingBlock
 
 			if (block == Blocks.log || block == Blocks.leaves) 
 			{
-				worldIn.setBlockToAir(position);
-				String soundName = block.stepSound.getBreakSound();
-				worldIn.playSoundEffect(position.getX() + 0.5D, position.getY() + 0.5D, position.getZ() + 0.5D, soundName, 0.3F, 0.6F);
+                                worldIn.setBlockToAir(position);
+                                worldIn.playSound(null, position, block.getSoundType().getBreakSound(), SoundCategory.BLOCKS, 0.3F, 0.6F);
 
 				final Block blockBelow = worldIn.getBlockState(position.down()).getBlock();
 
@@ -143,11 +139,11 @@ public class BuildingBlock
 
 				if (onGeneration && targetBlock == Blocks.dirt) 
 				{
-					worldIn.setBlock(position.down(), Blocks.grass.getDefaultState());
+                                worldIn.setBlockState(position.down(), Blocks.grass.getDefaultState());
 				} 
 				else if (targetBlock != null) 
 				{
-					worldIn.setBlock(position.down(), targetBlock.getDefaultState());
+                                worldIn.setBlockState(position.down(), targetBlock.getDefaultState());
 				}
 			}
 
@@ -156,9 +152,8 @@ public class BuildingBlock
 		{
 			Block block = worldIn.getBlockState(position).getBlock();
 			
-			worldIn.setBlockToAir(position);
-			String soundName = block.stepSound.getBreakSound();
-			worldIn.playSoundEffect(position.getX() + 0.5D, position.getY() + 0.5D, position.getZ() + 0.5D, soundName, 0.3F, 0.6F);
+                        worldIn.setBlockToAir(position);
+                        worldIn.playSound(null, position, block.getSoundType().getBreakSound(), SoundCategory.BLOCKS, 0.3F, 0.6F);
 
 			final Block blockBelow = worldIn.getBlockState(position.down()).getBlock();
 
@@ -166,11 +161,11 @@ public class BuildingBlock
 
 			if (onGeneration && targetBlock == Blocks.dirt) 
 			{
-				worldIn.setBlock(position.down(), Blocks.grass.getDefaultState());
+                        worldIn.setBlockState(position.down(), Blocks.grass.getDefaultState());
 			} 
 			else if (targetBlock != null) 
 			{
-				worldIn.setBlock(position.down(), targetBlock.getDefaultState());
+                        worldIn.setBlockState(position.down(), targetBlock.getDefaultState());
 			}
 		}
 		else if (specialBlock == BuildingBlock.OAKSPAWN) 
@@ -240,43 +235,43 @@ public class BuildingBlock
 		}
 		else if (specialBlock == BuildingBlock.SPAWNERSKELETON) 
 		{
-			worldIn.setBlock(position, Blocks.mob_spawner.getDefaultState());
+                        worldIn.setBlockState(position, Blocks.mob_spawner.getDefaultState());
 			final TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) worldIn.getTileEntity(position);
 			tileentitymobspawner.getSpawnerBaseLogic().setEntityName("Skeleton");
 		} 
 		else if (specialBlock == BuildingBlock.SPAWNERZOMBIE) 
 		{
-			worldIn.setBlock(position, Blocks.mob_spawner.getDefaultState());
+                        worldIn.setBlockState(position, Blocks.mob_spawner.getDefaultState());
 			final TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) worldIn.getTileEntity(position);
 			tileentitymobspawner.getSpawnerBaseLogic().setEntityName("Zombie");
 		} 
 		else if (specialBlock == BuildingBlock.SPAWNERSPIDER) 
 		{
-			worldIn.setBlock(position, Blocks.mob_spawner.getDefaultState());
+                        worldIn.setBlockState(position, Blocks.mob_spawner.getDefaultState());
 			final TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) worldIn.getTileEntity(position);
 			tileentitymobspawner.getSpawnerBaseLogic().setEntityName("Spider");
 		} 
 		else if (specialBlock == BuildingBlock.SPAWNERCAVESPIDER) 
 		{
-			worldIn.setBlock(position, Blocks.mob_spawner.getDefaultState());
+                        worldIn.setBlockState(position, Blocks.mob_spawner.getDefaultState());
 			final TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) worldIn.getTileEntity(position);
 			tileentitymobspawner.getSpawnerBaseLogic().setEntityName("CaveSpider");
 		} 
 		else if (specialBlock == BuildingBlock.SPAWNERCREEPER) 
 		{
-			worldIn.setBlock(position, Blocks.mob_spawner.getDefaultState());
+                        worldIn.setBlockState(position, Blocks.mob_spawner.getDefaultState());
 			final TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) worldIn.getTileEntity(position);
 			tileentitymobspawner.getSpawnerBaseLogic().setEntityName("Creeper");
 		} 
 		else if (specialBlock == BuildingBlock.SPAWNERBLAZE) 
 		{
-			worldIn.setBlock(position, Blocks.mob_spawner.getDefaultState());
+                        worldIn.setBlockState(position, Blocks.mob_spawner.getDefaultState());
 			final TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) worldIn.getTileEntity(position);
 			tileentitymobspawner.getSpawnerBaseLogic().setEntityName("Blaze");
 		} 
 		else if (specialBlock == BuildingBlock.DISPENDERUNKNOWNPOWDER) 
 		{
-			worldIn.setBlock(position, Blocks.dispenser.getDefaultState());
+                        worldIn.setBlockState(position, Blocks.dispenser.getDefaultState());
 			final TileEntityDispenser dispenser = (TileEntityDispenser)worldIn.getTileEntity(position);
 			dispenser.addItemStack(new ItemStack(MillItems.unknownPowder, 2));
 		}

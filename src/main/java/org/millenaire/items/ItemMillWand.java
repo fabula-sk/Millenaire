@@ -235,7 +235,7 @@ public class ItemMillWand extends Item
                 }
 				else
 				{
-                    worldIn.setBlock(pos, worldIn.getBlockState(pos).cycleProperty(StoredPosition.VARIANT));
+                    worldIn.setBlockState(pos, worldIn.getBlockState(pos).cycleProperty(StoredPosition.VARIANT));
                 }
 			}
 			//Fixes All Denier in your inventory (if no specific block/entity is clicked)

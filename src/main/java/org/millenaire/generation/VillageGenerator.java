@@ -37,9 +37,9 @@ public class VillageGenerator {
 		}
 		else {
 			EntityPlayer generatingPlayer = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), -1);
-			if(rand.nextInt(50) == 1 && world.getChunkFromBlockCoords(pos).isLoaded()) {
-				world.setBlock(pos, MillBlocks.villageStone.getDefaultState());
-			}
+                        if(rand.nextInt(50) == 1 && world.getChunkFromBlockCoords(pos).isLoaded()) {
+                                world.setBlockState(pos, MillBlocks.villageStone.getDefaultState());
+                        }
 			return false;
 		}
 	}

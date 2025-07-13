@@ -45,6 +45,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundCategory;
 
 public class EntityMillVillager extends PathfinderMob
 {
@@ -213,7 +215,7 @@ public class EntityMillVillager extends PathfinderMob
 
 				final EntityArrow arrow = new EntityArrow(this.worldObj, this, (EntityLivingBase) entity, 1.6F, 12.0F);
 
-				this.worldObj.playSoundAtEntity(this, "random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+                                this.worldObj.playSound(null, this.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
 				this.worldObj.spawnEntityInWorld(arrow);
 
 				attackTime = 60;

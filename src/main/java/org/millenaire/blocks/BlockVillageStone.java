@@ -13,6 +13,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.world.World;
 
 public class BlockVillageStone extends BlockContainer
@@ -67,7 +69,7 @@ public class BlockVillageStone extends BlockContainer
 		
 		te.willExplode = true;
 		worldIn.scheduleUpdate(pos, this, 60);
-		worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY()+ 0.5D, pos.getZ()+ 0.5D, "portal.portal", 1.0F, 0.01F);
+                worldIn.playSound(null, pos, SoundEvents.BLOCK_PORTAL_TRAVEL, SoundCategory.BLOCKS, 1.0F, 0.01F);
 	}
 	
 	@Override
