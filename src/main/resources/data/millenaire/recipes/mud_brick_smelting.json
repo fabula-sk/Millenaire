@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": {"item": "millenaire:mud_brick"},
+  "ingredient": {"tag": "millenaire:mud_brick"},
   "result": "millenaire:cooked_brick",
   "experience": 0.3,
   "cookingtime": 200
