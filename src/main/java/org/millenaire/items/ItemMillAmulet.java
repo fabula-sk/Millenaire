@@ -148,34 +148,33 @@ public class ItemMillAmulet extends Item
 		stack.setTagCompound(nbt);
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack stack, int renderPass)
-	{
-		NBTTagCompound nbt = stack.getTagCompound();
+       @SideOnly(Side.CLIENT)
+       public int getColor(ItemStack stack, int tintIndex)
+       {
+               NBTTagCompound nbt = stack.getTagCompound();
 
-		if(renderPass != 0)
-		{
-			if(nbt== null)
-			{
-				if(this == MillItems.amuletAlchemist)
-					return colorAlchemist[0];
-				if(this == MillItems.amuletVishnu)
-					return colorVishnu[0];
-				if(this == MillItems.amuletYggdrasil)
-					return colorYggdrasil[16];
-			}
-			int score = nbt.getInteger("score");
+               if(tintIndex != 0)
+               {
+                       if(nbt== null)
+                       {
+                               if(this == MillItems.amuletAlchemist)
+                                       return colorAlchemist[0];
+                               if(this == MillItems.amuletVishnu)
+                                       return colorVishnu[0];
+                               if(this == MillItems.amuletYggdrasil)
+                                       return colorYggdrasil[16];
+                       }
+                       int score = nbt.getInteger("score");
 
-			if(this == MillItems.amuletAlchemist)
-				return colorAlchemist[score];
-			if(this == MillItems.amuletVishnu)
-				return colorVishnu[score];
-			if(this == MillItems.amuletYggdrasil)
-				return colorYggdrasil[score];
-		}
-		return 16777215;
-	}
+                       if(this == MillItems.amuletAlchemist)
+                               return colorAlchemist[score];
+                       if(this == MillItems.amuletVishnu)
+                               return colorVishnu[score];
+                       if(this == MillItems.amuletYggdrasil)
+                               return colorYggdrasil[score];
+               }
+               return 16777215;
+       }
 
 	public int getItemStackLimit(ItemStack stack) { return 1; }
 

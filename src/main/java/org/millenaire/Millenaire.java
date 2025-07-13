@@ -13,6 +13,7 @@ import org.millenaire.gui.MillChestScreen;
 import org.millenaire.gui.OptionsScreen;
 import org.millenaire.gui.ChiefScreen;
 import org.millenaire.items.MillItems;
+import org.millenaire.items.ItemMillAmulet;
 import org.millenaire.networking.MillNetwork;
 import org.millenaire.capability.PlayerCropProvider;
 import org.millenaire.capability.CapabilityEvents;
@@ -22,6 +23,10 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -32,6 +37,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.client.registry.ScreenManager;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.fml.relauncher.Side;
@@ -113,6 +119,19 @@ public class Millenaire
                 ScreenManager.registerFactory(MillMenus.CHEST_MENU.get(), MillChestScreen::new);
                 ScreenManager.registerFactory(MillMenus.OPTIONS_MENU.get(), OptionsScreen::new);
                 ScreenManager.registerFactory(MillMenus.CHIEF_MENU.get(), ChiefScreen::new);
+
+                // Bind tile entity renderers
+                ClientRegistry.bindTileEntityRenderer(MillBlocks.MILL_CHEST_TILE.get(), TileEntityChestRenderer::new);
+                ClientRegistry.bindTileEntityRenderer(MillBlocks.MILL_SIGN_TILE.get(), TileEntitySignRenderer::new);
+
+                // Register item color handlers
+                ItemColors colors = Minecraft.getInstance().getItemColors();
+                colors.register((stack, tint) ->
+                        stack.getItem() instanceof ItemMillAmulet ?
+                                ((ItemMillAmulet) stack.getItem()).getColor(stack, tint) : 0xFFFFFF,
+                        MillItems.amuletAlchemist,
+                        MillItems.amuletVishnu,
+                        MillItems.amuletYggdrasil);
 
                 isServer = false;
         }
