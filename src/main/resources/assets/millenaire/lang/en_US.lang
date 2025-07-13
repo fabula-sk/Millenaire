@@ -8,67 +8,67 @@ container.millChestDoubleUnlocked=Millénaire Large Chest - Unlocked
 
 gui.millConfig.mainTitle=Millénaire Configuration
 
-tile.storedPosition.name=Stored Position
+tile.stored_position.name=Stored Position
 
-tile.inuitCarving.name=Carving
-tile.galianiteOre.name=Galianite Ore
+tile.inuit_carving.name=Carving
+tile.galianite_ore.name=Galianite Ore
 
-tile.blockAlchemists.name=Alchemist's Block
+tile.block_alchemists.name=Alchemist's Block
 
-tile.blockDecorativeEarth.dirtWall.name=Dirt Wall
-tile.blockDecorativeEarth.driedBrick.name=Dried Mud Bricks
-tile.blockDecorativeStone.goldOrnament.name=Mayan Gold Ornament
-tile.blockDecorativeStone.cookedBrick.name=Cooked Mud Bricks
-tile.blockDecorativeStone.galianiteBlock.name=Galianite Block
-tile.blockDecorativeWood.plainTimberFrame.name=Plain Timber Frame
-tile.blockDecorativeWood.crossTimberFrame.name=Crossed Timber Frame
-tile.blockDecorativeWood.thatch.name=Thatch
-tile.blockDecorativeWood.sericulture.name=Sericulture
-tile.blockSodPlank.oak.name=Oak Sod Planks
-tile.blockSodPlank.pine.name=Pine Sod Planks
-tile.blockSodPlank.birch.name=Birch Sod Planks
-tile.blockSodPlank.jungle.name=Jungle Sod Planks
-tile.blockSodPlank.acacia.name=Acacia Sod Planks
-tile.blockSodPlank.darkoak.name=Dark Oak Sod Planks
-tile.emptySericulture.name=Empty Sericulture
-tile.mudBrick.name=Mud Bricks
-tile.byzantineTile.name=Byzantine Tile
-tile.byzantineStoneTile.name=Byzantine Stone Tile
-tile.byzantineTileSlab.name=Byzantine Tile Slab
-tile.byzantineTileDoubleSlab.name=Byzantine Tile Double Slab
-tile.byzantineTileStairs.name=Byzantine Tile Stairs
-tile.paperWall.name=Paper Wall
+tile.block_decorative_earth.dirtWall.name=Dirt Wall
+tile.block_decorative_earth.driedBrick.name=Dried Mud Bricks
+tile.block_decorative_stone.goldOrnament.name=Mayan Gold Ornament
+tile.block_decorative_stone.cookedBrick.name=Cooked Mud Bricks
+tile.block_decorative_stone.galianiteBlock.name=Galianite Block
+tile.block_decorative_wood.plainTimberFrame.name=Plain Timber Frame
+tile.block_decorative_wood.crossTimberFrame.name=Crossed Timber Frame
+tile.block_decorative_wood.thatch.name=Thatch
+tile.block_decorative_wood.sericulture.name=Sericulture
+tile.block_sod_plank.oak.name=Oak Sod Planks
+tile.block_sod_plank.pine.name=Pine Sod Planks
+tile.block_sod_plank.birch.name=Birch Sod Planks
+tile.block_sod_plank.jungle.name=Jungle Sod Planks
+tile.block_sod_plank.acacia.name=Acacia Sod Planks
+tile.block_sod_plank.darkoak.name=Dark Oak Sod Planks
+tile.empty_sericulture.name=Empty Sericulture
+tile.mud_brick.name=Mud Bricks
+tile.byzantine_tile.name=Byzantine Tile
+tile.byzantine_stone_tile.name=Byzantine Stone Tile
+tile.byzantine_tile_slab.name=Byzantine Tile Slab
+tile.byzantine_tileDoubleSlab.name=Byzantine Tile Double Slab
+tile.byzantine_tile_stairs.name=Byzantine Tile Stairs
+tile.paper_wall.name=Paper Wall
 
-tile.blockMillChest.name=Millénaire Chest
-tile.blockMillSign.name=Milléniare Sign
-tile.villageStone.name=Village Stone
+tile.block_mill_chest.name=Millénaire Chest
+tile.block_mill_sign.name=Milléniare Sign
+tile.village_stone.name=Village Stone
 
-tile.cropGrapeVine.name=Grape Vines
-tile.cropMaize.name=Maize
-tile.cropRice.name=Rice
-tile.cropTurmeric.name=Turmeric
+tile.crop_grape_vine.name=Grape Vines
+tile.crop_maize.name=Maize
+tile.crop_rice.name=Rice
+tile.crop_turmeric.name=Turmeric
 
-tile.blockMillPath.dirt.name=Dirt Path
-tile.blockMillPath.gravel.name=Gravel Path
-tile.blockMillPath.slab.name=Stone Slab Path
-tile.blockMillPath.sandstoneSlab.name=Sandstone Slab Path
-tile.blockMillPath.ochreSlab.name=Ochre-Tiled Stone Path
-tile.blockMillPath.slabAndGravel.name=Stone and Gravel Path
-tile.blockMillPathSlab.dirt.name=Half Dirt Path
-tile.blockMillPathSlab.gravel.name=Half Gravel Path
-tile.blockMillPathSlab.slab.name=Half Stone Slab Path
-tile.blockMillPathSlab.sandstoneSlab.name=Half Sandstone Slab Path
-tile.blockMillPathSlab.ochreSlab.name=Half Ochre-Tiled Stone Path
-tile.blockMillPathSlab.slabAndGravel.name=Half Stone and Gravel Path
-tile.blockMillPathSlabDouble.dirt.name=Double Half Dirt Path
-tile.blockMillPathSlabDouble.gravel.name=Double Half Gravel Path
-tile.blockMillPathSlabDouble.slab.name=Double Half Stone Slab Path
-tile.blockMillPathSlabDouble.sandstoneSlab.name=Double Half Sandstone Slab Path
-tile.blockMillPathSlabDouble.ochreSlab.name=Double Half Ochre-Tiled Stone Path
-tile.blockMillPathSlabDouble.slabAndGravel.name=Double Half Stone and Gravel Path
+tile.block_mill_path.dirt.name=Dirt Path
+tile.block_mill_path.gravel.name=Gravel Path
+tile.block_mill_path.slab.name=Stone Slab Path
+tile.block_mill_path.sandstoneSlab.name=Sandstone Slab Path
+tile.block_mill_path.ochreSlab.name=Ochre-Tiled Stone Path
+tile.block_mill_path.slabAndGravel.name=Stone and Gravel Path
+tile.block_mill_path_slab.dirt.name=Half Dirt Path
+tile.block_mill_path_slab.gravel.name=Half Gravel Path
+tile.block_mill_path_slab.slab.name=Half Stone Slab Path
+tile.block_mill_path_slab.sandstoneSlab.name=Half Sandstone Slab Path
+tile.block_mill_path_slab.ochreSlab.name=Half Ochre-Tiled Stone Path
+tile.block_mill_path_slab.slabAndGravel.name=Half Stone and Gravel Path
+tile.block_mill_path_slab_double.dirt.name=Double Half Dirt Path
+tile.block_mill_path_slab_double.gravel.name=Double Half Gravel Path
+tile.block_mill_path_slab_double.slab.name=Double Half Stone Slab Path
+tile.block_mill_path_slab_double.sandstoneSlab.name=Double Half Sandstone Slab Path
+tile.block_mill_path_slab_double.ochreSlab.name=Double Half Ochre-Tiled Stone Path
+tile.block_mill_path_slab_double.slabAndGravel.name=Double Half Stone and Gravel Path
 
 
-item.itemMillPurse.name=Bourse à Deniers
+item.item_mill_purse.name=Bourse à Deniers
 item.denier.name=Denier
 item.denierArgent.name=Denier Argent
 item.denierOr.name=Denier Or
@@ -148,30 +148,30 @@ item.sake.name=Saké
 item.udon.name=Udon
 item.ikayaki.name=Ikayaki
 
-item.normanVillagerParchment.name=Norman Villagers Scroll
-item.normanBuildingParchment.name=Norman Buildings Scroll
-item.normanItemParchment.name=Norman Food, Tools, and Armaments Scroll
-item.normanAllParchment.name=Complete Norman Scroll
+item.norman_villager_parchment.name=Norman Villagers Scroll
+item.norman_building_parchment.name=Norman Buildings Scroll
+item.norman_item_parchment.name=Norman Food, Tools, and Armaments Scroll
+item.norman_all_parchment.name=Complete Norman Scroll
 
-item.byzantineVillagerParchment.name=Byzantine Villagers Scroll
-item.byzantineBuildingParchment.name=Byzantine Buildings Scroll
-item.byzantineItemParchment.name=Byzantine Food, Tools, and Araments Scroll
-item.byzantineAllParchment.name=Complete Byzantine Scroll
+item.byzantine_villager_parchment.name=Byzantine Villagers Scroll
+item.byzantine_building_parchment.name=Byzantine Buildings Scroll
+item.byzantine_item_parchment.name=Byzantine Food, Tools, and Araments Scroll
+item.byzantine_all_parchment.name=Complete Byzantine Scroll
 
-item.hindiVillagerParchment.name=Hindi Villagers Scroll
-item.hindiBuildingParchment.name=Hindi Buildings Scroll
-item.hindiItemParchment.name=Hindi Food, Tools, and Araments Scroll
-item.hindiAllParchment.name=Complete Hindi Scroll
+item.hindi_villager_parchment.name=Hindi Villagers Scroll
+item.hindi_building_parchment.name=Hindi Buildings Scroll
+item.hindi_item_parchment.name=Hindi Food, Tools, and Araments Scroll
+item.hindi_all_parchment.name=Complete Hindi Scroll
 
-item.mayanVillagerParchment.name=Mayan Villagers Scroll
-item.mayanBuildingParchment.name=Mayan Buildings Scroll
-item.mayanItemParchment.name=Mayan Food, Tools, and Araments Scroll
-item.mayanAllParchment.name=Complete Mayan Scroll
+item.mayan_villager_parchment.name=Mayan Villagers Scroll
+item.mayan_building_parchment.name=Mayan Buildings Scroll
+item.mayan_item_parchment.name=Mayan Food, Tools, and Araments Scroll
+item.mayan_all_parchment.name=Complete Mayan Scroll
 
-item.japaneseVillagerParchment.name=Japanese Villagers Scroll
-item.japaneseBuildingParchment.name=Japanese Buildings Scroll
-item.japaneseItemParchment.name=Japanese Food, Tools, and Araments Scroll
-item.japaneseAllParchment.name=Complete Japanese Scroll
+item.japanese_villager_parchment.name=Japanese Villagers Scroll
+item.japanese_building_parchment.name=Japanese Buildings Scroll
+item.japanese_item_parchment.name=Japanese Food, Tools, and Araments Scroll
+item.japanese_all_parchment.name=Complete Japanese Scroll
 
 item.galianiteDust.name=Galianite Dust
 

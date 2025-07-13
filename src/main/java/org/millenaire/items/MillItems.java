@@ -345,59 +345,59 @@ public class MillItems
     	ITEMS.register("item_mill_purse", () -> itemMillPurse);
     	
     	//Sign
-    	itemMillSign = new ItemMillSign().setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("itemMillSign", () -> itemMillSign);
+        itemMillSign = new ItemMillSign().setCreativeTab(Millenaire.tabMillenaire);
+                ITEMS.register("item_mill_sign", () -> itemMillSign);
 		
 		//Parchments
 		normanVillagerParchment = new ItemMillParchment("scroll.normanVillager.title", new String[]{"scroll.normanVillager.leaders", "scroll.normanVillager.men", "scroll.normanVillager.women", "scroll.normanVillager.children"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("normanVillagerParchment", () -> normanVillagerParchment);
+                ITEMS.register("norman_villager_parchment", () -> normanVillagerParchment);
 		normanBuildingParchment= new ItemMillParchment("scroll.normanBuilding.title", new String[]{"scroll.normanBuilding.centers", "scroll.normanBuilding.houses", "scroll.normanBuilding.uninhabited", "scroll.normanBuilding.player"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("normanBuildingParchment", () -> normanBuildingParchment);
+                ITEMS.register("norman_building_parchment", () -> normanBuildingParchment);
 		normanItemParchment = new ItemMillParchment("scroll.normanItem.title", new String[]{"scroll.normanItem.food", "scroll.normanItem.tools", "scroll.normanItem.weapons", "scroll.normanItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("normanItemParchment", () -> normanItemParchment);
+                ITEMS.register("norman_item_parchment", () -> normanItemParchment);
 		normanAllParchment = new ItemMillParchment("scroll.normanVillager.title", new String[]{"scroll.normanVillager.leaders", "scroll.normanVillager.men", "scroll.normanVillager.women", "scroll.normanVillager.children",
 				"scroll.normanBuilding.centers", "scroll.normanBuilding.houses", "scroll.normanBuilding.uninhabited", "scroll.normanBuilding.player", "scroll.normanItem.food", "scroll.normanItem.tools", "scroll.normanItem.weapons", "scroll.normanItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("normanAllParchment", () -> normanAllParchment);
+                ITEMS.register("norman_all_parchment", () -> normanAllParchment);
 		
 		byzantineVillagerParchment = new ItemMillParchment("scroll.byzantineVillager.title", new String[]{"scroll.byzantineVillager.leaders", "scroll.byzantineVillager.men", "scroll.byzantineVillager.women", "scroll.byzantineVillager.children"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("byzantineVillagerParchment", () -> byzantineVillagerParchment);
+                ITEMS.register("byzantine_villager_parchment", () -> byzantineVillagerParchment);
 		byzantineBuildingParchment= new ItemMillParchment("scroll.byzantineBuilding.title", new String[]{"scroll.byzantineBuilding.centers", "scroll.byzantineBuilding.houses", "scroll.byzantineBuilding.uninhabited", "scroll.byzantineBuilding.player"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("byzantineBuildingParchment", () -> byzantineBuildingParchment);
+                ITEMS.register("byzantine_building_parchment", () -> byzantineBuildingParchment);
 		byzantineItemParchment = new ItemMillParchment("scroll.byzantineItem.title", new String[]{"scroll.byzantineItem.food", "scroll.byzantineItem.tools", "scroll.byzantineItem.weapons", "scroll.byzantineItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("byzantineItemParchment", () -> byzantineItemParchment);
+                ITEMS.register("byzantine_item_parchment", () -> byzantineItemParchment);
 		byzantineAllParchment = new ItemMillParchment("scroll.byzantineVillager.title", new String[]{"scroll.byzantineVillager.leaders", "scroll.byzantineVillager.men", "scroll.byzantineVillager.women", "scroll.byzantineVillager.children",
 				"scroll.byzantineBuilding.centers", "scroll.byzantineBuilding.houses", "scroll.byzantineBuilding.uninhabited", "scroll.byzantineBuilding.player", "scroll.byzantineItem.food", "scroll.byzantineItem.tools", "scroll.byzantineItem.weapons", "scroll.byzantineItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("byzantineAllParchment", () -> byzantineAllParchment);
+                ITEMS.register("byzantine_all_parchment", () -> byzantineAllParchment);
 		
 		hindiVillagerParchment = new ItemMillParchment("scroll.hindiVillager.title", new String[]{"scroll.hindiVillager.leaders", "scroll.hindiVillager.men", "scroll.hindiVillager.women", "scroll.hindiVillager.children"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("hindiVillagerParchment", () -> hindiVillagerParchment);
+                ITEMS.register("hindi_villager_parchment", () -> hindiVillagerParchment);
 		hindiBuildingParchment= new ItemMillParchment("scroll.hindiBuilding.title", new String[]{"scroll.hindiBuilding.centers", "scroll.hindiBuilding.houses", "scroll.hindiBuilding.uninhabited", "scroll.hindiBuilding.player"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("hindiBuildingParchment", () -> hindiBuildingParchment);
+                ITEMS.register("hindi_building_parchment", () -> hindiBuildingParchment);
 		hindiItemParchment = new ItemMillParchment("scroll.hindiItem.title", new String[]{"scroll.hindiItem.food", "scroll.hindiItem.tools", "scroll.hindiItem.weapons", "scroll.hindiItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("hindiItemParchment", () -> hindiItemParchment);
+                ITEMS.register("hindi_item_parchment", () -> hindiItemParchment);
 		hindiAllParchment = new ItemMillParchment("scroll.hindiVillager.title", new String[]{"scroll.hindiVillager.leaders", "scroll.hindiVillager.men", "scroll.hindiVillager.women", "scroll.hindiVillager.children",
 				"scroll.hindiBuilding.centers", "scroll.hindiBuilding.houses", "scroll.hindiBuilding.uninhabited", "scroll.hindiBuilding.player", "scroll.hindiItem.food", "scroll.hindiItem.tools", "scroll.hindiItem.weapons", "scroll.hindiItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("hindiAllParchment", () -> hindiAllParchment);
+                ITEMS.register("hindi_all_parchment", () -> hindiAllParchment);
 		
 		mayanVillagerParchment = new ItemMillParchment("scroll.mayanVillager.title", new String[]{"scroll.mayanVillager.leaders", "scroll.mayanVillager.men", "scroll.mayanVillager.women", "scroll.mayanVillager.children"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("mayanVillagerParchment", () -> mayanVillagerParchment);
+                ITEMS.register("mayan_villager_parchment", () -> mayanVillagerParchment);
 		mayanBuildingParchment= new ItemMillParchment("scroll.mayanBuilding.title", new String[]{"scroll.mayanBuilding.centers", "scroll.mayanBuilding.houses", "scroll.mayanBuilding.uninhabited", "scroll.mayanBuilding.player"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("mayanBuildingParchment", () -> mayanBuildingParchment);
+                ITEMS.register("mayan_building_parchment", () -> mayanBuildingParchment);
 		mayanItemParchment = new ItemMillParchment("scroll.mayanItem.title", new String[]{"scroll.mayanItem.food", "scroll.mayanItem.tools", "scroll.mayanItem.weapons", "scroll.mayanItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("mayanItemParchment", () -> mayanItemParchment);
+                ITEMS.register("mayan_item_parchment", () -> mayanItemParchment);
 		mayanAllParchment = new ItemMillParchment("scroll.mayanVillager.title", new String[]{"scroll.mayanVillager.leaders", "scroll.mayanVillager.men", "scroll.mayanVillager.women", "scroll.mayanVillager.children",
 				"scroll.mayanBuilding.centers", "scroll.mayanBuilding.houses", "scroll.mayanBuilding.uninhabited", "scroll.mayanBuilding.player", "scroll.mayanItem.food", "scroll.mayanItem.tools", "scroll.mayanItem.weapons", "scroll.mayanItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("mayanAllParchment", () -> mayanAllParchment);
+                ITEMS.register("mayan_all_parchment", () -> mayanAllParchment);
 		
 		japaneseVillagerParchment = new ItemMillParchment("scroll.japaneseVillager.title", new String[]{"scroll.japaneseVillager.leaders", "scroll.japaneseVillager.men", "scroll.japaneseVillager.women", "scroll.japaneseVillager.children"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("japaneseVillagerParchment", () -> japaneseVillagerParchment);
+                ITEMS.register("japanese_villager_parchment", () -> japaneseVillagerParchment);
 		japaneseBuildingParchment= new ItemMillParchment("scroll.japaneseBuilding.title", new String[]{"scroll.japaneseBuilding.centers", "scroll.japaneseBuilding.houses", "scroll.japaneseBuilding.uninhabited", "scroll.japaneseBuilding.player"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("japaneseBuildingParchment", () -> japaneseBuildingParchment);
+                ITEMS.register("japanese_building_parchment", () -> japaneseBuildingParchment);
 		japaneseItemParchment = new ItemMillParchment("scroll.japaneseItem.title", new String[]{"scroll.japaneseItem.food", "scroll.japaneseItem.tools", "scroll.japaneseItem.weapons", "scroll.japaneseItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("japaneseItemParchment", () -> japaneseItemParchment);
+                ITEMS.register("japanese_item_parchment", () -> japaneseItemParchment);
 		japaneseAllParchment = new ItemMillParchment("scroll.japaneseVillager.title", new String[]{"scroll.japaneseVillager.leaders", "scroll.japaneseVillager.men", "scroll.japaneseVillager.women", "scroll.japaneseVillager.children",
 				"scroll.japaneseBuilding.centers", "scroll.japaneseBuilding.houses", "scroll.japaneseBuilding.uninhabited", "scroll.japaneseBuilding.player", "scroll.japaneseItem.food", "scroll.japaneseItem.tools", "scroll.japaneseItem.weapons", "scroll.japaneseItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("japaneseAllParchment", () -> japaneseAllParchment);
+                ITEMS.register("japanese_all_parchment", () -> japaneseAllParchment);
 	}
 	
 	public static void recipies() {
