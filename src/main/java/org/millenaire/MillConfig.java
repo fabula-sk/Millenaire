@@ -1,218 +1,134 @@
 package org.millenaire;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.millenaire.events.MillenaireEventHandler;
-
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 
-public class MillConfig 
-{	
-	public static boolean learnLanguages;
-	public static boolean villageAnnouncement;
-	public static boolean displayNames;
-	public static int nameDistance;
-	public static int dialogueDistance;
-	
-	public static boolean generateVillages;
-	public static boolean generateLoneBuildings;
-	public static int minVillageDistance;
-	public static int minLoneDistance;
-	public static int minVillageLoneDistance;
-	public static int spawnDistance;
-	
-	public static int loadedRadius;
-	public static int minBuildingDistance;
-	public static int maxChildren;
-	public static boolean buildPaths;
-	public static int villageRelationDistance;
-	public static int banditRaidDistance;
-	public static int raidPercentChance;
-	public static String forbiddenBlocks;
-	
-	public static final String CATEGORYUIOPTIONS = "ctgy_uioptions";
-	public static final String CATEGORYWORLDGEN = "ctgy_worldgen";
-	public static final String CATEGORYVILLAGEBEV = "ctgy_villagebehavior";
+public class MillConfig {
+    // Config values
+    public static boolean learnLanguages;
+    public static boolean villageAnnouncement;
+    public static boolean displayNames;
+    public static int nameDistance;
+    public static int dialogueDistance;
 
-	public static void preinitialize()
-	{
-		File configFile = new File(Loader.instance().getConfigDir(), "Millenaire.cfg");
-		config = new Configuration(configFile);
-		
-		syncFromFile();
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public static void eventRegister()
-	{
-		MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
-		MinecraftForge.EVENT_BUS.register(new MillenaireEventHandler());
-	}
-	
-	public static Configuration getConfig() { return config; }
-	
-	public static void syncFromFile() { syncConfig(true, true); }
-	
-	public static void syncFromGui() { syncConfig(false, true); }
-	
-	public static void syncFromFields() { syncConfig(false, false); }
-	
-	private static void syncConfig(boolean loadConfigFromFile, boolean readFieldsFromConfig)
-	{
-		//Load
-		if(loadConfigFromFile) { config.load(); }
-		
-		//Define
-		Property learnLanguagesProp = config.get(CATEGORYUIOPTIONS, "learnLanguages", true);
-		learnLanguagesProp.setLanguageKey("gui.millConfig.learnLanguages").setRequiresWorldRestart(true);
-		Property villageAnnouncementProp = config.get(CATEGORYUIOPTIONS, "villageAnnouncementRecipe", false);
-		villageAnnouncementProp.setLanguageKey("gui.millConfig.villageAnnouncement").setRequiresWorldRestart(true);
-		Property displayNamesProp = config.get(CATEGORYUIOPTIONS, "displayNames", true);
-		displayNamesProp.setLanguageKey("gui.millConfig.displayNames");
-		Property nameDistanceProp = config.get(CATEGORYUIOPTIONS, "nameDistance", 20);
-		nameDistanceProp.setLanguageKey("gui.millConfig.nameDistance");
-		Property dialogueDistanceProp = config.get(CATEGORYUIOPTIONS, "dialogueDistance", 5);
-		dialogueDistanceProp.setLanguageKey("gui.millConfig.dialogueDistance");
-		
-		Property generateVillagesProp = config.get(CATEGORYWORLDGEN, "generateVillages", true);
-		generateVillagesProp.setLanguageKey("gui.millConfig.generateVillages").setRequiresWorldRestart(true);
-		Property generateLoneBuildingsProp = config.get(CATEGORYWORLDGEN, "generateLoneBuildings", true);
-		generateLoneBuildingsProp.setLanguageKey("gui.millConfig.generateLoneBuildings").setRequiresWorldRestart(true);
-		Property minVillageDistanceProp = config.get(CATEGORYWORLDGEN, "minVillageDistance", 600);
-		minVillageDistanceProp.setLanguageKey("gui.millConfig.minVillageDistance").setRequiresWorldRestart(true);
-		Property minLoneDistanceProp = config.get(CATEGORYWORLDGEN, "minLoneDistance", 600);
-		minLoneDistanceProp.setLanguageKey("gui.millConfig.minLoneDistance").setRequiresWorldRestart(true);
-		Property minVillageLoneDistanceProp = config.get(CATEGORYWORLDGEN, "minVillageLoneDistance", 300);
-		minVillageLoneDistanceProp.setLanguageKey("gui.millConfig.minVillageLoneDistance").setRequiresWorldRestart(true);
-		Property spawnDistanceProp = config.get(CATEGORYWORLDGEN, "spawnDistance", 200);
-		spawnDistanceProp.setLanguageKey("gui.millConfig.spawnDistance").setRequiresWorldRestart(true);
-		
-		Property loadedRadiusProp = config.get(CATEGORYVILLAGEBEV, "loadedRadius", 200);
-		loadedRadiusProp.setLanguageKey("gui.millConfig.loadedRadius");
-		Property minBuildingDistanceProp = config.get(CATEGORYVILLAGEBEV, "minBuildingDistance", 2);
-		minBuildingDistanceProp.setLanguageKey("gui.millConfig.minBuildingDistance");
-		Property maxChildrenProp = config.get(CATEGORYVILLAGEBEV, "maxChildren", 10);
-		maxChildrenProp.setLanguageKey("gui.millConfig.maxChildren");
-		Property buildPathsProp = config.get(CATEGORYVILLAGEBEV, "buildPaths", true);
-		buildPathsProp.setLanguageKey("gui.millConfig.buildPaths");
-		Property villageRelationDistanceProp = config.get(CATEGORYVILLAGEBEV, "villageRelationDistance", 2000);
-		villageRelationDistanceProp.setLanguageKey("gui.millConfig.villageRelationDistance").setRequiresWorldRestart(true);
-		Property banditRaidDistanceProp = config.get(CATEGORYVILLAGEBEV, "banditRaidDistance", 1500);
-		banditRaidDistanceProp.setLanguageKey("gui.millConfig.banditRaidDistance").setRequiresWorldRestart(true);
-		Property raidPercentChanceProp = config.get(CATEGORYVILLAGEBEV, "raidPercentChance", 20);
-		raidPercentChanceProp.setLanguageKey("gui.millConfig.raidPercentChance");
-		Property forbiddenBlockProp = config.get(CATEGORYVILLAGEBEV, "forbiddenBlocks", "forbidden: ");
-		forbiddenBlockProp.setLanguageKey("gui.millconfig.forbiddenBlocks").setRequiresMcRestart(true);
-		
-		//Ordering Config
-		List<String> propOrderUIOptions = new ArrayList<String>() {{
-			add(learnLanguagesProp.getName());
-			add(villageAnnouncementProp.getName());
-			add(displayNamesProp.getName());
-			add(nameDistanceProp.getName());
-			add(dialogueDistanceProp.getName());
-		}};
-		config.setCategoryPropertyOrder(CATEGORYUIOPTIONS, propOrderUIOptions);
+    public static boolean generateVillages;
+    public static boolean generateLoneBuildings;
+    public static int minVillageDistance;
+    public static int minLoneDistance;
+    public static int minVillageLoneDistance;
+    public static int spawnDistance;
 
-		List<String> propOrderWorldGen = new ArrayList<String>() {{
-            add(generateVillagesProp.getName());
-            add(generateLoneBuildingsProp.getName());
-            add(minVillageDistanceProp.getName());
-            add(minLoneDistanceProp.getName());
-            add(minVillageLoneDistanceProp.getName());
-            add(spawnDistanceProp.getName());
-        }};
-		config.setCategoryPropertyOrder(CATEGORYWORLDGEN, propOrderWorldGen);
+    public static int loadedRadius;
+    public static int minBuildingDistance;
+    public static int maxChildren;
+    public static boolean buildPaths;
+    public static int villageRelationDistance;
+    public static int banditRaidDistance;
+    public static int raidPercentChance;
+    public static String forbiddenBlocks;
 
-		List<String> propOrderVillageBev = new ArrayList<String>() {{
-            add(loadedRadiusProp.getName());
-            add(minBuildingDistanceProp.getName());
-            add(maxChildrenProp.getName());
-            add(buildPathsProp.getName());
-            add(villageRelationDistanceProp.getName());
-            add(banditRaidDistanceProp.getName());
-            add(raidPercentChanceProp.getName());
-            add(forbiddenBlockProp.getName());
-        }};
-		config.setCategoryPropertyOrder(CATEGORYVILLAGEBEV, propOrderVillageBev);
-		
-		//Read
-		if(readFieldsFromConfig)
-		{
-			learnLanguages = learnLanguagesProp.getBoolean(true);
-			villageAnnouncement = villageAnnouncementProp.getBoolean(false);
-			displayNames = displayNamesProp.getBoolean(true);
-			nameDistance = nameDistanceProp.getInt();
-			dialogueDistance = dialogueDistanceProp.getInt();
-			
-			generateVillages = generateVillagesProp.getBoolean(true);
-			generateLoneBuildings = generateLoneBuildingsProp.getBoolean(true);
-			minVillageDistance = minVillageDistanceProp.getInt();
-			minLoneDistance = minLoneDistanceProp.getInt();
-			minVillageLoneDistance = minVillageLoneDistanceProp.getInt();
-			spawnDistance = spawnDistanceProp.getInt();
-			
-			loadedRadius = loadedRadiusProp.getInt();
-			minBuildingDistance = minBuildingDistanceProp.getInt();
-			maxChildren = maxChildrenProp.getInt();
-			buildPaths = buildPathsProp.getBoolean(true);
-			villageRelationDistance = villageRelationDistanceProp.getInt();
-			banditRaidDistance = banditRaidDistanceProp.getInt();
-			raidPercentChance = raidPercentChanceProp.getInt();
-			forbiddenBlocks = forbiddenBlockProp.getString();
-		}
-		
-		//Save
-		learnLanguagesProp.set(learnLanguages);
-		villageAnnouncementProp.set(villageAnnouncement);
-		displayNamesProp.set(displayNames);
-		nameDistanceProp.set(nameDistance);
-		dialogueDistanceProp.set(dialogueDistance);
-		
-		generateVillagesProp.set(generateVillages);
-		generateLoneBuildingsProp.set(generateLoneBuildings);
-		minVillageDistanceProp.set(minVillageDistance);
-		minLoneDistanceProp.set(minLoneDistance);
-		minVillageLoneDistanceProp.set(minVillageLoneDistance);
-		spawnDistanceProp.set(spawnDistance);
-		
-		loadedRadiusProp.set(loadedRadius);
-		minBuildingDistanceProp.set(minBuildingDistance);
-		maxChildrenProp.set(maxChildren);
-		buildPathsProp.set(buildPaths);
-		villageRelationDistanceProp.set(villageRelationDistance);
-		banditRaidDistanceProp.set(banditRaidDistance);
-		raidPercentChanceProp.set(raidPercentChance);
-		forbiddenBlockProp.set(forbiddenBlocks);
-		
-		if(config.hasChanged())
-		{
-			config.save();
-		}
-	}
-	
-	private static Configuration config = null;
+    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
-    public static class ConfigEventHandler
-    {
-        @SubscribeEvent(priority = EventPriority.NORMAL)
-        public void onEvent(ConfigChangedEvent.OnConfigChangedEvent event)
-        {
-            if(event.modID.equals(Millenaire.MODID) && !event.isWorldRunning)
-            {
-                syncFromGui();
-                System.out.println("Reloaded Config");
-            }
+    private static ForgeConfigSpec.BooleanValue learnLanguagesVal;
+    private static ForgeConfigSpec.BooleanValue villageAnnouncementVal;
+    private static ForgeConfigSpec.BooleanValue displayNamesVal;
+    private static ForgeConfigSpec.IntValue nameDistanceVal;
+    private static ForgeConfigSpec.IntValue dialogueDistanceVal;
+
+    private static ForgeConfigSpec.BooleanValue generateVillagesVal;
+    private static ForgeConfigSpec.BooleanValue generateLoneBuildingsVal;
+    private static ForgeConfigSpec.IntValue minVillageDistanceVal;
+    private static ForgeConfigSpec.IntValue minLoneDistanceVal;
+    private static ForgeConfigSpec.IntValue minVillageLoneDistanceVal;
+    private static ForgeConfigSpec.IntValue spawnDistanceVal;
+
+    private static ForgeConfigSpec.IntValue loadedRadiusVal;
+    private static ForgeConfigSpec.IntValue minBuildingDistanceVal;
+    private static ForgeConfigSpec.IntValue maxChildrenVal;
+    private static ForgeConfigSpec.BooleanValue buildPathsVal;
+    private static ForgeConfigSpec.IntValue villageRelationDistanceVal;
+    private static ForgeConfigSpec.IntValue banditRaidDistanceVal;
+    private static ForgeConfigSpec.IntValue raidPercentChanceVal;
+    private static ForgeConfigSpec.ConfigValue<String> forbiddenBlocksVal;
+
+    public static final ForgeConfigSpec SPEC;
+
+    static {
+        BUILDER.comment("UI Options").push("uioptions");
+        learnLanguagesVal = BUILDER.define("learnLanguages", true);
+        villageAnnouncementVal = BUILDER.define("villageAnnouncementRecipe", false);
+        displayNamesVal = BUILDER.define("displayNames", true);
+        nameDistanceVal = BUILDER.defineInRange("nameDistance", 20, 1, Integer.MAX_VALUE);
+        dialogueDistanceVal = BUILDER.defineInRange("dialogueDistance", 5, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
+
+        BUILDER.comment("World Generation Options").push("worldgen");
+        generateVillagesVal = BUILDER.define("generateVillages", true);
+        generateLoneBuildingsVal = BUILDER.define("generateLoneBuildings", true);
+        minVillageDistanceVal = BUILDER.defineInRange("minVillageDistance", 600, 1, Integer.MAX_VALUE);
+        minLoneDistanceVal = BUILDER.defineInRange("minLoneDistance", 600, 1, Integer.MAX_VALUE);
+        minVillageLoneDistanceVal = BUILDER.defineInRange("minVillageLoneDistance", 300, 1, Integer.MAX_VALUE);
+        spawnDistanceVal = BUILDER.defineInRange("spawnDistance", 200, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
+
+        BUILDER.comment("Village Behaviour Options").push("villagebehavior");
+        loadedRadiusVal = BUILDER.defineInRange("loadedRadius", 200, 1, Integer.MAX_VALUE);
+        minBuildingDistanceVal = BUILDER.defineInRange("minBuildingDistance", 2, 1, Integer.MAX_VALUE);
+        maxChildrenVal = BUILDER.defineInRange("maxChildren", 10, 0, Integer.MAX_VALUE);
+        buildPathsVal = BUILDER.define("buildPaths", true);
+        villageRelationDistanceVal = BUILDER.defineInRange("villageRelationDistance", 2000, 1, Integer.MAX_VALUE);
+        banditRaidDistanceVal = BUILDER.defineInRange("banditRaidDistance", 1500, 1, Integer.MAX_VALUE);
+        raidPercentChanceVal = BUILDER.defineInRange("raidPercentChance", 20, 0, 100);
+        forbiddenBlocksVal = BUILDER.define("forbiddenBlocks", "forbidden: ");
+        BUILDER.pop();
+
+        SPEC = BUILDER.build();
+    }
+
+    public static void register() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SPEC);
+        MinecraftForge.EVENT_BUS.register(MillConfig.class);
+    }
+
+    @SubscribeEvent
+    public static void onLoad(final ModConfig.Loading event) {
+        if (event.getConfig().getSpec() == SPEC) {
+            bake();
         }
     }
+
+    @SubscribeEvent
+    public static void onReload(final ModConfig.Reloading event) {
+        if (event.getConfig().getSpec() == SPEC) {
+            bake();
+        }
+    }
+
+    private static void bake() {
+        learnLanguages = learnLanguagesVal.get();
+        villageAnnouncement = villageAnnouncementVal.get();
+        displayNames = displayNamesVal.get();
+        nameDistance = nameDistanceVal.get();
+        dialogueDistance = dialogueDistanceVal.get();
+
+        generateVillages = generateVillagesVal.get();
+        generateLoneBuildings = generateLoneBuildingsVal.get();
+        minVillageDistance = minVillageDistanceVal.get();
+        minLoneDistance = minLoneDistanceVal.get();
+        minVillageLoneDistance = minVillageLoneDistanceVal.get();
+        spawnDistance = spawnDistanceVal.get();
+
+        loadedRadius = loadedRadiusVal.get();
+        minBuildingDistance = minBuildingDistanceVal.get();
+        maxChildren = maxChildrenVal.get();
+        buildPaths = buildPathsVal.get();
+        villageRelationDistance = villageRelationDistanceVal.get();
+        banditRaidDistance = banditRaidDistanceVal.get();
+        raidPercentChance = raidPercentChanceVal.get();
+        forbiddenBlocks = forbiddenBlocksVal.get();
+    }
 }
+
