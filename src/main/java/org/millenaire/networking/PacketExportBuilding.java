@@ -18,13 +18,11 @@ public class PacketExportBuilding {
 	
 	public PacketExportBuilding(BlockPos startPos) { this.pos = startPos; }
         public static void encode(PacketExportBuilding msg, FriendlyByteBuf buf) {
-                buf.writeInt(msg.pos.getX());
-                buf.writeInt(msg.pos.getY());
-                buf.writeInt(msg.pos.getZ());
+                buf.writeBlockPos(msg.pos);
         }
 
         public static PacketExportBuilding decode(FriendlyByteBuf buf) {
-                return new PacketExportBuilding(new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
+                return new PacketExportBuilding(buf.readBlockPos());
         }
 
         public static void handle(PacketExportBuilding msg, Supplier<NetworkEvent.Context> ctx) {
