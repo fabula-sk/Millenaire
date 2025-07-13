@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "millenaire:galianite_dust",
+          "name": "#millenaire:galianite_dust",
           "functions": [
             {"function": "minecraft:set_count", "count": 2},
             {"function": "minecraft:explosion_decay"}
