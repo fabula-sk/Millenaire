@@ -167,27 +167,27 @@ public class MillItems
 	
 	public static void preinitialize()
 	{
-		denier = new Item().setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("denier", () -> denier);
-		denierOr = new Item().setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("denier_or", () -> denierOr);
-		denierArgent = new Item().setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("denier_argent", () -> denierArgent);
+                denier = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                ITEMS.register("denier", () -> denier);
+                denierOr = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                ITEMS.register("denier_or", () -> denierOr);
+                denierArgent = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                ITEMS.register("denier_argent", () -> denierArgent);
 		
-		silk = new Item().setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("silk", () -> silk);
-		obsidianFlake = new Item().setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("obsidian_flake", () -> obsidianFlake);
-		unknownPowder = new Item().setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("unknown_powder", () -> unknownPowder);
+                silk = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                ITEMS.register("silk", () -> silk);
+                obsidianFlake = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                ITEMS.register("obsidian_flake", () -> obsidianFlake);
+                unknownPowder = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                ITEMS.register("unknown_powder", () -> unknownPowder);
 		
 		woolClothes = new Item().setCreativeTab(Millenaire.tabMillenaire);
 		ITEMS.register("wool_clothes", () -> woolClothes);
 		silkClothes = new Item().setCreativeTab(Millenaire.tabMillenaire);
 		ITEMS.register("silk_clothes", () -> silkClothes);
 		
-		galianiteDust = new Item().setCreativeTab(Millenaire.tabMillenaire);
-		ITEMS.register("galianite_dust", () -> galianiteDust);
+                galianiteDust = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                ITEMS.register("galianite_dust", () -> galianiteDust);
 		
 		//Crops
 		turmeric = new ItemMillSeeds(MillBlocks.cropTurmeric).setCreativeTab(Millenaire.tabMillenaire);
