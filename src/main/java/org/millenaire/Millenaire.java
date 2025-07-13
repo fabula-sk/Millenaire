@@ -72,11 +72,6 @@ public class Millenaire
                 MinecraftForge.EVENT_BUS.register(this);
         }
 	
-    public static final ItemGroup tabMillenaire = new ItemGroup("milltab")
-    {
-            @Override
-            public ItemStack makeIcon() { return new ItemStack(MillItems.denierOr); }
-    };
 	
         private void setup(final FMLCommonSetupEvent event)
         {
