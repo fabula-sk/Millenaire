@@ -1,6 +1,6 @@
 package org.millenaire.items;
 
-import org.millenaire.Millenaire;
+import org.millenaire.MillTabs;
 import org.millenaire.blocks.BlockMillSign;
 import org.millenaire.blocks.MillBlocks;
 
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public class ItemMillSign extends Item
 {
-	ItemMillSign() { this.setCreativeTab(Millenaire.tabMillenaire); }
+        ItemMillSign() { super(new Item.Properties().tab(MillTabs.MILLENAIRE_TAB)); }
 
 	/**
 	 * Called when a Block is right-clicked with this Item

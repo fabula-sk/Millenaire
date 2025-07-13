@@ -2,7 +2,6 @@ package org.millenaire.blocks;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.millenaire.Millenaire;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.world.level.block.state.BlockState;
@@ -12,10 +11,9 @@ import net.minecraft.world.level.BlockGetter;
 
 public class BlockDecorativeCarving extends BlockDecorativeOriented {
 
-	BlockDecorativeCarving(Material materialIn) {
-		super(materialIn);
-		this.setCreativeTab(Millenaire.tabMillenaire);
-	}
+        BlockDecorativeCarving(Material materialIn) {
+                super(materialIn);
+        }
 
 	@Override
 	public boolean isOpaqueCube() { return false; }

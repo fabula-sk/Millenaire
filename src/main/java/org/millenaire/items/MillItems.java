@@ -1,6 +1,7 @@
 package org.millenaire.items;
 
 import org.millenaire.Millenaire;
+import org.millenaire.MillTabs;
 import org.millenaire.blocks.BlockMillCrops;
 import org.millenaire.blocks.MillBlocks;
 import org.millenaire.items.ItemMillArmor.mayanQuestCrown;
@@ -163,236 +164,236 @@ public class MillItems
 	
 	public static void preinitialize()
 	{
-                denier = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                denier = new Item(new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
                 ITEMS.register("denier", () -> denier);
-                denierOr = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                denierOr = new Item(new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
                 ITEMS.register("denier_or", () -> denierOr);
-                denierArgent = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                denierArgent = new Item(new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
                 ITEMS.register("denier_argent", () -> denierArgent);
 		
-                silk = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                silk = new Item(new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
                 ITEMS.register("silk", () -> silk);
-                obsidianFlake = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                obsidianFlake = new Item(new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
                 ITEMS.register("obsidian_flake", () -> obsidianFlake);
-                unknownPowder = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                unknownPowder = new Item(new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
                 ITEMS.register("unknown_powder", () -> unknownPowder);
 		
-		woolClothes = new Item().setCreativeTab(Millenaire.tabMillenaire);
+		woolClothes = new Item(new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("wool_clothes", () -> woolClothes);
-		silkClothes = new Item().setCreativeTab(Millenaire.tabMillenaire);
+		silkClothes = new Item(new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("silk_clothes", () -> silkClothes);
 		
-                galianiteDust = new Item(new Item.Properties().tab(Millenaire.tabMillenaire));
+                galianiteDust = new Item(new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
                 ITEMS.register("galianite_dust", () -> galianiteDust);
 		
 		//Crops
-		turmeric = new ItemMillSeeds(MillBlocks.cropTurmeric).setCreativeTab(Millenaire.tabMillenaire);
+		turmeric = new ItemMillSeeds(MillBlocks.cropTurmeric);
     	((BlockMillCrops) MillBlocks.cropTurmeric).setSeed((IPlantable) turmeric);
     	ITEMS.register("turmeric", () -> turmeric);
-    	rice = new ItemMillSeeds(MillBlocks.cropRice).setCreativeTab(Millenaire.tabMillenaire);
+    	rice = new ItemMillSeeds(MillBlocks.cropRice);
     	((BlockMillCrops) MillBlocks.cropRice).setSeed((IPlantable) rice);
     	ITEMS.register("rice", () -> rice);
-    	maize = new ItemMillSeeds(MillBlocks.cropMaize).setCreativeTab(Millenaire.tabMillenaire);
+    	maize = new ItemMillSeeds(MillBlocks.cropMaize);
     	((BlockMillCrops) MillBlocks.cropMaize).setSeed((IPlantable) maize);
     	ITEMS.register("maize", () -> maize);
-    	grapes = new ItemMillSeeds(MillBlocks.cropGrapeVine).setCreativeTab(Millenaire.tabMillenaire);
+    	grapes = new ItemMillSeeds(MillBlocks.cropGrapeVine);
     	((BlockMillCrops) MillBlocks.cropGrapeVine).setSeed((IPlantable) grapes);
     	ITEMS.register("grapes", () -> grapes);
-    	ciderApple = new ItemMillFood(0, 0, 0, 1, 0.05F, false).setCreativeTab(Millenaire.tabMillenaire);
+    	ciderApple = new ItemMillFood(0, 0, 0, 1, 0.05F, false);
     	ITEMS.register("cider_apple", () -> ciderApple);
-    	cider = new ItemMillFood(4, 15, 5, 0, 0.0F, true).setCreativeTab(Millenaire.tabMillenaire);
+    	cider = new ItemMillFood(4, 15, 5, 0, 0.0F, true);
     	ITEMS.register("cider", () -> cider);
-    	calva = ((ItemMillFood)new ItemMillFood(8, 30, 10, 0, 0.0F, true).setCreativeTab(Millenaire.tabMillenaire)).setPotionEffect(Potion.damageBoost.id, 180, 0, 1f);
+    	calva = ((ItemMillFood)new ItemMillFood(8, 30, 10, 0, 0.0F, true)).setPotionEffect(Potion.damageBoost.id, 180, 0, 1f);
     	ITEMS.register("calva", () -> calva);
-    	tripes = new ItemMillFood(0, 0, 0, 10, 1.0F, false).setCreativeTab(Millenaire.tabMillenaire);
+    	tripes = new ItemMillFood(0, 0, 0, 10, 1.0F, false);
     	ITEMS.register("tripes", () -> tripes);
-    	boudinNoir = new ItemMillFood(0, 0, 0, 10, 1.0F, false).setCreativeTab(Millenaire.tabMillenaire);
+    	boudinNoir = new ItemMillFood(0, 0, 0, 10, 1.0F, false);
     	ITEMS.register("boudin_noir", () -> boudinNoir);
-    	vegCurry = new ItemMillFood(0, 0, 0, 6, 0.6F, false).setCreativeTab(Millenaire.tabMillenaire);
+    	vegCurry = new ItemMillFood(0, 0, 0, 6, 0.6F, false);
     	ITEMS.register("veg_curry", () -> vegCurry);
-    	murghCurry = ((ItemMillFood)new ItemMillFood(0, 0, 0, 8, 0.8F, false).setCreativeTab(Millenaire.tabMillenaire)).setPotionEffect(Potion.fireResistance.id, 8 * 60, 0, 1f);
+    	murghCurry = ((ItemMillFood)new ItemMillFood(0, 0, 0, 8, 0.8F, false)).setPotionEffect(Potion.fireResistance.id, 8 * 60, 0, 1f);
     	ITEMS.register("murgh_curry", () -> murghCurry);
-    	rasgulla = ((ItemMillFood)new ItemMillFood(2, 30, 0, 0, 0.0F, false).setCreativeTab(Millenaire.tabMillenaire)).setPotionEffect(Potion.moveSpeed.id, 8 * 60, 1, 1f).setAlwaysEdible();
+    	rasgulla = ((ItemMillFood)new ItemMillFood(2, 30, 0, 0, 0.0F, false)).setPotionEffect(Potion.moveSpeed.id, 8 * 60, 1, 1f).setAlwaysEdible();
     	ITEMS.register("rasgulla", () -> rasgulla);
-    	cacauhaa = ((ItemMillFood)new ItemMillFood(6, 30, 3, 0, 0.0F, true).setCreativeTab(Millenaire.tabMillenaire)).setPotionEffect(Potion.nightVision.id, 8 * 60, 0, 1f);
+    	cacauhaa = ((ItemMillFood)new ItemMillFood(6, 30, 3, 0, 0.0F, true)).setPotionEffect(Potion.nightVision.id, 8 * 60, 0, 1f);
     	ITEMS.register("cacauhaa", () -> cacauhaa);
-    	masa = new ItemMillFood(0, 0, 0, 6, 0.6F, false).setCreativeTab(Millenaire.tabMillenaire);
+    	masa = new ItemMillFood(0, 0, 0, 6, 0.6F, false);
     	ITEMS.register("masa", () -> masa);
-    	wah = ((ItemMillFood)new ItemMillFood(0, 0, 0, 10, 1.0F, false).setCreativeTab(Millenaire.tabMillenaire)).setPotionEffect(Potion.digSpeed.id, 8 * 60, 0, 1f);
+    	wah = ((ItemMillFood)new ItemMillFood(0, 0, 0, 10, 1.0F, false)).setPotionEffect(Potion.digSpeed.id, 8 * 60, 0, 1f);
     	ITEMS.register("wah", () -> wah);
-    	wine = new ItemMillFood(3, 15, 5, 0, 0.0F, true).setCreativeTab(Millenaire.tabMillenaire);
+    	wine = new ItemMillFood(3, 15, 5, 0, 0.0F, true);
     	ITEMS.register("wine", () -> wine);
-    	malvasiaWine = ((ItemMillFood)new ItemMillFood(8, 30, 5, 0, 0.0F, true).setCreativeTab(Millenaire.tabMillenaire)).setPotionEffect(Potion.resistance.id, 8 * 60, 0, 1f);
+    	malvasiaWine = ((ItemMillFood)new ItemMillFood(8, 30, 5, 0, 0.0F, true)).setPotionEffect(Potion.resistance.id, 8 * 60, 0, 1f);
     	ITEMS.register("malvasia_wine", () -> malvasiaWine);
-    	feta = new ItemMillFood(3, 10, 0, 0, 0.0F, false).setCreativeTab(Millenaire.tabMillenaire);
+    	feta = new ItemMillFood(3, 10, 0, 0, 0.0F, false);
     	ITEMS.register("feta", () -> feta);
-    	souvlaki = ((ItemMillFood)new ItemMillFood(0, 0, 0, 10, 1.0F, false).setCreativeTab(Millenaire.tabMillenaire)).setPotionEffect(Potion.heal.id, 1, 0, 1f);
+    	souvlaki = ((ItemMillFood)new ItemMillFood(0, 0, 0, 10, 1.0F, false)).setPotionEffect(Potion.heal.id, 1, 0, 1f);
     	ITEMS.register("souvlaki", () -> souvlaki);
-    	sake = ((ItemMillFood)new ItemMillFood(8, 30, 10, 0, 0.0F, true).setCreativeTab(Millenaire.tabMillenaire)).setPotionEffect(Potion.jump.id, 8 * 60, 1, 1f);
+    	sake = ((ItemMillFood)new ItemMillFood(8, 30, 10, 0, 0.0F, true)).setPotionEffect(Potion.jump.id, 8 * 60, 1, 1f);
     	ITEMS.register("sake", () -> sake);
-    	udon = new ItemMillFood(0, 0, 0, 8, 0.8F, false).setCreativeTab(Millenaire.tabMillenaire);
+    	udon = new ItemMillFood(0, 0, 0, 8, 0.8F, false);
     	ITEMS.register("udon", () -> udon);
-    	ikayaki = ((ItemMillFood)new ItemMillFood(0, 0, 0, 10, 1.0F, false).setCreativeTab(Millenaire.tabMillenaire)).setPotionEffect(Potion.waterBreathing.id, 8 * 60, 2, 1f);
+    	ikayaki = ((ItemMillFood)new ItemMillFood(0, 0, 0, 10, 1.0F, false)).setPotionEffect(Potion.waterBreathing.id, 8 * 60, 2, 1f);
     	ITEMS.register("ikayaki", () -> ikayaki);
     	
     	//Armour
-    	normanHelmet = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 0).setCreativeTab(Millenaire.tabMillenaire);
+    	normanHelmet = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 0);
 		ITEMS.register("norman_helmet", () -> normanHelmet);
-		normanChestplate = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 1).setCreativeTab(Millenaire.tabMillenaire);
+		normanChestplate = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 1);
 		ITEMS.register("norman_chestplate", () -> normanChestplate);
-		normanLeggings = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 2).setCreativeTab(Millenaire.tabMillenaire);
+		normanLeggings = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 2);
 		ITEMS.register("norman_leggings", () -> normanLeggings);
-		normanBoots = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 3).setCreativeTab(Millenaire.tabMillenaire);
+		normanBoots = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 3);
 		ITEMS.register("norman_boots", () -> normanBoots);
 		
-		byzantineHelmet = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 0).setCreativeTab(Millenaire.tabMillenaire);
+		byzantineHelmet = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 0);
 		ITEMS.register("byzantine_helmet", () -> byzantineHelmet);
-		byzantineChestplate = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 1).setCreativeTab(Millenaire.tabMillenaire);
+		byzantineChestplate = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 1);
 		ITEMS.register("byzantine_chestplate", () -> byzantineChestplate);
-		byzantineLeggings = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 2).setCreativeTab(Millenaire.tabMillenaire);
+		byzantineLeggings = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 2);
 		ITEMS.register("byzantine_leggings", () -> byzantineLeggings);
-		byzantineBoots = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 3).setCreativeTab(Millenaire.tabMillenaire);
+		byzantineBoots = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 3);
 		ITEMS.register("byzantine_boots", () -> byzantineBoots);
 		
-		japaneseGuardHelmet = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 0).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseGuardHelmet = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 0);
 		ITEMS.register("japanese_guard_helmet", () -> japaneseGuardHelmet);
-		japaneseGuardChestplate = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 1).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseGuardChestplate = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 1);
 		ITEMS.register("japanese_guard_chestplate", () -> japaneseGuardChestplate);
-		japaneseGuardLeggings = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 2).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseGuardLeggings = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 2);
 		ITEMS.register("japanese_guard_leggings", () -> japaneseGuardLeggings);
-		japaneseGuardBoots = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 3).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseGuardBoots = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 3);
 		ITEMS.register("japanese_guard_boots", () -> japaneseGuardBoots);
 		
-		japaneseBlueHelmet = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 0).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseBlueHelmet = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 0);
 		ITEMS.register("japanese_blue_helmet", () -> japaneseBlueHelmet);
-		japaneseBlueChestplate = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 1).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseBlueChestplate = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 1);
 		ITEMS.register("japanese_blue_chestplate", () -> japaneseBlueChestplate);
-		japaneseBlueLeggings = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 2).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseBlueLeggings = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 2);
 		ITEMS.register("japanese_blue_leggings", () -> japaneseBlueLeggings);
-		japaneseBlueBoots = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 3).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseBlueBoots = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 3);
 		ITEMS.register("japanese_blue_boots", () -> japaneseBlueBoots);
 		
-		japaneseRedHelmet = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 0).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseRedHelmet = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 0);
 		ITEMS.register("japanese_red_helmet", () -> japaneseRedHelmet);
-		japaneseRedChestplate = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 1).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseRedChestplate = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 1);
 		ITEMS.register("japanese_red_chestplate", () -> japaneseRedChestplate);
-		japaneseRedLeggings = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 2).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseRedLeggings = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 2);
 		ITEMS.register("japanese_red_leggings", () -> japaneseRedLeggings);
-		japaneseRedBoots = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 3).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseRedBoots = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 3);
 		ITEMS.register("japanese_red_boots", () -> japaneseRedBoots);
 		
-		mayanQuestCrown = new mayanQuestCrown(ItemMillArmor.ARMOR_mayanQuest, 2, 0).setCreativeTab(Millenaire.tabMillenaire);
+		mayanQuestCrown = new mayanQuestCrown(ItemMillArmor.ARMOR_mayanQuest, 2, 0);
 		ITEMS.register("mayan_quest_crown", () -> mayanQuestCrown);
 		
 		//Wands
-		wandSummoning = new ItemMillWand().setCreativeTab(Millenaire.tabMillenaire);
+		wandSummoning = new ItemMillWand();
 		ITEMS.register("wand_summoning", () -> wandSummoning);
-		wandNegation = new ItemMillWand().setCreativeTab(Millenaire.tabMillenaire);
+		wandNegation = new ItemMillWand();
 		ITEMS.register("wand_negation", () -> wandNegation);
-		wandCreative = new ItemMillWand().setCreativeTab(Millenaire.tabMillenaire);
+		wandCreative = new ItemMillWand();
 		ITEMS.register("wand_creative", () -> wandCreative);
 		
-		tuningFork = new ItemMillWand().setCreativeTab(Millenaire.tabMillenaire);
+		tuningFork = new ItemMillWand();
 		ITEMS.register("tuning_fork", () -> tuningFork);
 		
 		//Tools
-		normanAxe = new ItemMillAxe(ItemMillTool.TOOLS_norman).setCreativeTab(Millenaire.tabMillenaire);
+		normanAxe = new ItemMillAxe(ItemMillTool.TOOLS_norman);
 		ITEMS.register("norman_axe", () -> normanAxe);
-		normanShovel = new ItemMillShovel(ItemMillTool.TOOLS_norman).setCreativeTab(Millenaire.tabMillenaire);
+		normanShovel = new ItemMillShovel(ItemMillTool.TOOLS_norman);
 		ITEMS.register("norman_shovel", () -> normanShovel);
-		normanPickaxe = new ItemMillPickaxe(ItemMillTool.TOOLS_norman).setCreativeTab(Millenaire.tabMillenaire);
+		normanPickaxe = new ItemMillPickaxe(ItemMillTool.TOOLS_norman);
 		ITEMS.register("norman_pickaxe", () -> normanPickaxe);
-		normanHoe = new ItemMillHoe(ItemMillTool.TOOLS_norman).setCreativeTab(Millenaire.tabMillenaire);
+		normanHoe = new ItemMillHoe(ItemMillTool.TOOLS_norman);
 		ITEMS.register("norman_hoe", () -> normanHoe);
-		normanSword = new ItemSword(ItemMillTool.TOOLS_norman).setCreativeTab(Millenaire.tabMillenaire);
+		normanSword = new ItemSword(ItemMillTool.TOOLS_norman);
 		ITEMS.register("norman_sword", () -> normanSword);
 		
-		mayanAxe = new ItemMillAxe(ItemMillTool.TOOLS_obsidian).setCreativeTab(Millenaire.tabMillenaire);
+		mayanAxe = new ItemMillAxe(ItemMillTool.TOOLS_obsidian);
 		ITEMS.register("mayan_axe", () -> mayanAxe);
-		mayanShovel = new ItemMillShovel(ItemMillTool.TOOLS_obsidian).setCreativeTab(Millenaire.tabMillenaire);
+		mayanShovel = new ItemMillShovel(ItemMillTool.TOOLS_obsidian);
 		ITEMS.register("mayan_shovel", () -> mayanShovel);
-		mayanPickaxe = new ItemMillPickaxe(ItemMillTool.TOOLS_obsidian).setCreativeTab(Millenaire.tabMillenaire);
+		mayanPickaxe = new ItemMillPickaxe(ItemMillTool.TOOLS_obsidian);
 		ITEMS.register("mayan_pickaxe", () -> mayanPickaxe);
-		mayanHoe = new ItemMillHoe(ItemMillTool.TOOLS_obsidian).setCreativeTab(Millenaire.tabMillenaire);
+		mayanHoe = new ItemMillHoe(ItemMillTool.TOOLS_obsidian);
 		ITEMS.register("mayan_hoe", () -> mayanHoe);
-		mayanMace = new ItemSword(ItemMillTool.TOOLS_obsidian).setCreativeTab(Millenaire.tabMillenaire);
+		mayanMace = new ItemSword(ItemMillTool.TOOLS_obsidian);
 		ITEMS.register("mayan_mace", () -> mayanMace);
 		
-		byzantineMace = new ItemMillMace(Item.ToolMaterial.IRON).setCreativeTab(Millenaire.tabMillenaire);
+		byzantineMace = new ItemMillMace(Item.ToolMaterial.IRON);
 		ITEMS.register("byzantine_mace", () -> byzantineMace);
 		
-		japaneseSword = new ItemSword(Item.ToolMaterial.IRON).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseSword = new ItemSword(Item.ToolMaterial.IRON);
 		ITEMS.register("japanese_sword", () -> japaneseSword);
-		japaneseBow = new ItemMillBow(2, 0.5F, "japanese_bow").setCreativeTab(Millenaire.tabMillenaire);
+		japaneseBow = new ItemMillBow(2, 0.5F, "japanese_bow");
 		ITEMS.register("japanese_bow", () -> japaneseBow);
 		
 		//Amulets
-		amuletSkollHati = new ItemMillAmulet().setCreativeTab(Millenaire.tabMillenaire);
+		amuletSkollHati = new ItemMillAmulet();
 		ITEMS.register("amulet_skoll_hati", () -> amuletSkollHati);
-		amuletAlchemist = new ItemMillAmulet().setCreativeTab(Millenaire.tabMillenaire);
+		amuletAlchemist = new ItemMillAmulet();
 		ITEMS.register("amulet_alchemist", () -> amuletAlchemist);
-		amuletVishnu = new ItemMillAmulet().setCreativeTab(Millenaire.tabMillenaire);
+		amuletVishnu = new ItemMillAmulet();
 		ITEMS.register("amulet_vishnu", () -> amuletVishnu);
-		amuletYggdrasil = new ItemMillAmulet().setCreativeTab(Millenaire.tabMillenaire);
+		amuletYggdrasil = new ItemMillAmulet();
 		ITEMS.register("amulet_yggdrasil", () -> amuletYggdrasil);
 		
 		//Wallet
-		itemMillPurse = new ItemMillWallet().setCreativeTab(Millenaire.tabMillenaire);
+		itemMillPurse = new ItemMillWallet();
     	ITEMS.register("item_mill_purse", () -> itemMillPurse);
     	
     	//Sign
-        itemMillSign = new ItemMillSign().setCreativeTab(Millenaire.tabMillenaire);
+        itemMillSign = new ItemMillSign();
                 ITEMS.register("item_mill_sign", () -> itemMillSign);
 		
 		//Parchments
-		normanVillagerParchment = new ItemMillParchment("scroll.normanVillager.title", new String[]{"scroll.normanVillager.leaders", "scroll.normanVillager.men", "scroll.normanVillager.women", "scroll.normanVillager.children"}).setCreativeTab(Millenaire.tabMillenaire);
+		normanVillagerParchment = new ItemMillParchment("scroll.normanVillager.title", new String[]{"scroll.normanVillager.leaders", "scroll.normanVillager.men", "scroll.normanVillager.women", "scroll.normanVillager.children"});
                 ITEMS.register("norman_villager_parchment", () -> normanVillagerParchment);
-		normanBuildingParchment= new ItemMillParchment("scroll.normanBuilding.title", new String[]{"scroll.normanBuilding.centers", "scroll.normanBuilding.houses", "scroll.normanBuilding.uninhabited", "scroll.normanBuilding.player"}).setCreativeTab(Millenaire.tabMillenaire);
+		normanBuildingParchment= new ItemMillParchment("scroll.normanBuilding.title", new String[]{"scroll.normanBuilding.centers", "scroll.normanBuilding.houses", "scroll.normanBuilding.uninhabited", "scroll.normanBuilding.player"});
                 ITEMS.register("norman_building_parchment", () -> normanBuildingParchment);
-		normanItemParchment = new ItemMillParchment("scroll.normanItem.title", new String[]{"scroll.normanItem.food", "scroll.normanItem.tools", "scroll.normanItem.weapons", "scroll.normanItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
+		normanItemParchment = new ItemMillParchment("scroll.normanItem.title", new String[]{"scroll.normanItem.food", "scroll.normanItem.tools", "scroll.normanItem.weapons", "scroll.normanItem.construction"});
                 ITEMS.register("norman_item_parchment", () -> normanItemParchment);
 		normanAllParchment = new ItemMillParchment("scroll.normanVillager.title", new String[]{"scroll.normanVillager.leaders", "scroll.normanVillager.men", "scroll.normanVillager.women", "scroll.normanVillager.children",
-				"scroll.normanBuilding.centers", "scroll.normanBuilding.houses", "scroll.normanBuilding.uninhabited", "scroll.normanBuilding.player", "scroll.normanItem.food", "scroll.normanItem.tools", "scroll.normanItem.weapons", "scroll.normanItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
+				"scroll.normanBuilding.centers", "scroll.normanBuilding.houses", "scroll.normanBuilding.uninhabited", "scroll.normanBuilding.player", "scroll.normanItem.food", "scroll.normanItem.tools", "scroll.normanItem.weapons", "scroll.normanItem.construction"});
                 ITEMS.register("norman_all_parchment", () -> normanAllParchment);
 		
-		byzantineVillagerParchment = new ItemMillParchment("scroll.byzantineVillager.title", new String[]{"scroll.byzantineVillager.leaders", "scroll.byzantineVillager.men", "scroll.byzantineVillager.women", "scroll.byzantineVillager.children"}).setCreativeTab(Millenaire.tabMillenaire);
+		byzantineVillagerParchment = new ItemMillParchment("scroll.byzantineVillager.title", new String[]{"scroll.byzantineVillager.leaders", "scroll.byzantineVillager.men", "scroll.byzantineVillager.women", "scroll.byzantineVillager.children"});
                 ITEMS.register("byzantine_villager_parchment", () -> byzantineVillagerParchment);
-		byzantineBuildingParchment= new ItemMillParchment("scroll.byzantineBuilding.title", new String[]{"scroll.byzantineBuilding.centers", "scroll.byzantineBuilding.houses", "scroll.byzantineBuilding.uninhabited", "scroll.byzantineBuilding.player"}).setCreativeTab(Millenaire.tabMillenaire);
+		byzantineBuildingParchment= new ItemMillParchment("scroll.byzantineBuilding.title", new String[]{"scroll.byzantineBuilding.centers", "scroll.byzantineBuilding.houses", "scroll.byzantineBuilding.uninhabited", "scroll.byzantineBuilding.player"});
                 ITEMS.register("byzantine_building_parchment", () -> byzantineBuildingParchment);
-		byzantineItemParchment = new ItemMillParchment("scroll.byzantineItem.title", new String[]{"scroll.byzantineItem.food", "scroll.byzantineItem.tools", "scroll.byzantineItem.weapons", "scroll.byzantineItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
+		byzantineItemParchment = new ItemMillParchment("scroll.byzantineItem.title", new String[]{"scroll.byzantineItem.food", "scroll.byzantineItem.tools", "scroll.byzantineItem.weapons", "scroll.byzantineItem.construction"});
                 ITEMS.register("byzantine_item_parchment", () -> byzantineItemParchment);
 		byzantineAllParchment = new ItemMillParchment("scroll.byzantineVillager.title", new String[]{"scroll.byzantineVillager.leaders", "scroll.byzantineVillager.men", "scroll.byzantineVillager.women", "scroll.byzantineVillager.children",
-				"scroll.byzantineBuilding.centers", "scroll.byzantineBuilding.houses", "scroll.byzantineBuilding.uninhabited", "scroll.byzantineBuilding.player", "scroll.byzantineItem.food", "scroll.byzantineItem.tools", "scroll.byzantineItem.weapons", "scroll.byzantineItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
+				"scroll.byzantineBuilding.centers", "scroll.byzantineBuilding.houses", "scroll.byzantineBuilding.uninhabited", "scroll.byzantineBuilding.player", "scroll.byzantineItem.food", "scroll.byzantineItem.tools", "scroll.byzantineItem.weapons", "scroll.byzantineItem.construction"});
                 ITEMS.register("byzantine_all_parchment", () -> byzantineAllParchment);
 		
-		hindiVillagerParchment = new ItemMillParchment("scroll.hindiVillager.title", new String[]{"scroll.hindiVillager.leaders", "scroll.hindiVillager.men", "scroll.hindiVillager.women", "scroll.hindiVillager.children"}).setCreativeTab(Millenaire.tabMillenaire);
+		hindiVillagerParchment = new ItemMillParchment("scroll.hindiVillager.title", new String[]{"scroll.hindiVillager.leaders", "scroll.hindiVillager.men", "scroll.hindiVillager.women", "scroll.hindiVillager.children"});
                 ITEMS.register("hindi_villager_parchment", () -> hindiVillagerParchment);
-		hindiBuildingParchment= new ItemMillParchment("scroll.hindiBuilding.title", new String[]{"scroll.hindiBuilding.centers", "scroll.hindiBuilding.houses", "scroll.hindiBuilding.uninhabited", "scroll.hindiBuilding.player"}).setCreativeTab(Millenaire.tabMillenaire);
+		hindiBuildingParchment= new ItemMillParchment("scroll.hindiBuilding.title", new String[]{"scroll.hindiBuilding.centers", "scroll.hindiBuilding.houses", "scroll.hindiBuilding.uninhabited", "scroll.hindiBuilding.player"});
                 ITEMS.register("hindi_building_parchment", () -> hindiBuildingParchment);
-		hindiItemParchment = new ItemMillParchment("scroll.hindiItem.title", new String[]{"scroll.hindiItem.food", "scroll.hindiItem.tools", "scroll.hindiItem.weapons", "scroll.hindiItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
+		hindiItemParchment = new ItemMillParchment("scroll.hindiItem.title", new String[]{"scroll.hindiItem.food", "scroll.hindiItem.tools", "scroll.hindiItem.weapons", "scroll.hindiItem.construction"});
                 ITEMS.register("hindi_item_parchment", () -> hindiItemParchment);
 		hindiAllParchment = new ItemMillParchment("scroll.hindiVillager.title", new String[]{"scroll.hindiVillager.leaders", "scroll.hindiVillager.men", "scroll.hindiVillager.women", "scroll.hindiVillager.children",
-				"scroll.hindiBuilding.centers", "scroll.hindiBuilding.houses", "scroll.hindiBuilding.uninhabited", "scroll.hindiBuilding.player", "scroll.hindiItem.food", "scroll.hindiItem.tools", "scroll.hindiItem.weapons", "scroll.hindiItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
+				"scroll.hindiBuilding.centers", "scroll.hindiBuilding.houses", "scroll.hindiBuilding.uninhabited", "scroll.hindiBuilding.player", "scroll.hindiItem.food", "scroll.hindiItem.tools", "scroll.hindiItem.weapons", "scroll.hindiItem.construction"});
                 ITEMS.register("hindi_all_parchment", () -> hindiAllParchment);
 		
-		mayanVillagerParchment = new ItemMillParchment("scroll.mayanVillager.title", new String[]{"scroll.mayanVillager.leaders", "scroll.mayanVillager.men", "scroll.mayanVillager.women", "scroll.mayanVillager.children"}).setCreativeTab(Millenaire.tabMillenaire);
+		mayanVillagerParchment = new ItemMillParchment("scroll.mayanVillager.title", new String[]{"scroll.mayanVillager.leaders", "scroll.mayanVillager.men", "scroll.mayanVillager.women", "scroll.mayanVillager.children"});
                 ITEMS.register("mayan_villager_parchment", () -> mayanVillagerParchment);
-		mayanBuildingParchment= new ItemMillParchment("scroll.mayanBuilding.title", new String[]{"scroll.mayanBuilding.centers", "scroll.mayanBuilding.houses", "scroll.mayanBuilding.uninhabited", "scroll.mayanBuilding.player"}).setCreativeTab(Millenaire.tabMillenaire);
+		mayanBuildingParchment= new ItemMillParchment("scroll.mayanBuilding.title", new String[]{"scroll.mayanBuilding.centers", "scroll.mayanBuilding.houses", "scroll.mayanBuilding.uninhabited", "scroll.mayanBuilding.player"});
                 ITEMS.register("mayan_building_parchment", () -> mayanBuildingParchment);
-		mayanItemParchment = new ItemMillParchment("scroll.mayanItem.title", new String[]{"scroll.mayanItem.food", "scroll.mayanItem.tools", "scroll.mayanItem.weapons", "scroll.mayanItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
+		mayanItemParchment = new ItemMillParchment("scroll.mayanItem.title", new String[]{"scroll.mayanItem.food", "scroll.mayanItem.tools", "scroll.mayanItem.weapons", "scroll.mayanItem.construction"});
                 ITEMS.register("mayan_item_parchment", () -> mayanItemParchment);
 		mayanAllParchment = new ItemMillParchment("scroll.mayanVillager.title", new String[]{"scroll.mayanVillager.leaders", "scroll.mayanVillager.men", "scroll.mayanVillager.women", "scroll.mayanVillager.children",
-				"scroll.mayanBuilding.centers", "scroll.mayanBuilding.houses", "scroll.mayanBuilding.uninhabited", "scroll.mayanBuilding.player", "scroll.mayanItem.food", "scroll.mayanItem.tools", "scroll.mayanItem.weapons", "scroll.mayanItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
+				"scroll.mayanBuilding.centers", "scroll.mayanBuilding.houses", "scroll.mayanBuilding.uninhabited", "scroll.mayanBuilding.player", "scroll.mayanItem.food", "scroll.mayanItem.tools", "scroll.mayanItem.weapons", "scroll.mayanItem.construction"});
                 ITEMS.register("mayan_all_parchment", () -> mayanAllParchment);
 		
-		japaneseVillagerParchment = new ItemMillParchment("scroll.japaneseVillager.title", new String[]{"scroll.japaneseVillager.leaders", "scroll.japaneseVillager.men", "scroll.japaneseVillager.women", "scroll.japaneseVillager.children"}).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseVillagerParchment = new ItemMillParchment("scroll.japaneseVillager.title", new String[]{"scroll.japaneseVillager.leaders", "scroll.japaneseVillager.men", "scroll.japaneseVillager.women", "scroll.japaneseVillager.children"});
                 ITEMS.register("japanese_villager_parchment", () -> japaneseVillagerParchment);
-		japaneseBuildingParchment= new ItemMillParchment("scroll.japaneseBuilding.title", new String[]{"scroll.japaneseBuilding.centers", "scroll.japaneseBuilding.houses", "scroll.japaneseBuilding.uninhabited", "scroll.japaneseBuilding.player"}).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseBuildingParchment= new ItemMillParchment("scroll.japaneseBuilding.title", new String[]{"scroll.japaneseBuilding.centers", "scroll.japaneseBuilding.houses", "scroll.japaneseBuilding.uninhabited", "scroll.japaneseBuilding.player"});
                 ITEMS.register("japanese_building_parchment", () -> japaneseBuildingParchment);
-		japaneseItemParchment = new ItemMillParchment("scroll.japaneseItem.title", new String[]{"scroll.japaneseItem.food", "scroll.japaneseItem.tools", "scroll.japaneseItem.weapons", "scroll.japaneseItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
+		japaneseItemParchment = new ItemMillParchment("scroll.japaneseItem.title", new String[]{"scroll.japaneseItem.food", "scroll.japaneseItem.tools", "scroll.japaneseItem.weapons", "scroll.japaneseItem.construction"});
                 ITEMS.register("japanese_item_parchment", () -> japaneseItemParchment);
 		japaneseAllParchment = new ItemMillParchment("scroll.japaneseVillager.title", new String[]{"scroll.japaneseVillager.leaders", "scroll.japaneseVillager.men", "scroll.japaneseVillager.women", "scroll.japaneseVillager.children",
-				"scroll.japaneseBuilding.centers", "scroll.japaneseBuilding.houses", "scroll.japaneseBuilding.uninhabited", "scroll.japaneseBuilding.player", "scroll.japaneseItem.food", "scroll.japaneseItem.tools", "scroll.japaneseItem.weapons", "scroll.japaneseItem.construction"}).setCreativeTab(Millenaire.tabMillenaire);
+				"scroll.japaneseBuilding.centers", "scroll.japaneseBuilding.houses", "scroll.japaneseBuilding.uninhabited", "scroll.japaneseBuilding.player", "scroll.japaneseItem.food", "scroll.japaneseItem.tools", "scroll.japaneseItem.weapons", "scroll.japaneseItem.construction"});
                 ITEMS.register("japanese_all_parchment", () -> japaneseAllParchment);
 	}
 	
