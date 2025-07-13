@@ -15,8 +15,6 @@ import org.millenaire.rendering.RenderMillVillager;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -32,6 +30,13 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -40,110 +45,110 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.DataParameter;
-import net.minecraft.entity.DataSerializers;
-import net.minecraft.entity.EntityDataManager;
 
-public class EntityMillVillager extends EntityCreature
+public class EntityMillVillager extends PathfinderMob
 {
         public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Millenaire.MODID);
-        public static final RegistryObject<EntityType<EntityMillVillager>> MILL_VILLAGER = ENTITIES.register("mill_villager", () -> EntityType.Builder.create(EntityMillVillager::new, EntityClassification.MISC).size(0.6F, 1.95F).build("mill_villager"));
+       public static final RegistryObject<EntityType<EntityMillVillager>> MILL_VILLAGER = ENTITIES.register("mill_villager", () -> EntityType.Builder.create(EntityMillVillager::new, EntityClassification.MISC).size(0.6F, 1.95F).build("mill_villager"));
+
+       public static AttributeSupplier.Builder createAttributes()
+       {
+               return Mob.createMobAttributes()
+                               .add(Attributes.MOVEMENT_SPEED, 0.55D)
+                               .add(Attributes.MAX_HEALTH, 20.0D);
+       }
         public int villagerID;
 	private MillCulture culture;
         private VillagerType type;
         private static final Logger LOGGER = LogManager.getLogger(EntityMillVillager.class);
-       private static final DataParameter<String> TEXTURE = EntityDataManager.createKey(EntityMillVillager.class, DataSerializers.STRING);
-       private static final DataParameter<Integer> AGE = EntityDataManager.createKey(EntityMillVillager.class, DataSerializers.VARINT);
-       private static final DataParameter<Integer> GENDER = EntityDataManager.createKey(EntityMillVillager.class, DataSerializers.VARINT);
-       private static final DataParameter<String> NAME = EntityDataManager.createKey(EntityMillVillager.class, DataSerializers.STRING);
+       private static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(EntityMillVillager.class, EntityDataSerializers.STRING);
+       private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityMillVillager.class, EntityDataSerializers.INT);
+       private static final EntityDataAccessor<Integer> GENDER = SynchedEntityData.defineId(EntityMillVillager.class, EntityDataSerializers.INT);
+       private static final EntityDataAccessor<String> NAME = SynchedEntityData.defineId(EntityMillVillager.class, EntityDataSerializers.STRING);
 
 	private boolean isVillagerSleeping = false;
 	public boolean isPlayerInteracting = false;
 	
 	private InventoryBasic villagerInventory;
 	
-	public EntityMillVillager(World worldIn)
-	{
-		super(worldIn);
+        public EntityMillVillager(EntityType<? extends PathfinderMob> type, World worldIn)
+        {
+                super(type, worldIn);
 		
-		this.villagerInventory = new InventoryBasic("Items", false, 16);
-		isImmuneToFire = true;
-		this.setSize(0.6F, 1.8F);
-		addTasks();
+                this.villagerInventory = new InventoryBasic("Items", false, 16);
+                isImmuneToFire = true;
 	}
 
-	public EntityMillVillager(World worldIn, int idIn, MillCulture cultureIn)
-	{
-		super(worldIn);
-		villagerID = idIn;
-		culture = cultureIn;
+        public EntityMillVillager(EntityType<? extends PathfinderMob> type, World worldIn, int idIn, MillCulture cultureIn)
+        {
+                super(type, worldIn);
+                villagerID = idIn;
+                culture = cultureIn;
 		
-		this.villagerInventory = new InventoryBasic("Items", false, 16);
-		isImmuneToFire = true;
-		this.setSize(0.6F, 1.8F);
-		addTasks();
+                this.villagerInventory = new InventoryBasic("Items", false, 16);
+                isImmuneToFire = true;
 	}
 	
-	private void addTasks()
-	{
-		//((PathNavigateGround)this.getNavigator()).setBreakDoors(true);
-		//((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
-        this.goalSelector.addGoal(0, new FloatGoal(this));
+        protected void registerGoals()
+        {
+                //((PathNavigateGround)this.getNavigator()).setBreakDoors(true);
+                //((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
+                this.goalSelector.addGoal(0, new FloatGoal(this));
                 this.goalSelector.addGoal(1, new OpenDoorGoal(this, true));
                 this.goalSelector.addGoal(1, new EntityAIGateOpen(this, true));
                 this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, EntityPlayer.class, 3.0F, 0.5F));
                 this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, EntityMillVillager.class, 6.0F));
                 this.goalSelector.addGoal(9, new RandomStrollGoal(this, 0.6D));
-	}
+        }
 	
 	@Override
-    protected PathNavigate getNewNavigator(World worldIn)
+    protected PathNavigate createNavigation(World worldIn)
     {
         return new MillPathNavigate(this, worldIn);
     }
 	
 	@Override
-    protected void applyEntityAttributes()
+    protected void registerAttributes()
     {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.55D);
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
+        super.registerAttributes();
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.55D);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
     }
 	
 	@Override
-       public void entityInit()
+       protected void defineSynchedData()
     {
-        super.entityInit();
-        this.getDataManager().register(TEXTURE, "texture");
-        this.getDataManager().register(NAME, "name");
+        super.defineSynchedData();
+        this.entityData.define(TEXTURE, "texture");
+        this.entityData.define(NAME, "name");
         //0 is Adult
-        this.getDataManager().register(AGE, 0);
+        this.entityData.define(AGE, 0);
         //0 for male, 1 for female, 2 for Sym Female
-        this.getDataManager().register(GENDER, 0);
+        this.entityData.define(GENDER, 0);
     }
 	
 	public EntityMillVillager setTypeAndGender(VillagerType typeIn, int genderIn)
 	{
                this.type = typeIn;
-               this.getDataManager().set(GENDER, genderIn);
-               this.getDataManager().set(TEXTURE, type.getTexture());
+               this.entityData.set(GENDER, genderIn);
+               this.entityData.set(TEXTURE, type.getTexture());
                return this;
        }
 	
-       public void setChild() { this.getDataManager().set(AGE, 1); }
+       public void setChild() { this.entityData.set(AGE, 1); }
 	
-       public void setName(String nameIn) { this.getDataManager().set(NAME, nameIn); }
+       public void setName(String nameIn) { this.entityData.set(NAME, nameIn); }
 	
-       public String getTexture() { return this.getDataManager().get(TEXTURE); }
+       public String getTexture() { return this.entityData.get(TEXTURE); }
 	
-       public int getGender() { return this.getDataManager().get(GENDER); }
+       public int getGender() { return this.entityData.get(GENDER); }
 	
-       public String getName() { return this.getDataManager().get(NAME); }
+       public String getName() { return this.entityData.get(NAME); }
 
 	public VillagerType getVillagerType() { return type; }
 	
 	@Override
-       public boolean isChild() { return (this.getDataManager().get(AGE) > 0); }
+       public boolean isChild() { return (this.entityData.get(AGE) > 0); }
 	
     public boolean allowLeashing() { return false; }
     
@@ -497,13 +502,13 @@ public class EntityMillVillager extends EntityCreature
 		super.writeToNBT(nbt);
 		nbt.setInteger("villagerID", villagerID);
 		nbt.setString("culture", culture.cultureName);
-               nbt.setInteger("gender", this.getDataManager().get(GENDER));
+               nbt.setInteger("gender", this.entityData.get(GENDER));
 		nbt.setString("villagerType", type.id);
 		nbt.setBoolean("sleeping", isVillagerSleeping);
 		
-               nbt.setString("texture", this.getDataManager().get(TEXTURE));
-               nbt.setInteger("age", this.getDataManager().get(AGE));
-               nbt.setString("name", this.getDataManager().get(NAME));
+               nbt.setString("texture", this.entityData.get(TEXTURE));
+               nbt.setInteger("age", this.entityData.get(AGE));
+               nbt.setString("name", this.entityData.get(NAME));
 		
 		NBTTagList nbttaglist = new NBTTagList();
         for (int i = 0; i < this.villagerInventory.getSizeInventory(); ++i)
@@ -533,7 +538,7 @@ public class EntityMillVillager extends EntityCreature
 			System.err.println("Villager failed to read from NBT correctly");
 			ex.printStackTrace();
 		}
-                this.getDataManager().set(GENDER, nbt.getInteger("gender"));
+                this.entityData.set(GENDER, nbt.getInteger("gender"));
                 if(culture == null)
                 {
                         LOGGER.warn("Unknown culture '{}' for villager {}. Using default.", nbt.getString("culture"), villagerID);
@@ -550,9 +555,9 @@ public class EntityMillVillager extends EntityCreature
                 }
                 isVillagerSleeping = nbt.getBoolean("sleeping");
 		
-               this.getDataManager().set(TEXTURE, nbt.getString("texture"));
-               this.getDataManager().set(AGE, nbt.getInteger("age"));
-               this.getDataManager().set(NAME, nbt.getString("name"));
+               this.entityData.set(TEXTURE, nbt.getString("texture"));
+               this.entityData.set(AGE, nbt.getInteger("age"));
+               this.entityData.set(NAME, nbt.getString("name"));
 		
 		NBTTagList nbttaglist = nbt.getTagList("Inventory", 10);
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
