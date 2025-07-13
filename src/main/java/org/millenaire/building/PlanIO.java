@@ -24,6 +24,7 @@ import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -225,9 +226,7 @@ public class PlanIO {
 		//Convert Stream to NBTTagCompound
 
 		//width = x-axis, height = y-axis, length = z-axis
-		short width, height, length;
-		int[] blocks = {};
-		int[] data = {};
+                short width, height, length;
 
 		String version = nbt.getString("Version");
 
@@ -235,26 +234,16 @@ public class PlanIO {
 		//height = nbt.getShort("Height");
 		length = nbt.getShort("Length"); 
 
-		NBTTagList list = nbt.getTagList("level_" + level, Constants.NBT.TAG_COMPOUND);
-		String blockdata = list.getCompoundTagAt(0).getString("BlockData");
-		height = list.getCompoundTagAt(0).getShort("Height");
-		//System.out.println(blockdata);
-		String[] split = blockdata.split(";");
-		blocks = new int[split.length];
-		data = new int[split.length];
-		for(int i = 0; i <= split.length -1; i++) {
-			String s = split[i];
-			String[] s1 = s.split(":");
-			blocks[i] = Integer.parseInt(s1[0]);
-			data[i] = Integer.parseInt(s1[1]);
-		}
+                NBTTagList list = nbt.getTagList("level_" + level, Constants.NBT.TAG_COMPOUND);
+                NBTTagCompound levelTag = list.getCompoundTagAt(0);
+                NBTTagList stateTagList = levelTag.getTagList("BlockStates", Constants.NBT.TAG_COMPOUND);
+                height = levelTag.getShort("Height");
 
-		IBlockState[] states = new IBlockState[width*length*height];
+                IBlockState[] states = new IBlockState[stateTagList.tagCount()];
 
-		//turn block ids and data into blockstates.
-		for(int i = 0; i < states.length; i++) {
-			states[i] = Block.getBlockById(blocks[i]).getStateFromMeta(data[i]);
-		}
+                for(int i = 0; i < stateTagList.tagCount(); i++) {
+                        states[i] = NBTUtil.readBlockState(stateTagList.getCompoundTagAt(i));
+                }
 
 		//turn into a 3D block array for use with BuildingPlan
 		//in format [y][z][x]! IMPORTANT!
@@ -362,35 +351,22 @@ public class PlanIO {
 			throw new Exception("Ahhh!");
 		}
 
-		byte[] blockids = new byte[width*height*length], data = new byte[width*height*length];
+                NBTTagList stateList = new NBTTagList();
 
-		StringBuilder blocklist = new StringBuilder();
-		String[] s = new String[width*height*length];
-		for(int x = 0; x < width; x++) {
-			for(int y = 0; y < height; y++) {
-				for(int z = 0; z < length; z++) {
-					s[(y*length+z)*width+x] = Block.getIdFromBlock(blocks[y][z][x].getBlock()) + ":" + blocks[y][z][x].getBlock().getMetaFromState(blocks[y][z][x]) + ";";
+                for(int x = 0; x < width; x++) {
+                        for(int y = 0; y < height; y++) {
+                                for(int z = 0; z < length; z++) {
+                                        stateList.appendTag(NBTUtil.writeBlockState(blocks[y][z][x]));
+                                }
+                        }
+                }
 
-					//blocklist += Block.getIdFromBlock(blocks[y][z][x].getBlock()) + ":" + blocks[y][z][x].getBlock().getMetaFromState(blocks[y][z][x]) + ";";
-
-					//blockids[(y*length+z)*width+x] = (byte)Block.getIdFromBlock(blocks[y][z][x].getBlock());
-					//data[(y*length+z)*width+x] = (byte)blocks[y][z][x].getBlock().getMetaFromState(blocks[y][z][x]);
-				}
-			}
-		}
-
-		for(String s1 : s) {
-			blocklist.append(s1);
-		}
-
-		NBTTagList LevelTagComp = new NBTTagList();
-		NBTTagCompound tag2 = new NBTTagCompound();
-		tag2.setString("BlockData", blocklist.toString());
-		tag2.setShort("Height", height);
-		tag2.setShort("StartLevel", depth);
-		//tag2.setByteArray("Blocks", blockids);
-		//tag2.setByteArray("Data", data);
-		LevelTagComp.appendTag(tag2);
+                NBTTagList LevelTagComp = new NBTTagList();
+                NBTTagCompound tag2 = new NBTTagCompound();
+                tag2.setTag("BlockStates", stateList);
+                tag2.setShort("Height", height);
+                tag2.setShort("StartLevel", depth);
+                LevelTagComp.appendTag(tag2);
 
 		tag.setTag("level_" + level, LevelTagComp);
 
