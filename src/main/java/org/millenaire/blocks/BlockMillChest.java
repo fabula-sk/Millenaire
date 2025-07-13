@@ -11,8 +11,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryLargeChest;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.world.phys.AABB;
@@ -20,6 +19,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.World;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.server.level.ServerPlayer;
+import org.millenaire.gui.EmptyMenu;
+import org.millenaire.gui.MillMenus;
 
 public class BlockMillChest extends BlockChest
 {
@@ -43,16 +50,12 @@ public class BlockMillChest extends BlockChest
     }
 	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+        public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, Player playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (!worldIn.isRemote)
         {
-            ILockableContainer ilockablecontainer = this.getLockableContainer(worldIn, pos);
-
-            if (ilockablecontainer != null)
-            {
-                playerIn.openGui(Millenaire.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
-            }
+            MenuProvider provider = new SimpleMenuProvider((id, inv, player) -> new EmptyMenu(MillMenus.CHEST_MENU.get(), id), new TextComponent("Mill Chest"));
+            NetworkHooks.openGui((net.minecraft.server.level.ServerPlayer)playerIn, provider, pos);
         }
         return true;
     }

@@ -11,7 +11,7 @@ import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -35,10 +35,10 @@ public class BlockVillageStone extends BlockContainer
 	@Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-		if(worldIn.isRemote)
-		{
-			playerIn.addChatMessage(new ChatComponentText("The Village name almost seems to shimmer in the twilight"));
-		}
+                if(worldIn.isRemote)
+                {
+                        playerIn.sendMessage(new TextComponent("The Village name almost seems to shimmer in the twilight"), playerIn.getUUID());
+                }
 		
 		TileEntityVillageStone te = (TileEntityVillageStone) worldIn.getTileEntity(pos);
 		if(te.testVar < 16)

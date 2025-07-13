@@ -8,14 +8,16 @@ import org.millenaire.Millenaire;
 import org.millenaire.items.ItemMillParchment;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiParchment extends GuiScreen
+public class GuiParchment extends Screen
 {
 	private final static ResourceLocation PARCHMENTGUI = new ResourceLocation(Millenaire.MODID + ":textures/gui/ML_parchment.png");
 	private final static ResourceLocation BOOKGUI = new ResourceLocation(Millenaire.MODID + ":textures/gui/ML_book.png");
@@ -24,8 +26,8 @@ public class GuiParchment extends GuiScreen
 	private List<String> stringPages = new ArrayList<String>();
 	private int page = 0;
 
-	private GuiButton forward;
-	private GuiButton backward;
+        private Button forward;
+        private Button backward;
 
 	GuiParchment(ItemStack stack)
 	{
@@ -70,32 +72,34 @@ public class GuiParchment extends GuiScreen
 		}
 	}
 	
-	@Override
-	public void initGui() 
-	{
-	    this.buttonList.add(this.backward = new NextPageButton(0, (this.width / 2) - 95, 208, false));
-	    this.buttonList.add(this.forward = new NextPageButton(1, (this.width / 2) + 77, 208, true));
-	    updateButtons();
-	}
+        @Override
+        public void init()
+        {
+            this.backward = new NextPageButton(0, (this.width / 2) - 95, 208, false);
+            this.forward = new NextPageButton(1, (this.width / 2) + 77, 208, true);
+            this.addRenderableWidget(this.backward);
+            this.addRenderableWidget(this.forward);
+            updateButtons();
+        }
 	
-	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) 
+        @Override
+        public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks)
 	{
-	    this.drawDefaultBackground();
-	    mc.getTextureManager().bindTexture(PARCHMENTGUI);
-	    this.drawTexturedModalRect((this.width - 203) / 2, 2, 0, 0, 203, 219);
+            this.renderBackground(poseStack);
+            minecraft.getTextureManager().bind(PARCHMENTGUI);
+            blit(poseStack, (this.width - 203) / 2, 2, 0, 0, 203, 219);
 	    
 	    String drawTitle = I18n.format(item.title);
-	    this.fontRendererObj.drawString(drawTitle, (this.width - this.fontRendererObj.getStringWidth(drawTitle)) / 2, 6, 0);
+            this.font.draw(poseStack, drawTitle, (this.width - this.font.width(drawTitle)) / 2, 6, 0);
 	    
 	    String drawContents = stringPages.get(page);
-	    this.fontRendererObj.drawSplitString(drawContents, (this.width / 2) - 94, 20, 190, 0);
+            this.font.drawWordWrap(Component.literal(drawContents), (this.width / 2) - 94, 20, 190, 0);
 	    
-	    super.drawScreen(mouseX, mouseY, partialTicks);
+            super.render(poseStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	protected void actionPerformed(GuiButton button)
+        protected void actionPerformed(Button button)
 	{
 	    if (button == this.forward) 
 	    {
@@ -116,46 +120,35 @@ public class GuiParchment extends GuiScreen
 		this.forward.visible = page != stringPages.size() - 1;
 	}
 	
-	@Override
-	public boolean doesGuiPauseGame() 
-	{
-	    return false;
-	}
-	
-	static class NextPageButton extends GuiButton
-    {
-        private final boolean nextPage;
-
-		NextPageButton(int id, int xIn, int yIn, boolean nextPageIn)
+        @Override
+        public boolean isPauseScreen()
         {
-            super(id, xIn, yIn, 18, 10, "");
-            this.nextPage = nextPageIn;
+            return false;
         }
+	
+        static class NextPageButton extends Button {
+            private final boolean nextPage;
 
-        /**
-         * Draws this button to the screen.
-         */
-        public void drawButton(Minecraft mc, int mouseX, int mouseY)
-        {
-            if (this.visible)
-            {
-                boolean flag = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
-                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                mc.getTextureManager().bindTexture(BOOKGUI);
-                int i = 0;
-                int j = 180;
+            NextPageButton(int id, int xIn, int yIn, boolean nextPageIn) {
+                super(xIn, yIn, 18, 10, Component.literal(""), btn -> {});
+                this.nextPage = nextPageIn;
+            }
 
-                if (flag)
-                {
-                    i += 18;
+            public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+                if (this.visible) {
+                    boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+                    RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                    Minecraft.getInstance().getTextureManager().bind(BOOKGUI);
+                    int i = 0;
+                    int j = 180;
+                    if (flag) {
+                        i += 18;
+                    }
+                    if (!this.nextPage) {
+                        j += 10;
+                    }
+                    blit(poseStack, this.x, this.y, i, j, 18, 10);
                 }
-
-                if (!this.nextPage)
-                {
-                    j += 10;
-                }
-
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, i, j, 18, 10);
             }
         }
     }

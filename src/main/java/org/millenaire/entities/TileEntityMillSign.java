@@ -3,7 +3,7 @@ package org.millenaire.entities;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.ITickable;
 
 public class TileEntityMillSign extends TileEntitySign implements ITickable
@@ -40,9 +40,9 @@ public class TileEntityMillSign extends TileEntitySign implements ITickable
 	{
 
 		if(!(villageStoneLocation == null)) {
-			signText[0] = new ChatComponentText("The End is Nigh");
+                        signText[0] = new TextComponent("The End is Nigh");
 			TileEntityVillageStone TEVS = (TileEntityVillageStone)this.getWorld().getTileEntity(villageStoneLocation);
-			signText[1] = new ChatComponentText(TEVS.testVar + " clicks");
+                        signText[1] = new TextComponent(TEVS.testVar + " clicks");
 
 			/*switch(thisSignType) {
 			case 1:

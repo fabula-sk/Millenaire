@@ -3,19 +3,20 @@ package org.millenaire.gui;
 import org.millenaire.Millenaire;
 import org.millenaire.networking.MillPacket;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.chat.Component;
 
-public class GuiOptions extends GuiScreen
+public class GuiOptions extends Screen
 {
 	private final static ResourceLocation OPTIONGUI = new ResourceLocation(Millenaire.MODID + ":textures/gui/ML_village_chief.png");
 	private String string;
 	private int eventID;
 
-	private GuiButton yes;
-	private GuiButton no;
+        private Button yes;
+        private Button no;
 
 	GuiOptions(int IDin, String stringIn)
 	{
@@ -36,12 +37,12 @@ public class GuiOptions extends GuiScreen
 	
 	public void initGui() 
 	{
-	    this.buttonList.add(this.yes = new GuiButton(0, (this.width / 2) - 50, (this.height / 2) + 40, 40, 20, "Yes"));
-	    this.buttonList.add(this.no = new GuiButton(1, (this.width / 2) + 10, (this.height / 2) + 40, 40, 20, "No"));
+            this.buttonList.add(this.yes = new Button((this.width / 2) - 50, (this.height / 2) + 40, 40, 20, Component.literal("Yes"), b -> {}));
+            this.buttonList.add(this.no = new Button((this.width / 2) + 10, (this.height / 2) + 40, 40, 20, Component.literal("No"), b -> {}));
 	}
 	
 	@Override
-	protected void actionPerformed(GuiButton button)
+        protected void actionPerformed(Button button)
 	{
 		if(button == this.yes)
 		{
