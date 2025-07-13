@@ -49,7 +49,6 @@ public class Millenaire
 	public static final String MODID = "millenaire";
 	public static final String NAME = "Mill\u00e9naire";
 	public static final String VERSION = "7.0.0";
-	public static final String GUIFACTORY = "org.millenaire.gui.MillGuiFactory";
 
 	public static boolean isServer = true;
 	
@@ -75,7 +74,7 @@ public class Millenaire
 	
         private void setup(final FMLCommonSetupEvent event)
         {
-                MillConfig.preinitialize();
+                MillConfig.register();
                 PlayerCropProvider.register();
                 new CapabilityEvents();
                 MinecraftForge.EVENT_BUS.register(new RaidEvent.RaidEventHandler());
@@ -104,8 +103,6 @@ public class Millenaire
                 MillItems.prerender();
 
                 EntityMillVillager.prerender();
-
-                MillConfig.eventRegister();
 
                 MillBlocks.render();
                 MillItems.render();
