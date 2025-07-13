@@ -258,7 +258,7 @@ public class BuildingPlan
 	
 	private boolean freeBuild(IBlockState state)
 	{
-		return state.getBlock() == Blocks.dirt || state.getBlock() == Blocks.water || state.getBlock() == Blocks.leaves || state.getBlock() == Blocks.leaves2 || state.getBlock() == Blocks.grass || state.getBlock() == Blocks.tallgrass || state.getBlock() == Blocks.red_flower || state.getBlock() == Blocks.yellow_flower || state.getBlock() == Blocks.double_plant || state.getBlock() == Blocks.deadbush
+                return state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.WATER || state.getBlock() == Blocks.OAK_LEAVES || state.getBlock() == Blocks.ACACIA_LEAVES || state.getBlock() == Blocks.GRASS_BLOCK || state.getBlock() == Blocks.TALL_GRASS || state.getBlock() == Blocks.POPPY || state.getBlock() == Blocks.DANDELION || state.getBlock() == Blocks.LILAC || state.getBlock() == Blocks.DEAD_BUSH
 				|| state.getBlock() == MillBlocks.blockMillPath || state.getBlock() == MillBlocks.blockMillPathSlab || state.equals(MillBlocks.blockDecorativeEarth.getDefaultState().withProperty(BlockDecorativeEarth.VARIANT, BlockDecorativeEarth.EnumType.DIRTWALL));
 	}
 	
@@ -293,18 +293,18 @@ public class BuildingPlan
                                                plankAcaciaCost += 4;
                                        else if (state.is(BlockTags.DARK_OAK_LOGS))
                                                plankJungleCost += 4;
-					else if (state.getBlock() == Blocks.planks && state.getValue(BlockPlanks.VARIANT) == BlockPlanks.EnumType.OAK)
-						plankOakCost++;
-					else if (state.getBlock() == Blocks.planks && state.getValue(BlockPlanks.VARIANT) == BlockPlanks.EnumType.SPRUCE)
-						plankSpruceCost++;
-					else if (state.getBlock() == Blocks.planks && state.getValue(BlockPlanks.VARIANT) == BlockPlanks.EnumType.BIRCH)
-						plankBirchCost++;
-					else if (state.getBlock() == Blocks.planks && state.getValue(BlockPlanks.VARIANT) == BlockPlanks.EnumType.JUNGLE)
-						plankJungleCost++;
-					else if (state.getBlock() == Blocks.planks && state.getValue(BlockPlanks.VARIANT) == BlockPlanks.EnumType.ACACIA)
-						plankAcaciaCost++;
-					else if (state.getBlock() == Blocks.planks && state.getValue(BlockPlanks.VARIANT) == BlockPlanks.EnumType.DARK_OAK)
-						plankDarkCost++;
+                                        else if (state.getBlock() == Blocks.OAK_PLANKS)
+                                                plankOakCost++;
+                                        else if (state.getBlock() == Blocks.SPRUCE_PLANKS)
+                                                plankSpruceCost++;
+                                        else if (state.getBlock() == Blocks.BIRCH_PLANKS)
+                                                plankBirchCost++;
+                                        else if (state.getBlock() == Blocks.JUNGLE_PLANKS)
+                                                plankJungleCost++;
+                                        else if (state.getBlock() == Blocks.ACACIA_PLANKS)
+                                                plankAcaciaCost++;
+                                        else if (state.getBlock() == Blocks.DARK_OAK_PLANKS)
+                                                plankDarkCost++;
 					else if (state.getBlock() == MillBlocks.byzantineTile)
 						byzBricksHalf += 2;
 					else if (state.getBlock() == MillBlocks.byzantineTileSlab)
@@ -449,7 +449,7 @@ public class BuildingPlan
                                        }
 					else if (state.getBlock() == MillBlocks.emptySericulture)
 						plankCost += 4;
-					else if (state.getBlock() != Blocks.air && !freeBuild(state))
+                                        else if (state.getBlock() != Blocks.AIR && !freeBuild(state))
 					{
 						addToCost(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)), 1);
 					}
@@ -797,8 +797,8 @@ public class BuildingPlan
 
 					BlockPos p = adjustForOrientation(x, y + i + depth, z, j - lengthOffset, ak - widthOffset, orientation);
 
-					if (state.getBlock() == Blocks.air) 
-					{
+                                        if (state.getBlock() == Blocks.AIR)
+                                        {
 						bblocks.add(new BuildingBlock(state, p));
 					}
 				}
@@ -860,10 +860,10 @@ public class BuildingPlan
 					
 					setReferencePositions(state, p, location);
 
-					if (state.getBlock() != null && state.getBlock() != Blocks.air && firstPass(state)) 
-					{
-						if(state.getBlock() == Blocks.farmland)
-							state = Blocks.dirt.getDefaultState();
+                                        if (state.getBlock() != null && state.getBlock() != Blocks.AIR && firstPass(state))
+                                        {
+                                                if(state.getBlock() == Blocks.FARMLAND)
+                                                        state = Blocks.DIRT.getDefaultState();
 						
 						bblocks.add(new BuildingBlock(state, p));
 					}
@@ -957,11 +957,11 @@ public class BuildingPlan
 				special = 0;
 			}
 			
-			if ((state == bb.blockState && special == 0 || block == Blocks.grass && bb.blockState.getBlock() == Blocks.dirt) && bb.specialBlock == 0) 
-				toDelete[i] = true;
-			else if (bb.specialBlock == BuildingBlock.CLEARTREE && block != Blocks.log && block != Blocks.leaves)
-				toDelete[i] = true;
-			else if (bb.specialBlock == BuildingBlock.CLEARGROUND && (block == null || block == Blocks.air))
+                        if ((state == bb.blockState && special == 0 || block == Blocks.GRASS_BLOCK && bb.blockState.getBlock() == Blocks.DIRT) && bb.specialBlock == 0)
+                                toDelete[i] = true;
+                        else if (bb.specialBlock == BuildingBlock.CLEARTREE && block != Blocks.OAK_LOG && block != Blocks.OAK_LEAVES)
+                                toDelete[i] = true;
+                        else if (bb.specialBlock == BuildingBlock.CLEARGROUND && (block == null || block == Blocks.AIR))
 				toDelete[i] = true;
 			else if (bb.specialBlock == BuildingBlock.PRESERVEGROUNDDEPTH && CommonUtilities.getValidGroundBlock(block, false) == block)
 				toDelete[i] = true;

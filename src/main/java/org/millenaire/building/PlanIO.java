@@ -118,14 +118,14 @@ public class PlanIO {
 					for (int z = 0; z < length; z++) {
 						IBlockState block = player.getEntityWorld().getBlockState(new BlockPos(x + startPoint.getX() + 1, y + startPoint.getY() + startLevel, z + startPoint.getZ() + 1));
 
-						if(block.getBlock() != Blocks.air) {
+                                                if(block.getBlock() != Blocks.AIR) {
 							blockFound = true;
 						}
-						if(saveSnow || block.getBlock() != Blocks.snow) {
+                                                if(saveSnow || block.getBlock() != Blocks.SNOW) {
 							level[x][z] = block;
 						}
 						else {
-							level[x][z] = Blocks.air.getDefaultState();
+                                                        level[x][z] = Blocks.AIR.getDefaultState();
 						}
 					}
 				}

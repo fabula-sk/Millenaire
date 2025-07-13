@@ -38,8 +38,8 @@ public class BlockAlchemists extends Block
 						if (x * x + y * y + z * z <= EXPLOSIONRADIUS * EXPLOSIONRADIUS) 
 						{
 							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, i, j + 0.5D, k, 0.0D, 0.0D, 0.0D);
-							final Block block = world.getBlockState(new BlockPos(i + x, j + y, k + z)).getBlock();
-							if (block != Blocks.air) 
+                                                        final Block block = world.getBlockState(new BlockPos(i + x, j + y, k + z)).getBlock();
+                                                        if (block != Blocks.AIR)
 							{
 								world.setBlockToAir(new BlockPos(i + x, j + y, k + z));
 							}

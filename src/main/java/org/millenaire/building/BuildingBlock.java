@@ -92,33 +92,33 @@ public class BuildingBlock
 					below = below.down();
 				}
 
-				if (targetblock == Blocks.dirt && onGeneration) 
-				{
-					targetblock = Blocks.grass;
-				} 
-				else if (targetblock == Blocks.grass && !onGeneration) 
-				{
-					targetblock = Blocks.dirt;
-				}
+                                if (targetblock == Blocks.DIRT && onGeneration)
+                                {
+                                        targetblock = Blocks.GRASS_BLOCK;
+                                }
+                                else if (targetblock == Blocks.GRASS_BLOCK && !onGeneration)
+                                {
+                                        targetblock = Blocks.DIRT;
+                                }
 
-				if (targetblock == Blocks.air) 
-				{
-					if (onGeneration) 
-						targetblock = Blocks.grass;
-					else
-						targetblock = Blocks.dirt;
-				}
+                                if (targetblock == Blocks.AIR)
+                                {
+                                        if (onGeneration)
+                                                targetblock = Blocks.GRASS_BLOCK;
+                                        else
+                                                targetblock = Blocks.DIRT;
+                                }
 
 				assert targetblock != null;
                                 worldIn.setBlockState(position, targetblock.getDefaultState());
                                 worldIn.playSound(null, position, targetblock.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 0.3F, 0.6F);
 			} 
-			else if (onGeneration && validGroundBlock == Blocks.dirt && worldIn.getBlockState(position.up()) == null) 
-			{
-                                worldIn.setBlockState(position, Blocks.grass.getDefaultState());
-                                worldIn.playSound(null, position, Blocks.grass.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 0.3F, 0.6F);
-			} 
-			else if (validGroundBlock != block && !(validGroundBlock == Blocks.dirt && block == Blocks.grass)) 
+                        else if (onGeneration && validGroundBlock == Blocks.DIRT && worldIn.getBlockState(position.up()) == null)
+                        {
+                                worldIn.setBlockState(position, Blocks.GRASS_BLOCK.getDefaultState());
+                                worldIn.playSound(null, position, Blocks.GRASS_BLOCK.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 0.3F, 0.6F);
+                        }
+                        else if (validGroundBlock != block && !(validGroundBlock == Blocks.DIRT && block == Blocks.GRASS_BLOCK))
 			{
                                 worldIn.setBlockState(position, validGroundBlock.getDefaultState());
                                 worldIn.playSound(null, position, validGroundBlock.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 0.3F, 0.6F);
@@ -128,7 +128,7 @@ public class BuildingBlock
 		{
 			Block block = worldIn.getBlockState(position).getBlock();
 
-			if (block == Blocks.log || block == Blocks.leaves) 
+                        if (block == Blocks.OAK_LOG || block == Blocks.OAK_LEAVES)
 			{
                                 worldIn.setBlockToAir(position);
                                 worldIn.playSound(null, position, block.getSoundType().getBreakSound(), SoundCategory.BLOCKS, 0.3F, 0.6F);
@@ -137,10 +137,10 @@ public class BuildingBlock
 
 				final Block targetBlock = CommonUtilities.getValidGroundBlock(blockBelow, true);
 
-				if (onGeneration && targetBlock == Blocks.dirt) 
-				{
-                                worldIn.setBlockState(position.down(), Blocks.grass.getDefaultState());
-				} 
+                                if (onGeneration && targetBlock == Blocks.DIRT)
+                                {
+                                worldIn.setBlockState(position.down(), Blocks.GRASS_BLOCK.getDefaultState());
+                                }
 				else if (targetBlock != null) 
 				{
                                 worldIn.setBlockState(position.down(), targetBlock.getDefaultState());
@@ -159,10 +159,10 @@ public class BuildingBlock
 
 			final Block targetBlock = CommonUtilities.getValidGroundBlock(blockBelow, true);
 
-			if (onGeneration && targetBlock == Blocks.dirt) 
-			{
-                        worldIn.setBlockState(position.down(), Blocks.grass.getDefaultState());
-			} 
+                        if (onGeneration && targetBlock == Blocks.DIRT)
+                        {
+                        worldIn.setBlockState(position.down(), Blocks.GRASS_BLOCK.getDefaultState());
+                        }
 			else if (targetBlock != null) 
 			{
                         worldIn.setBlockState(position.down(), targetBlock.getDefaultState());
@@ -177,7 +177,7 @@ public class BuildingBlock
 			}
 			else
 			{
-				WorldGenerator wg = new WorldGenTrees(true, 4 + CommonUtilities.random.nextInt(7), Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK), Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK), false);
+                                WorldGenerator wg = new WorldGenTrees(true, 4 + CommonUtilities.random.nextInt(7), Blocks.OAK_LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK), Blocks.OAK_LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK), false);
 				wg.generate(worldIn, CommonUtilities.random, position);
 			}
 		} 
@@ -211,12 +211,12 @@ public class BuildingBlock
 		{
 			if (onGeneration) 
 			{
-				WorldGenerator wg = new WorldGenTrees(false, 4 + CommonUtilities.random.nextInt(7), Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE), Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE), true);
+                                WorldGenerator wg = new WorldGenTrees(false, 4 + CommonUtilities.random.nextInt(7), Blocks.OAK_LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE), Blocks.OAK_LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE), true);
 				wg.generate(worldIn, CommonUtilities.random, position);
 			}
 			else
 			{
-				WorldGenerator wg = new WorldGenTrees(true, 4 + CommonUtilities.random.nextInt(7), Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE), Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE), true);
+                                WorldGenerator wg = new WorldGenTrees(true, 4 + CommonUtilities.random.nextInt(7), Blocks.OAK_LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE), Blocks.OAK_LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE), true);
 				wg.generate(worldIn, CommonUtilities.random, position);
 			}
 		}
