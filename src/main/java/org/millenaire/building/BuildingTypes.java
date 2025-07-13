@@ -3,6 +3,7 @@ package org.millenaire.building;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,23 +15,36 @@ import org.millenaire.util.ResourceLocationUtil;
 import com.google.gson.Gson;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.IResourceManager;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 public class BuildingTypes {
 	
 	private static Map<ResourceLocation, BuildingType> buildingCache = new HashMap<ResourceLocation, BuildingType>();
 
-	public static void cacheBuildingTypes(MillCulture culture) {
-		
-		InputStream is = MillCulture.class.getClassLoader().getResourceAsStream("assets/millenaire/cultures/" + culture.cultureName.toLowerCase() + "/buildings/buildings.json");
-		String[] buildings = new Gson().fromJson(new InputStreamReader(is), String[].class);
-		
-		for(String building : buildings) {
-			ResourceLocation loc = new ResourceLocation(building);
-			InputStream file = MillCulture.class.getClassLoader().getResourceAsStream("assets/millenaire/cultures/" + loc.getResourceDomain() + "/buildings/" + loc.getResourcePath() + ".json");
-			BuildingType type = new Gson().fromJson(new InputStreamReader(file), BuildingType.class);
-			buildingCache.put(loc, type);
-		}
-	}
+        public static void cacheBuildingTypes(MillCulture culture) {
+                IResourceManager rm = ServerLifecycleHooks.getCurrentServer().getResourceManager();
+                try {
+                        Collection<ResourceLocation> lists = rm.getAllResourceLocations("cultures/" + culture.cultureName.toLowerCase() + "/buildings", s -> s.endsWith("buildings.json"));
+
+                        for (ResourceLocation list : lists) {
+                                try (InputStream is = rm.getResource(list).getInputStream()) {
+                                        String[] buildings = new Gson().fromJson(new InputStreamReader(is), String[].class);
+
+                                        for (String building : buildings) {
+                                                ResourceLocation loc = new ResourceLocation(building);
+                                                ResourceLocation fileLoc = new ResourceLocation(list.getNamespace(), "cultures/" + loc.getNamespace() + "/buildings/" + loc.getPath() + ".json");
+                                                try (InputStream file = rm.getResource(fileLoc).getInputStream()) {
+                                                        BuildingType type = new Gson().fromJson(new InputStreamReader(file), BuildingType.class);
+                                                        buildingCache.put(loc, type);
+                                                }
+                                        }
+                                }
+                        }
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+        }
 	
 	public static BuildingType getTypeByID(ResourceLocation rl) { return buildingCache.get(rl); }
 	
