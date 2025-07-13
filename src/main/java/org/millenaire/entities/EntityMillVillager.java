@@ -306,8 +306,8 @@ public class EntityMillVillager extends PathfinderMob
 	
 	/*public void detrampleCrops() 
 	{
-		if (getPosition().sameBlock(prevPoint) && (previousBlock == Blocks.wheat || previousBlock instanceof BlockMillCrops) && getBlock(getPosition()) != Blocks.air
-				&& getBlock(getPosition().getBelow()) == Blocks.dirt) {
+                if (getPosition().sameBlock(prevPoint) && (previousBlock == Blocks.WHEAT || previousBlock instanceof BlockMillCrops) && getBlock(getPosition()) != Blocks.AIR
+                                && getBlock(getPosition().getBelow()) == Blocks.DIRT) {
 			setBlock(getPosition(), previousBlock);
 			setBlockMetadata(getPosition(), previousBlockMeta);
 			setBlock(getPosition().getBelow(), Blocks.farmland);

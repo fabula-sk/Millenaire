@@ -90,24 +90,24 @@ public class CommonUtilities
 	 */
 	public static Block getValidGroundBlock(final Block b, final boolean surface) 
 	{
-		if (b == Blocks.bedrock || b == Blocks.dirt ||
-			b == Blocks.grass) {
-            return Blocks.dirt;
-		} else if (b == Blocks.stone) {
-		    if (surface) {
-                return Blocks.dirt;
+                if (b == Blocks.BEDROCK || b == Blocks.DIRT ||
+                        b == Blocks.GRASS_BLOCK) {
+            return Blocks.DIRT;
+                } else if (b == Blocks.STONE) {
+                    if (surface) {
+                return Blocks.DIRT;
             } else {
-                return Blocks.grass;
+                return Blocks.GRASS_BLOCK;
             }
-        } else if (b == Blocks.gravel) {
-		    return Blocks.gravel;
-        } else if (b == Blocks.sand) {
-		    return Blocks.sand;
-        } else if (b == Blocks.sandstone) {
-		    if (surface) {
-                return Blocks.sand;
+        } else if (b == Blocks.GRAVEL) {
+                    return Blocks.GRAVEL;
+        } else if (b == Blocks.SAND) {
+                    return Blocks.SAND;
+        } else if (b == Blocks.SANDSTONE) {
+                    if (surface) {
+                return Blocks.SAND;
             } else {
-                return Blocks.sandstone;
+                return Blocks.SANDSTONE;
             }
         }
 

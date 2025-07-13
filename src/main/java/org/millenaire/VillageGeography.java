@@ -130,7 +130,7 @@ public class VillageGeography
 
 	private static boolean isForbiddenBlockForConstruction(final Block block)
 	{
-		return block == Blocks.water || block == Blocks.flowing_water || block == Blocks.ice || block == Blocks.flowing_lava || block == Blocks.lava || block == Blocks.planks || block == Blocks.cobblestone || block == Blocks.brick_block || block == Blocks.chest || block == Blocks.glass || block == Blocks.stonebrick || block == Blocks.prismarine
+        return block == Blocks.WATER || block == Blocks.ICE || block == Blocks.LAVA || block == Blocks.OAK_PLANKS || block == Blocks.COBBLESTONE || block == Blocks.BRICKS || block == Blocks.CHEST || block == Blocks.GLASS || block == Blocks.STONE_BRICKS || block == Blocks.PRISMARINE
 				|| block instanceof BlockWall || block instanceof BlockFence || block == MillBlocks.blockDecorativeEarth || block == MillBlocks.blockDecorativeStone || block == MillBlocks.blockDecorativeWood || block == MillBlocks.byzantineTile || block == MillBlocks.byzantineTileSlab || block == MillBlocks.byzantineStoneTile || block == MillBlocks.paperWall || block == MillBlocks.emptySericulture;
 	}
 	
@@ -321,7 +321,7 @@ public class VillageGeography
 
 				while (block != null && (isBlockSolid(block) || block instanceof BlockLiquid || !onground)) 
 				{
-					if (block == Blocks.log) 
+                                        if (block == Blocks.OAK_LOG)
 					{
 						heightDone = true;
 					} 
@@ -380,15 +380,15 @@ public class VillageGeography
 				final Block soilBlock = chunk.getBlock(i, y - 1, j);
 				block = chunk.getBlock(i, y, j);
 
-                water[mx][mz] = (block == Blocks.flowing_water || block == Blocks.water);
+                water[mx][mz] = (block == Blocks.WATER);
 
-				tree[mx][mz] = (soilBlock == Blocks.log);
+                                tree[mx][mz] = (soilBlock == Blocks.OAK_LOG);
 
 				path[mx][mz] = (soilBlock == MillBlocks.blockMillPath || soilBlock == MillBlocks.blockMillPathSlab || soilBlock == MillBlocks.blockMillPathSlabDouble);
 
 				boolean blocked = false;
 
-				if (!(soilBlock instanceof BlockFence) && !(soilBlock instanceof BlockWall) && !isBlockSolid(block) && block != Blocks.flowing_water && soilBlock != Blocks.water) 
+                if (!(soilBlock instanceof BlockFence) && !(soilBlock instanceof BlockWall) && !isBlockSolid(block) && block != Blocks.WATER && soilBlock != Blocks.WATER)
 				{
 					spaceAbove[mx][mz] = 1;
 				} 
@@ -397,7 +397,7 @@ public class VillageGeography
 					blocked = true;
 				}
 
-				if (block == Blocks.flowing_lava || block == Blocks.lava) 
+                                if (block == Blocks.LAVA)
 				{
 					danger[mx][mz] = true;
 				} 
@@ -728,14 +728,14 @@ public class VillageGeography
 
     private static boolean isBlockIdGround(final Block b)
 	{
-        return (b == Blocks.bedrock || b == Blocks.clay || b == Blocks.dirt ||
-                b == Blocks.grass || b == Blocks.gravel || b == Blocks.obsidian ||
-                b == Blocks.sand || b == Blocks.farmland);
+        return (b == Blocks.BEDROCK || b == Blocks.CLAY || b == Blocks.DIRT ||
+                b == Blocks.GRASS_BLOCK || b == Blocks.GRAVEL || b == Blocks.OBSIDIAN ||
+                b == Blocks.SAND || b == Blocks.FARMLAND);
 	}
 
     private static boolean isBlockIdGroundOrCeiling(final Block b)
 	{
-		return (b == Blocks.stone || b == Blocks.sandstone);
+                return (b == Blocks.STONE || b == Blocks.SANDSTONE);
 	}
 	
 	private static boolean isBlockSolid(Block block)
