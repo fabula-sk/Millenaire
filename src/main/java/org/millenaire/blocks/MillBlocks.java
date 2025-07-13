@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import org.millenaire.blocks.BlockGalianiteOre;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -168,7 +169,7 @@ public class MillBlocks {
                 BLOCKS.register("block_mill_path_slab_double", () -> blockMillPathSlabDouble);
 
                 //Ores
-                galianiteOre = new BlockMillOre(BlockMillOre.EnumMillOre.GALIANITE);
+                galianiteOre = new BlockGalianiteOre();
                 BLOCKS.register("galianite_ore", () -> galianiteOre);
     	
     	//Village Stone
