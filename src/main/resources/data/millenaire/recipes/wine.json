@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "millenaire:grapes"},
+    {"item": "millenaire:grapes"},
+    {"item": "millenaire:grapes"},
+    {"item": "millenaire:grapes"},
+    {"item": "millenaire:grapes"},
+    {"item": "millenaire:grapes"}
+  ],
+  "result": {"item": "millenaire:wine"}
+}
