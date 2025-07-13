@@ -167,7 +167,7 @@ public class MillBlocks {
                 BLOCKS.register("block_mill_path_slab", () -> blockMillPathSlab);
                 BLOCKS.register("block_mill_path_slab_double", () -> blockMillPathSlabDouble);
 
-		//Ores
+                //Ores
                 galianiteOre = new BlockMillOre(BlockMillOre.EnumMillOre.GALIANITE);
                 BLOCKS.register("galianite_ore", () -> galianiteOre);
     	

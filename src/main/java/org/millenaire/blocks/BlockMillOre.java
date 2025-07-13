@@ -2,10 +2,11 @@ package org.millenaire.blocks;
 
 import java.util.Random;
 
-import org.millenaire.Millenaire;
 import org.millenaire.items.MillItems;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -15,12 +16,12 @@ public class BlockMillOre extends Block {
 
 	private EnumMillOre oreType;
 	
-	BlockMillOre(EnumMillOre oretype) {
-		super(Material.rock);
-		this.oreType = oretype;
-		this.setCreativeTab(Millenaire.tabMillenaire);
-		this.setHarvestLevel("pickaxe", oretype.harvestLevel);
-	}
+        BlockMillOre(EnumMillOre oretype) {
+                super(AbstractBlock.Properties.of(Material.rock)
+                        .strength(3.0F, 3.0F)
+                        .sound(SoundType.STONE));
+                this.oreType = oretype;
+        }
 	
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) { return oreType.itemDropped; }

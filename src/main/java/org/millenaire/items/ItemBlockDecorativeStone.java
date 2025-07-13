@@ -3,18 +3,17 @@ package org.millenaire.items;
 import org.millenaire.blocks.BlockDecorativeStone;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockDecorativeStone extends ItemBlock
+public class ItemBlockDecorativeStone extends BlockItem
 {
 
-	public ItemBlockDecorativeStone(Block block) 
-	{
-		super(block);
-		this.setMaxDamage(0);
-		this.setHasSubtypes(true);
-	}
+       public ItemBlockDecorativeStone(Block block, Item.Properties properties)
+       {
+               super(block, properties);
+       }
 
 	public String getUnlocalizedName(ItemStack stack)
     {
