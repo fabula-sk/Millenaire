@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/tuningFork"
+        "layer0": "millenaire:items/tuning_fork"
     },
     "display": {
         "thirdperson": {
