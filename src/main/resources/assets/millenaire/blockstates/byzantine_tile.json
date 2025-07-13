@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "millenaire:byzantine_tile" },
+        "facing=south": { "model": "millenaire:byzantine_tile", "y": 180 },
+        "facing=west":  { "model": "millenaire:byzantine_tile", "y": 270 },
+        "facing=east":  { "model": "millenaire:byzantine_tile", "y": 90 }
+    }
+}

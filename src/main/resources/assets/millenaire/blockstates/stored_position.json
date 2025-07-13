@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "variant=tradepos": { "model": "millenaire:stored_position" },
+        "variant=sourcepos": { "model": "millenaire:stored_position" },
+        "variant=pathpos": { "model": "millenaire:stored_position" },
+        "variant=hidepos": { "model": "millenaire:stored_position" },
+        "variant=defendpos": { "model": "millenaire:stored_position" },
+        "variant=sleeppos": { "model": "millenaire:stored_position" }
+    }
+}
