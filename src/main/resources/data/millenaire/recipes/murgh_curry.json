@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "millenaire:rice"},
+    {"item": "millenaire:turmeric"},
+    {"item": "minecraft:chicken"}
+  ],
+  "result": {"item": "millenaire:murgh_curry"}
+}
