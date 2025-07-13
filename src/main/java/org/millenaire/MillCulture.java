@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -18,6 +19,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import net.minecraft.resources.IResourceManager;
+import net.minecraft.util.ResourceLocation;
 
 public class MillCulture 
 {
@@ -149,13 +152,21 @@ public class MillCulture
 	}
 
     private void loadVillageTypes() {
-		Gson gson = new Gson();
-		InputStream is = MillCulture.class.getClassLoader().getResourceAsStream("assets/millenaire/cultures/" + this.cultureName.toLowerCase() + "/villages.json");
-		VillageTypes vt = gson.fromJson(new InputStreamReader(is), VillageTypes.class);
-		this.villageTypes = vt.types;
-		
-		BuildingTypes.cacheBuildingTypes(normanCulture);
-	}
+                Gson gson = new Gson();
+                IResourceManager rm = ServerLifecycleHooks.getCurrentServer().getResourceManager();
+                try {
+                        Collection<ResourceLocation> locs = rm.getAllResourceLocations("cultures/" + this.cultureName.toLowerCase(), s -> s.endsWith("villages.json"));
+                        for (ResourceLocation rl : locs) {
+                                try (InputStream is = rm.getResource(rl).getInputStream()) {
+                                        VillageTypes vt = gson.fromJson(new InputStreamReader(is), VillageTypes.class);
+                                        this.villageTypes = vt.types;
+                                }
+                        }
+                        BuildingTypes.cacheBuildingTypes(normanCulture);
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+        }
 	
 	//////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	

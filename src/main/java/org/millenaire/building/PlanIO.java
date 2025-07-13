@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import net.minecraft.resources.IResourceManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -274,17 +277,23 @@ public class PlanIO {
 				.setHeightDepth(height, depth).setDistance(0, 5).setOrientation(EnumFacing.getHorizontal(2)).setPlan(organized).setLengthWidth(length, width);
 	}
 
-	public static NBTTagCompound getBuildingTag(final String name, MillCulture culture, final boolean packaged) {
-		if(packaged) {
-			InputStream x = MillCulture.class.getClassLoader().getResourceAsStream("assets/millenaire/cultures/" + culture.cultureName.toLowerCase() + "/buildings/" + name + ".mlplan");
-			try {
-				return CompressedStreamTools.readCompressed(x);
-			} catch (IOException e) {
-				e.printStackTrace();
-				return new NBTTagCompound();
-			}
-		}
-		else {
+        public static NBTTagCompound getBuildingTag(final String name, MillCulture culture, final boolean packaged) {
+                if(packaged) {
+                        IResourceManager rm = ServerLifecycleHooks.getCurrentServer().getResourceManager();
+                        try {
+                                Collection<ResourceLocation> locs = rm.getAllResourceLocations("cultures/" + culture.cultureName.toLowerCase() + "/buildings", s -> s.equals(name + ".mlplan"));
+                                for (ResourceLocation rl : locs) {
+                                        try (InputStream x = rm.getResource(rl).getInputStream()) {
+                                                return CompressedStreamTools.readCompressed(x);
+                                        }
+                                }
+                                return new NBTTagCompound();
+                        } catch (IOException e) {
+                                e.printStackTrace();
+                                return new NBTTagCompound();
+                        }
+                }
+                else {
 			try {
 				File f1 = getBuildingFile(name);
 				if(!f1.exists())
