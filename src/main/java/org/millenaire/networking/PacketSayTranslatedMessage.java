@@ -19,19 +19,11 @@ public class PacketSayTranslatedMessage {
 	
 
         public static void encode(PacketSayTranslatedMessage msg, FriendlyByteBuf buf) {
-                buf.writeInt(msg.message.length());
-                for(char c : msg.message.toCharArray()) {
-                        buf.writeChar(c);
-                }
+                buf.writeUtf(msg.message);
         }
 
         public static PacketSayTranslatedMessage decode(FriendlyByteBuf buf) {
-                int length = buf.readInt();
-                char[] chars = new char[length];
-                for(int i = 0; i < length; i++) {
-                        chars[i] = buf.readChar();
-                }
-                return new PacketSayTranslatedMessage(String.copyValueOf(chars));
+                return new PacketSayTranslatedMessage(buf.readUtf());
         }
 
         public static void handle(PacketSayTranslatedMessage msg, Supplier<NetworkEvent.Context> ctx) {
