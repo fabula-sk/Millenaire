@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/goldOrnament",
+"parent": "millenaire:block/gold_ornament",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

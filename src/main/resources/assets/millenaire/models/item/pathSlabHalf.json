@@ -1,5 +1,5 @@
 {
-    "parent": "millenaire:block/pathSlabLowerHalf",
+    "parent": "millenaire:block/path_slabLowerHalf",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

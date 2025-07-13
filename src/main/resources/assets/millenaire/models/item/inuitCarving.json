@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/inuitCarving",
+"parent": "millenaire:block/inuit_carving",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/blockAlchemists",
+"parent": "millenaire:block/block_alchemists",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

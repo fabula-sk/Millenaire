@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/pathSandstoneSlab",
+"parent": "millenaire:block/path_sandstone_slab",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

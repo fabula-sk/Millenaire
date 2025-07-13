@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/villageStone",
+"parent": "millenaire:block/village_stone",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

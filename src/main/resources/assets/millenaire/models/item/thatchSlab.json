@@ -1,5 +1,5 @@
 {
-    "parent": "millenaire:block/thatchSlabHalf",
+    "parent": "millenaire:block/thatch_slab_half",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/pathDirt",
+"parent": "millenaire:block/path_dirt",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/pathGravel",
+"parent": "millenaire:block/path_gravel",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

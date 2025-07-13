@@ -1,5 +1,5 @@
 {
-    "parent": "millenaire:block/pathOchreSlabLowerHalf",
+    "parent": "millenaire:block/path_ochre_slabLowerHalf",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

@@ -1,5 +1,5 @@
 {
-"parent": "millenaire:block/emptySericulture",
+"parent": "millenaire:block/empty_sericulture",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],
