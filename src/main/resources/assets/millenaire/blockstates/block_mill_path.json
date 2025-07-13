@@ -1,0 +1,10 @@
+{
+    "variants": {
+    	"variant=dirt": { "model": "millenaire:path_dirt" },
+        "variant=gravel": { "model": "millenaire:path_gravel" },
+        "variant=slab": { "model": "millenaire:path_slab" },
+        "variant=sandstoneslab": { "model": "millenaire:path_sandstone_slab" },
+        "variant=ochreslab": { "model": "millenaire:pathochre_slab" },
+        "variant=slabandgravel": { "model": "millenaire:path_slab_and_gravel" }
+    }
+}

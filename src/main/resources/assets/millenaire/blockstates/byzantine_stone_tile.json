@@ -9,22 +9,22 @@
         	"back": "millenaire:blocks/tileshalffront",
         	"side": "millenaire:blocks/tileshalfside"
         },
-        "model": "millenaire:byzantineStoneTileBottom",
+        "model": "millenaire:byzantine_stone_tile_bottom",
         "uvlock": true
 	},
 	"variants": {
 		"facing": {
 			"north": {
-				"submodel": "millenaire:byzantineStoneTileTop", "uvlock": false
+				"submodel": "millenaire:byzantine_stone_tile_top", "uvlock": false
 			},
 			"south": {
-				"submodel": "millenaire:byzantineStoneTileTop", "uvlock": false, "y": 180
+				"submodel": "millenaire:byzantine_stone_tile_top", "uvlock": false, "y": 180
 			},
 			"west": {
-				"submodel": "millenaire:byzantineStoneTileTop", "uvlock": false, "y": 270
+				"submodel": "millenaire:byzantine_stone_tile_top", "uvlock": false, "y": 270
 			},
 			"east": {
-				"submodel": "millenaire:byzantineStoneTileTop", "uvlock": false, "y": 90
+				"submodel": "millenaire:byzantine_stone_tile_top", "uvlock": false, "y": 90
 			}
 		}
 	}

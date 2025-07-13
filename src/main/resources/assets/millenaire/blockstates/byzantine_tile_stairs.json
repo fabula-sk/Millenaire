@@ -23,32 +23,32 @@
 		"shape": {
 			"straight": {
 				"submodel": {
-        			"stonePart": { "model": "millenaire:byzantineStairsStonePart", "uvlock": true },
-        			"tilePart": { "model": "millenaire:byzantineStairsTilePart", "uvlock": false }
+        			"stonePart": { "model": "millenaire:byzantine_stairs_stone_part", "uvlock": true },
+        			"tilePart": { "model": "millenaire:byzantine_stairs_tile_part", "uvlock": false }
         		}
 			},
 			"outer_right": {
 				"submodel": {
-        			"stonePart": { "model": "millenaire:byzantineStairsStoneOuterRight", "uvlock": true },
-        			"tilePart": { "model": "millenaire:byzantineStairsTileOuterRight", "uvlock": false }
+        			"stonePart": { "model": "millenaire:byzantine_stairs_stone_outer_right", "uvlock": true },
+        			"tilePart": { "model": "millenaire:byzantine_stairs_tile_outer_right", "uvlock": false }
         		}
 			},
 			"outer_left": {
 				"submodel": {
-        			"stonePart": { "model": "millenaire:byzantineStairsStoneOuterLeft", "uvlock": true },
-        			"tilePart": { "model": "millenaire:byzantineStairsTileOuterLeft", "uvlock": false }
+        			"stonePart": { "model": "millenaire:byzantine_stairs_stone_outer_left", "uvlock": true },
+        			"tilePart": { "model": "millenaire:byzantine_stairs_tile_outer_left", "uvlock": false }
         		}
 			},
 			"inner_right": {
 				"submodel": {
-        			"stonePart": { "model": "millenaire:byzantineStairsStoneInnerRight", "uvlock": true },
-        			"tilePart": { "model": "millenaire:byzantineStairsTileInnerRight", "uvlock": false }
+        			"stonePart": { "model": "millenaire:byzantine_stairs_stone_inner_right", "uvlock": true },
+        			"tilePart": { "model": "millenaire:byzantine_stairs_tile_inner_right", "uvlock": false }
         		}
 			},
 			"inner_left": {
 				"submodel": {
-        			"stonePart": { "model": "millenaire:byzantineStairsStoneInnerLeft", "uvlock": true },
-        			"tilePart": { "model": "millenaire:byzantineStairsTileInnerLeft", "uvlock": false }
+        			"stonePart": { "model": "millenaire:byzantine_stairs_stone_inner_left", "uvlock": true },
+        			"tilePart": { "model": "millenaire:byzantine_stairs_tile_inner_left", "uvlock": false }
         		}
 			}
 		}
