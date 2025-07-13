@@ -3,19 +3,19 @@ package org.millenaire.gui;
 import org.millenaire.Millenaire;
 import org.millenaire.gui.GuiParchment.NextPageButton;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiChief extends GuiScreen
+public class GuiChief extends Screen
 {
 	private final static ResourceLocation CHIEFGUI = new ResourceLocation(Millenaire.MODID + ":textures/gui/ML_village_chief.png");
 	private String string;
 	private int page = 0;
 	private int maxPage = 4;
 
-	private GuiButton forward;
-	private GuiButton backward;
+        private Button forward;
+        private Button backward;
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) 
@@ -31,13 +31,13 @@ public class GuiChief extends GuiScreen
 	@Override
 	public void initGui() 
 	{
-	    this.buttonList.add(this.backward = new NextPageButton(0, (this.width / 2) - 95, 208, false));
-	    this.buttonList.add(this.forward = new NextPageButton(1, (this.width / 2) + 77, 208, true));
+            this.buttonList.add(this.backward = new NextPageButton(0, (this.width / 2) - 95, 208, false));
+            this.buttonList.add(this.forward = new NextPageButton(1, (this.width / 2) + 77, 208, true));
 	    updateButtons();
 	}
 	
 	@Override
-	protected void actionPerformed(GuiButton button)
+        protected void actionPerformed(Button button)
 	{
 	    if (button == this.forward) 
 	    {

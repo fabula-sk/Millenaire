@@ -19,7 +19,7 @@ import org.millenaire.village.Village;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.World;
 
 public class TileEntityVillageStone extends TileEntity
@@ -71,8 +71,8 @@ public class TileEntityVillageStone extends TileEntity
 					{
 						if(!world.isRemote)
 						{
-							for(int i = 0; i < world.playerEntities.size(); i++)
-								world.playerEntities.get(i).addChatMessage(new ChatComponentText(culture + " village " + villageName + " discovered at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ()));
+                                                        for(int i = 0; i < world.playerEntities.size(); i++)
+                                                                world.playerEntities.get(i).sendMessage(new TextComponent(culture + " village " + villageName + " discovered at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ()), world.playerEntities.get(i).getUUID());
 						}
 					}
 

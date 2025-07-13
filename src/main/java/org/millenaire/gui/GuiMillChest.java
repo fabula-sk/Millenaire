@@ -4,20 +4,22 @@ import java.io.IOException;
 
 import org.millenaire.entities.TileEntityMillChest;
 
-import net.minecraft.client.gui.inventory.GuiChest;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.client.gui.screens.inventory.ChestScreen;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
-public class GuiMillChest extends GuiChest
+public class GuiMillChest extends ChestScreen
 {
 	private boolean isLocked;
 
-	private IInventory lowerChestInventory;
+        private Inventory lowerChestInventory;
 	private TileEntityMillChest chest;
 	
-	GuiMillChest(IInventory playerInv, IInventory chestInv, EntityPlayer playerIn, TileEntityMillChest entityIn)
+        GuiMillChest(Inventory playerInv, Inventory chestInv, Player playerIn, TileEntityMillChest entityIn)
 	{
 		super(playerInv, chestInv);
 		System.out.println("GuiCreated");
@@ -30,16 +32,16 @@ public class GuiMillChest extends GuiChest
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
 		chest.checkForAdjacentChests();
-		IChatComponent string;
-		if(chest.adjacentChestXNeg == null && chest.adjacentChestXPos == null && chest.adjacentChestZNeg == null && chest.adjacentChestZPos == null) {
-			string = (isLocked ? new ChatComponentTranslation("container.millChestLocked") : new ChatComponentTranslation("container.millChestUnlocked"));
-		}
-		else {
-			string = (isLocked ? new ChatComponentTranslation("container.millChestDoubleLocked") : new ChatComponentTranslation("container.millChestDoubleUnlocked"));
-		}
+                Component string;
+                if(chest.adjacentChestXNeg == null && chest.adjacentChestXPos == null && chest.adjacentChestZNeg == null && chest.adjacentChestZPos == null) {
+                        string = isLocked ? new TranslatableComponent("container.millChestLocked") : new TranslatableComponent("container.millChestUnlocked");
+                }
+                else {
+                        string = isLocked ? new TranslatableComponent("container.millChestDoubleLocked") : new TranslatableComponent("container.millChestDoubleUnlocked");
+                }
 		
-        this.fontRendererObj.drawString(string.getUnformattedText(), 8, 6, 4210752);
-        this.fontRendererObj.drawString(this.lowerChestInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(string.getString(), 8, 6, 4210752);
+        this.fontRendererObj.drawString(this.lowerChestInventory.getDisplayName().getString(), 8, this.ySize - 96 + 2, 4210752);
     }
 
 	@Override
