@@ -18,26 +18,28 @@ public class GuiChief extends Screen
         private Button backward;
 	
 	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) 
+	public void render(com.mojang.blaze3d.vertex.PoseStack poseStack, int mouseX, int mouseY, float partialTicks) 
 	{
-	    this.drawDefaultBackground();
-	    mc.getTextureManager().bindTexture(CHIEFGUI);
-	    this.drawTexturedModalRect((this.width - 255) / 2, 2, 0, 0, 255, 199);
-	    this.fontRendererObj.drawSplitString(string, (this.width / 2) - 94, 20, 190, 0);
+	    this.renderBackground(poseStack);
+	    Minecraft.getInstance().getTextureManager().bind(CHIEFGUI);
+	    this.blit(poseStack, (this.width - 255) / 2, 2, 0, 0, 255, 199);
+	    this.font.drawWordWrap(Component.literal(string), (this.width / 2) - 94, 20, 190, 0);
 	    
-	    super.drawScreen(mouseX, mouseY, partialTicks);
+	    super.render(poseStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public void initGui() 
-	{
-            this.buttonList.add(this.backward = new NextPageButton(0, (this.width / 2) - 95, 208, false));
-            this.buttonList.add(this.forward = new NextPageButton(1, (this.width / 2) + 77, 208, true));
-	    updateButtons();
-	}
+        public void init()
+        {
+            this.backward = new NextPageButton(0, (this.width / 2) - 95, 208, false);
+            this.forward = new NextPageButton(1, (this.width / 2) + 77, 208, true);
+            this.addRenderableWidget(this.backward);
+            this.addRenderableWidget(this.forward);
+            updateButtons();
+        }
 	
 	@Override
-        protected void actionPerformed(Button button)
+        protected void onPress(Button button)
 	{
 	    if (button == this.forward) 
 	    {
