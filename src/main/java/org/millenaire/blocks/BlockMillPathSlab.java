@@ -8,8 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,7 +40,7 @@ public class BlockMillPathSlab extends BlockSlab
 	public boolean isDouble() { return false; }
 
 	@Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
+    public Item getItemDropped(BlockState state, Random rand, int fortune)
     {
         return Item.getItemFromBlock(MillBlocks.blockMillPathSlab);
     }
@@ -77,7 +76,7 @@ public class BlockMillPathSlab extends BlockSlab
         }
         else
         {
-            IBlockState iblockstate = worldIn.getBlockState(pos);
+            BlockState iblockstate = worldIn.getBlockState(pos);
 
             if (iblockstate.getBlock() == this)
             {
@@ -128,9 +127,4 @@ public class BlockMillPathSlab extends BlockSlab
         return this.isDouble() ? new BlockState(this, SEAMLESS, VARIANT): new BlockState(this, HALF, VARIANT);
     }
 
-	@Override
-    public int damageDropped(IBlockState state)
-    {
-        return ((BlockMillPath.EnumType)state.getValue(VARIANT)).getMetadata();
-    }
 }

@@ -8,8 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -42,7 +41,7 @@ public class BlockOrientedSlab extends BlockSlab
 	}
 	
     @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
+    public Item getItemDropped(BlockState state, Random rand, int fortune)
     {
     	if(singleSlab != null)
     		return Item.getItemFromBlock(singleSlab);
@@ -65,9 +64,9 @@ public class BlockOrientedSlab extends BlockSlab
     }
     
     @Override
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public BlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        IBlockState iblockstate = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+        BlockState iblockstate = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
         return this.isDouble() ? iblockstate : (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double)hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.TOP));
     }
     
@@ -103,8 +102,8 @@ public class BlockOrientedSlab extends BlockSlab
         else
         {
             BlockPos blockpos1 = pos.offset(side.getOpposite());
-            IBlockState iblockstate = worldIn.getBlockState(pos);
-            IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);
+            BlockState iblockstate = worldIn.getBlockState(pos);
+            BlockState iblockstate1 = worldIn.getBlockState(blockpos1);
             boolean flag = isSlabX(iblockstate.getBlock()) && iblockstate.getValue(HALF) == BlockOrientedSlab.EnumBlockHalf.TOP;
             boolean flag1 = isSlabX(iblockstate1.getBlock()) && iblockstate1.getValue(HALF) == BlockOrientedSlab.EnumBlockHalf.TOP;
             return flag1 ? (side == EnumFacing.DOWN || (side == EnumFacing.UP && super.shouldSideBeRendered(worldIn, pos, side) || (!isSlabX(iblockstate.getBlock()) || !flag))) : (side == EnumFacing.UP || (side == EnumFacing.DOWN && super.shouldSideBeRendered(worldIn, pos, side) || (!isSlabX(iblockstate.getBlock()) || flag)));

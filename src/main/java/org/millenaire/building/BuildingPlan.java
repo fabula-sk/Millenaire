@@ -23,7 +23,7 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockStoneSlab;
 import net.minecraft.block.BlockWoodSlab;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -57,7 +57,7 @@ public class BuildingPlan
 	public String[] maleVillagerType;
 	public String[] femaleVillagerType;
 	
-	IBlockState[][][] buildingArray;
+	BlockState[][][] buildingArray;
 	public List<String> subBuildings;
 	public int pathLevel = 0;
 	public int pathWidth = 2;
@@ -152,7 +152,7 @@ public class BuildingPlan
 		return this;
 	}
 	
-	public BuildingPlan setPlan(IBlockState[][][] arrayIn)
+	public BuildingPlan setPlan(BlockState[][][] arrayIn)
 	{
 		this.buildingArray = arrayIn;
 		computeCost();
@@ -256,7 +256,7 @@ public class BuildingPlan
                }
        }
 	
-	private boolean freeBuild(IBlockState state)
+	private boolean freeBuild(BlockState state)
 	{
                 return state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.WATER || state.getBlock() == Blocks.OAK_LEAVES || state.getBlock() == Blocks.ACACIA_LEAVES || state.getBlock() == Blocks.GRASS_BLOCK || state.getBlock() == Blocks.TALL_GRASS || state.getBlock() == Blocks.POPPY || state.getBlock() == Blocks.DANDELION || state.getBlock() == Blocks.LILAC || state.getBlock() == Blocks.DEAD_BUSH
 				|| state.getBlock() == MillBlocks.blockMillPath || state.getBlock() == MillBlocks.blockMillPathSlab || state.equals(MillBlocks.blockDecorativeEarth.getDefaultState().withProperty(BlockDecorativeEarth.VARIANT, BlockDecorativeEarth.EnumType.DIRTWALL));
@@ -274,7 +274,7 @@ public class BuildingPlan
 			{
 				for (int k = 0; k < width; k++) 
 				{
-					final IBlockState state = buildingArray[i][j][k];
+					final BlockState state = buildingArray[i][j][k];
 
 					if (state == null) 
 					{
@@ -450,9 +450,9 @@ public class BuildingPlan
 					else if (state.getBlock() == MillBlocks.emptySericulture)
 						plankCost += 4;
                                         else if (state.getBlock() != Blocks.AIR && !freeBuild(state))
-					{
-						addToCost(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)), 1);
-					}
+                                        {
+                                                addToCost(new ItemStack(state.getBlock()), 1);
+                                        }
 				}
 			}
 		}
@@ -793,7 +793,7 @@ public class BuildingPlan
 				{
 					int ak = j % 2 == 0 ? k : width - k - 1;
 
-					IBlockState state = buildingArray[i][j][ak];
+					BlockState state = buildingArray[i][j][ak];
 
 					BlockPos p = adjustForOrientation(x, y + i + depth, z, j - lengthOffset, ak - widthOffset, orientation);
 
@@ -815,7 +815,7 @@ public class BuildingPlan
 					int ak = j % 2 == 0 ? k : width - k - 1;
 					int ai = i + depth < 0 ? -i - depth - 1 : i;
 
-					IBlockState state = buildingArray[ai][j][ak];
+					BlockState state = buildingArray[ai][j][ak];
 
 					BlockPos p = adjustForOrientation(x, y + ai + depth, z, j - lengthOffset, ak - widthOffset, orientation);
 					for(IProperty prop : state.getProperties().keySet())
@@ -881,7 +881,7 @@ public class BuildingPlan
 					int ak = j % 2 == 0 ? k : width - k - 1;
 					int ai = i + depth < 0 ? -i - depth - 1 : i;
 
-					IBlockState state = buildingArray[ai][j][ak];
+					BlockState state = buildingArray[ai][j][ak];
 
 					BlockPos p = adjustForOrientation(x, y + ai + depth, z, j - lengthOffset, ak - widthOffset, orientation);
 					for(IProperty prop : state.getProperties().keySet())
@@ -941,7 +941,7 @@ public class BuildingPlan
 			final BuildingBlock bb = bblocks.get(i);
 			
 			Block block = bb.blockState.getBlock();
-			IBlockState state = bb.blockState;
+			BlockState state = bb.blockState;
 			int special = bb.specialBlock;
 			
 			if (bbmap.containsKey(bb.position)) 
@@ -1005,11 +1005,11 @@ public class BuildingPlan
 		return pos;
 	}
 	
-	private boolean firstPass(IBlockState state) {
+	private boolean firstPass(BlockState state) {
 		return state.getBlock().getCreativeTabToDisplayOn() == CreativeTabs.tabBlock || state.getBlock() instanceof BlockDecorativeEarth || state.getBlock() instanceof BlockDecorativeWood || state.getBlock() instanceof BlockDecorativeStone || state.getBlock() == MillBlocks.byzantineStoneTile || state.getBlock() == MillBlocks.byzantineTile || state.getBlock() == MillBlocks.byzantineTileSlab || state.getBlock() == MillBlocks.byzantineTileSlabDouble;
 	}
 	
-	private void setReferencePositions(IBlockState state, BlockPos pos, BuildingLocation location)
+	private void setReferencePositions(BlockState state, BlockPos pos, BuildingLocation location)
 	{
 		if(state.getBlock() instanceof BlockMillChest)
 			location.chestPos.add(pos);

@@ -8,7 +8,7 @@ import org.millenaire.items.ItemMillSeeds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -36,7 +36,7 @@ public class BlockMillCrops extends BlockCrops
 	}
 	
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public void updateTick(World worldIn, BlockPos pos, BlockState state, Random rand)
     {
         super.checkAndDropBlock(worldIn, pos, state);
 
@@ -61,7 +61,7 @@ public class BlockMillCrops extends BlockCrops
 	
 	private float getLocalGrowthChance(Block blockIn, World worldIn, BlockPos pos)
 	{
-		IBlockState groundIn = worldIn.getBlockState(pos.down());
+		BlockState groundIn = worldIn.getBlockState(pos.down());
 		if(groundIn.getBlock() != Blocks.farmland)
 		{
 			System.err.println("BlockMillCrop growth logic not applied, unrecognized farmland");

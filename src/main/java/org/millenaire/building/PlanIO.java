@@ -15,7 +15,7 @@ import org.millenaire.VillagerType;
 import org.millenaire.networking.PacketSayTranslatedMessage;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.init.Blocks;
@@ -38,7 +38,7 @@ public class PlanIO {
 
 	public static final String FILE_VERSION = "1";
 
-	//IBlockState[y][z][x]
+	//BlockState[y][z][x]
 	public static void exportBuilding(Player player, BlockPos startPoint) {
 		try {
 			TileEntitySign sign = (TileEntitySign)player.getEntityWorld().getTileEntity(startPoint);
@@ -71,7 +71,7 @@ public class PlanIO {
 			boolean foundEnd = false;
 			int xEnd = startPoint.getX() + 1;
 			while(!foundEnd && xEnd < startPoint.getX() + 257) {
-				final IBlockState block = player.getEntityWorld().getBlockState(new BlockPos(xEnd, startPoint.getY(), startPoint.getZ()));
+				final BlockState block = player.getEntityWorld().getBlockState(new BlockPos(xEnd, startPoint.getY(), startPoint.getZ()));
 
 				if (block.getBlock() == Blocks.standing_sign) {
 					foundEnd = true;
@@ -87,7 +87,7 @@ public class PlanIO {
 			foundEnd = false;
 			int zEnd = startPoint.getZ() + 1;
 			while(!foundEnd && zEnd < startPoint.getZ() + 257) {
-				final IBlockState block = player.getEntityWorld().getBlockState(new BlockPos(startPoint.getX(), startPoint.getY(), zEnd));
+				final BlockState block = player.getEntityWorld().getBlockState(new BlockPos(startPoint.getX(), startPoint.getY(), zEnd));
 
 				if (block.getBlock() == Blocks.standing_sign) {
 					foundEnd = true;
@@ -106,17 +106,17 @@ public class PlanIO {
 			boolean stop = false;
 			int y = 0;
 
-			final Map<Integer, IBlockState[][]> ex = new HashMap<Integer, IBlockState[][]>();
+			final Map<Integer, BlockState[][]> ex = new HashMap<Integer, BlockState[][]>();
 
 			while(!stop) {
 
-				IBlockState[][] level = new IBlockState[width][length];
+				BlockState[][] level = new BlockState[width][length];
 
 				boolean blockFound = false;
 
 				for (int x = 0; x < width; x++) {
 					for (int z = 0; z < length; z++) {
-						IBlockState block = player.getEntityWorld().getBlockState(new BlockPos(x + startPoint.getX() + 1, y + startPoint.getY() + startLevel, z + startPoint.getZ() + 1));
+						BlockState block = player.getEntityWorld().getBlockState(new BlockPos(x + startPoint.getX() + 1, y + startPoint.getY() + startLevel, z + startPoint.getZ() + 1));
 
                                                 if(block.getBlock() != Blocks.AIR) {
 							blockFound = true;
@@ -143,10 +143,10 @@ public class PlanIO {
 				}
 			}
 
-			IBlockState[][][] ex2 = new IBlockState[ex.size()][length][width];
+			BlockState[][][] ex2 = new BlockState[ex.size()][length][width];
 
 			for(int i = 0; i < ex.size(); i++) {
-				IBlockState[][] level = ex.get(i);
+				BlockState[][] level = ex.get(i);
 				for(int x = 0; x < width; x++) {
 					for(int z = 0; z < length; z++) {
 						ex2[i][z][x] = level[x][z];
@@ -194,7 +194,7 @@ public class PlanIO {
 			FileInputStream fis = new FileInputStream(schem);
 
 			BuildingPlan plan = loadSchematic(CompressedStreamTools.readCompressed(fis), MillCulture.normanCulture, level);
-			IBlockState[][][] blocks = plan.buildingArray;
+			BlockState[][][] blocks = plan.buildingArray;
 
 			for(int x = 0; x < plan.width; x++) {
 				for(int y = 0; y < plan.height; y++) {
@@ -211,7 +211,7 @@ public class PlanIO {
 	}
 	
 	public static void placeBuilding(BuildingPlan plan, BuildingLocation loc, World world) {
-		IBlockState[][][] blocks = plan.buildingArray;
+		BlockState[][][] blocks = plan.buildingArray;
 
 		for(int x = 0; x < plan.width; x++) {
 			for(int y = 0; y < plan.height; y++) {
@@ -239,7 +239,7 @@ public class PlanIO {
                 NBTTagList stateTagList = levelTag.getTagList("BlockStates", Constants.NBT.TAG_COMPOUND);
                 height = levelTag.getShort("Height");
 
-                IBlockState[] states = new IBlockState[stateTagList.tagCount()];
+                BlockState[] states = new BlockState[stateTagList.tagCount()];
 
                 for(int i = 0; i < stateTagList.tagCount(); i++) {
                         states[i] = NBTUtil.readBlockState(stateTagList.getCompoundTagAt(i));
@@ -247,7 +247,7 @@ public class PlanIO {
 
 		//turn into a 3D block array for use with BuildingPlan
 		//in format [y][z][x]! IMPORTANT!
-		IBlockState[][][] organized = new IBlockState[height][length][width];
+		BlockState[][][] organized = new BlockState[height][length][width];
 
 		for(int x = 0; x < width; x++) {
 			for(int y = 0; y < height; y++) {
@@ -327,7 +327,7 @@ public class PlanIO {
 	}
 
 	/**
-	 * Exports the IBlockState[y][z][x] to a file
+	 * Exports the BlockState[y][z][x] to a file
 	 * 
 	 * @param blocks the blocks to export
 	 * @param width the width (x-axis)
@@ -340,7 +340,7 @@ public class PlanIO {
 	 * @return the file that is outputted to disk
 	 * @throws Exception 
 	 */
-	private static File exportToSchem(IBlockState[][][] blocks, short width, short height, short length, short depth, String name, int level, Player player) throws Exception {
+	private static File exportToSchem(BlockState[][][] blocks, short width, short height, short length, short depth, String name, int level, Player player) throws Exception {
 		File f1 = getBuildingFile(name);
 
 		NBTTagCompound tag = getBuildingTag(name, null, false);

@@ -6,7 +6,7 @@ import org.millenaire.entities.TileEntityVillageStone;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.tileentity.TileEntity;
@@ -35,7 +35,7 @@ public class BlockVillageStone extends BlockContainer
     public int quantityDropped(Random random) { return 0; }
 	
 	@Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, Player playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, Player playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
                 if(worldIn.isRemote)
                 {
@@ -73,7 +73,7 @@ public class BlockVillageStone extends BlockContainer
 	}
 	
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public void updateTick(World worldIn, BlockPos pos, BlockState state, Random rand)
 	{
 		TileEntityVillageStone te;
 		

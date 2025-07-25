@@ -7,7 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockOldLeaf;
 import net.minecraft.block.BlockOldLog;
 import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityDispenser;
@@ -46,18 +46,18 @@ public class BuildingBlock
 	public static byte INDIANSTATUE = 21;
 	public static byte MAYANSTATUE = 22;
 	
-	public IBlockState blockState;
+	public BlockState blockState;
 	public BlockPos position;
 	public byte specialBlock;
 	
-	BuildingBlock(IBlockState state, BlockPos pos, byte special)
+	BuildingBlock(BlockState state, BlockPos pos, byte special)
 	{
 		blockState = state;
 		position = pos;
 		specialBlock = special;
 	}
 
-	BuildingBlock(IBlockState state, BlockPos pos)
+	BuildingBlock(BlockState state, BlockPos pos)
 	{
 		blockState = state;
 		position = pos;
