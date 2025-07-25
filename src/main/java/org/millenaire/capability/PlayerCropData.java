@@ -5,6 +5,8 @@ import java.util.Map;
 
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class PlayerCropData implements IPlayerCropData {
     private Map<Item, Boolean> cropKnowledge = new HashMap<>();
@@ -23,7 +25,7 @@ public class PlayerCropData implements IPlayerCropData {
     public NBTTagCompound writeNBT() {
         NBTTagCompound tag = new NBTTagCompound();
         for (Item i : cropKnowledge.keySet()) {
-            tag.setBoolean(Item.itemRegistry.getNameForObject(i).toString(), cropKnowledge.get(i));
+            tag.setBoolean(ForgeRegistries.ITEMS.getKey(i).toString(), cropKnowledge.get(i));
         }
         return tag;
     }
@@ -32,7 +34,7 @@ public class PlayerCropData implements IPlayerCropData {
     public void readNBT(NBTTagCompound nbt) {
         cropKnowledge.clear();
         for (String key : nbt.getKeySet()) {
-            Item i = Item.getByNameOrId(key);
+            Item i = ForgeRegistries.ITEMS.getValue(new ResourceLocation(key));
             if (i != null) {
                 cropKnowledge.put(i, nbt.getBoolean(key));
             }
