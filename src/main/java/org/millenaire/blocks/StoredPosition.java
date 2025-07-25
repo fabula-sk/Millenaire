@@ -12,6 +12,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -27,11 +31,18 @@ public class StoredPosition extends Block
 	@Override
     public int getRenderType() { return -1; }
 
+    /** Voxel shape used when debug particles are visible. */
+    private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+
     @Override
-    public boolean isOpaqueCube() { return false; }
-    
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return showParticles ? SHAPE : Shapes.empty();
+    }
+
     @Override
-    public boolean isFullCube() { return false; }
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return Shapes.empty();
+    }
     
     @SideOnly(Side.CLIENT)
     public float getAmbientOcclusionLightValue() { return 1.0F; }
