@@ -6,8 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
@@ -48,7 +47,7 @@ public class StoredPosition extends Block
 	private final int hideColor = 8323127;
 	
 	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public void randomDisplayTick(World worldIn, BlockPos pos, BlockState state, Random rand)
 	{
 		if(showParticles)
 		{
@@ -75,13 +74,13 @@ public class StoredPosition extends Block
 	}
 	
 	@Override
-    public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid)
+    public boolean canCollideCheck(BlockState state, boolean hitIfLiquid)
     {
         return showParticles;
     }
 	
 	@Override
-	public AABB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+	public AABB getCollisionBoundingBox(World worldIn, BlockPos pos, BlockState state)
     {
          return null;
     }

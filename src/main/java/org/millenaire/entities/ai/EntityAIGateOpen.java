@@ -3,7 +3,7 @@ package org.millenaire.entities.ai;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.pathfinding.PathEntity;
@@ -148,7 +148,7 @@ public class EntityAIGateOpen extends Goal
     		return;
     	}
     	
-    	IBlockState state = worldIn.getBlockState(pos);
+    	BlockState state = worldIn.getBlockState(pos);
     	if(state.getBlock() != gateIn)
     	{
     		return;

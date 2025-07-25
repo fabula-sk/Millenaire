@@ -8,7 +8,7 @@ import org.millenaire.items.ItemMillSign;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockWallSign;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
@@ -33,7 +33,7 @@ public class BlockMillSign extends BlockWallSign
 	}
 
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) { return null; }
+	public Item getItemDropped(BlockState state, Random rand, int fortune) { return null; }
 	
 	@Override
 	public boolean isOpaqueCube() { return false; }

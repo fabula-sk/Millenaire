@@ -8,7 +8,7 @@ import org.millenaire.entities.TileEntityMillChest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockContainer;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +41,7 @@ public class BlockMillChest extends BlockChest
 	public int quantityDropped(final Random random) { return 0; }
 	
 	@Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPos pos, BlockState state)
     {
         if (hasTileEntity(state) && !(this instanceof BlockContainer))
         {
@@ -50,7 +50,7 @@ public class BlockMillChest extends BlockChest
     }
 	
 	@Override
-        public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, Player playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+        public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, Player playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (!worldIn.isRemote)
         {

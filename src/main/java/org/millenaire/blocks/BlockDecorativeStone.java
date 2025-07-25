@@ -6,8 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,11 +20,6 @@ public class BlockDecorativeStone extends Block
 	
 	BlockDecorativeStone() { super(Material.rock); }
 	
-	@Override
-    public int damageDropped(IBlockState state)
-    {
-        return ((BlockDecorativeStone.EnumType)state.getValue(VARIANT)).getMetadata();
-    }
 
 	public IProperty getVariantProperty() { return VARIANT; }
 	

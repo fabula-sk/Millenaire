@@ -1,11 +1,11 @@
 package org.millenaire.blocks;
 
 import net.minecraft.block.BlockStairs;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 
 class BlockDecorativeOrientedStairs extends BlockStairs
 {
-	BlockDecorativeOrientedStairs(IBlockState modelState)
+	BlockDecorativeOrientedStairs(BlockState modelState)
 	{
 		super(modelState);
 		
