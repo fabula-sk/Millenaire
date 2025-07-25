@@ -2,7 +2,7 @@ package org.millenaire;
 
 import org.millenaire.capability.IPlayerCropData;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
@@ -13,7 +13,7 @@ public final class PlayerTracker {
 
     private PlayerTracker() {}
 
-    public static IPlayerCropData get(EntityPlayer player) {
+    public static IPlayerCropData get(Player player) {
         return player.getCapability(CROP_CAPABILITY, null);
     }
 }

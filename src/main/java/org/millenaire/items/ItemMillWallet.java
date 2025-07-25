@@ -5,7 +5,7 @@ import java.util.List;
 import org.millenaire.CommonUtilities;
 import org.millenaire.gui.MillAchievement;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,9 +17,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class ItemMillWallet extends Item
 {
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
+	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, Player playerIn)
     {
-		if(playerIn.inventory.hasItem(MillItems.denier) || playerIn.inventory.hasItem(MillItems.denierArgent) || playerIn.inventory.hasItem(MillItems.denierOr))
+		if(playerIn.getInventory().hasItem(MillItems.denier) || playerIn.getInventory().hasItem(MillItems.denierArgent) || playerIn.getInventory().hasItem(MillItems.denierOr))
 		{
 			addDenierToWallet(itemStackIn, playerIn);
 		}
@@ -33,7 +33,7 @@ public class ItemMillWallet extends Item
 	
 	@Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+    public void addInformation(ItemStack stack, Player playerIn, List<String> tooltip, boolean advanced)
     {
 		if(stack.hasTagCompound())
 		{
@@ -63,7 +63,7 @@ public class ItemMillWallet extends Item
 		}
     }
 
-    private void addDenierToWallet(ItemStack stack, EntityPlayer playerIn)
+    private void addDenierToWallet(ItemStack stack, Player playerIn)
 	{
 		if(stack.getItem() == this)
 		{
@@ -73,24 +73,24 @@ public class ItemMillWallet extends Item
 			int argent = 0;
 			int or = 0;
 			
-			for(int i = 0; i < playerIn.inventory.getSizeInventory(); i++)
+			for(int i = 0; i < playerIn.getInventory().getSizeInventory(); i++)
 			{
-				if(playerIn.inventory.getStackInSlot(i) != null)
+				if(playerIn.getInventory().getStackInSlot(i) != null)
 				{
-					if(playerIn.inventory.getStackInSlot(i).getItem() == MillItems.denier)
+					if(playerIn.getInventory().getStackInSlot(i).getItem() == MillItems.denier)
 					{
-						denier += playerIn.inventory.getStackInSlot(i).stackSize;
-						playerIn.inventory.removeStackFromSlot(i);
+						denier += playerIn.getInventory().getStackInSlot(i).stackSize;
+						playerIn.getInventory().removeStackFromSlot(i);
 					}
-					else if(playerIn.inventory.getStackInSlot(i).getItem() == MillItems.denierArgent)
+					else if(playerIn.getInventory().getStackInSlot(i).getItem() == MillItems.denierArgent)
 					{
-						argent += playerIn.inventory.getStackInSlot(i).stackSize;
-						playerIn.inventory.removeStackFromSlot(i);
+						argent += playerIn.getInventory().getStackInSlot(i).stackSize;
+						playerIn.getInventory().removeStackFromSlot(i);
 					}
-					else if(playerIn.inventory.getStackInSlot(i).getItem() == MillItems.denierOr)
+					else if(playerIn.getInventory().getStackInSlot(i).getItem() == MillItems.denierOr)
 					{
-						or += playerIn.inventory.getStackInSlot(i).stackSize;
-						playerIn.inventory.removeStackFromSlot(i);
+						or += playerIn.getInventory().getStackInSlot(i).stackSize;
+						playerIn.getInventory().removeStackFromSlot(i);
 					}
 				}
 			}
@@ -118,7 +118,7 @@ public class ItemMillWallet extends Item
 		}
 	}
 
-    private void emptyWallet(ItemStack stack, EntityPlayer playerIn)
+    private void emptyWallet(ItemStack stack, Player playerIn)
 	{
 		if(stack.hasTagCompound())
 		{
@@ -127,19 +127,19 @@ public class ItemMillWallet extends Item
 			if(nbt.hasKey("DenierOr") && nbt.getInteger("DenierOr") > 0)
 			{
 				ItemStack or = new ItemStack(MillItems.denierOr, nbt.getInteger("DenierOr"), 0);
-				playerIn.inventory.addItemStackToInventory(or);
+				playerIn.getInventory().addItemStackToInventory(or);
 			}
 			
 			if(nbt.hasKey("DenierArgent") && nbt.getInteger("DenierArgent") > 0)
 			{
 				ItemStack argent = new ItemStack(MillItems.denierArgent, nbt.getInteger("DenierArgent"), 0);
-				playerIn.inventory.addItemStackToInventory(argent);
+				playerIn.getInventory().addItemStackToInventory(argent);
 			}
 			
 			if(nbt.hasKey("Denier") && nbt.getInteger("Denier") > 0)
 			{
 				ItemStack denier = new ItemStack(MillItems.denier, nbt.getInteger("Denier"), 0);
-				playerIn.inventory.addItemStackToInventory(denier);
+				playerIn.getInventory().addItemStackToInventory(denier);
 			}
 			
 			stack.setTagCompound(null);

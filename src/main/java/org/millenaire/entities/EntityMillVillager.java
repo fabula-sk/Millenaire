@@ -20,7 +20,7 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
@@ -98,7 +98,7 @@ public class EntityMillVillager extends PathfinderMob
                 this.goalSelector.addGoal(0, new FloatGoal(this));
                 this.goalSelector.addGoal(1, new OpenDoorGoal(this, true));
                 this.goalSelector.addGoal(1, new EntityAIGateOpen(this, true));
-                this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, EntityPlayer.class, 3.0F, 0.5F));
+                this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 3.0F, 0.5F));
                 this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, EntityMillVillager.class, 6.0F));
                 this.goalSelector.addGoal(9, new RandomStrollGoal(this, 0.6D));
         }
@@ -250,10 +250,10 @@ public class EntityMillVillager extends PathfinderMob
 
 		if (entity != null) {
 			if (entity instanceof EntityLivingBase) {
-				if (entity instanceof EntityPlayer) {
+				if (entity instanceof Player) {
 					lastAttackByPlayer = true;
 
-					final EntityPlayer player = (EntityPlayer) entity;
+					final Player player = (Player) entity;
 
 					if (!isRaider) {
 						if (!vtype.hostile) {
@@ -267,7 +267,7 @@ public class EntityMillVillager extends PathfinderMob
 							}
 						}
 
-						if (hadFullHealth && (player.getHeldItem() == null || MillCommonUtilities.getItemWeaponDamage(player.getHeldItem().getItem()) <= 1) && !worldObj.isRemote) {
+						if (hadFullHealth && (player.getMainHandItem() == null || MillCommonUtilities.getItemWeaponDamage(player.getMainHandItem().getItem()) <= 1) && !worldObj.isRemote) {
 							ServerSender.sendTranslatedSentence(player, MLN.ORANGE, "ui.communicationexplanations");
 						}
 					}
@@ -340,15 +340,15 @@ public class EntityMillVillager extends PathfinderMob
 	//Remember to use setCurrentItemOrArmor
 	
 	@Override
-	protected int getExperiencePoints(final EntityPlayer playerIn) 
+	protected int getExperiencePoints(final Player playerIn) 
 	{
 		//return villagertype.expgiven;
 		return super.getExperiencePoints(playerIn);
 	}
 	
-	//GetOccupationTitle(EntityPlayer playerIn)
+	//GetOccupationTitle(Player playerIn)
 	
-	//getSpeech/Dialogue(EntityPlayer playerIn)
+	//getSpeech/Dialogue(Player playerIn)
 	//Make this smart to language learning
 	
 	/*public Item[] getGoodsToBringBackHome() 
@@ -361,7 +361,7 @@ public class EntityMillVillager extends PathfinderMob
 		return vtype.collectGoods;
 	}*/
 
-	/*public int getHireCost(final EntityPlayer player) 
+	/*public int getHireCost(final Player player) 
 	{
 
 		int cost = vtype.hireCost;
@@ -381,7 +381,7 @@ public class EntityMillVillager extends PathfinderMob
 	//handleDoorsAndFenceGates() needs to be malisis-compatible(dummy player with villagers rotationYaw)
 	
 	@Override
-	public boolean interact(final EntityPlayer playerIn) 
+	public boolean interact(final Player playerIn) 
 	{
 		playerIn.addStat(MillAchievement.firstContact, 1);
 		if(type.hireCost > 0)
@@ -451,7 +451,7 @@ public class EntityMillVillager extends PathfinderMob
 		
 		if(isPlayerInteracting)
 		{
-			List<EntityPlayer> playersNear = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AABB(posX - 5, posY - 1, posZ - 5, posX + 5, posY + 1, posZ + 5));
+			List<Player> playersNear = this.worldObj.getEntitiesWithinAABB(Player.class, new AABB(posX - 5, posY - 1, posZ - 5, posX + 5, posY + 1, posZ + 5));
 			
 			if(playersNear.isEmpty())
 				isPlayerInteracting = false;

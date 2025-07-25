@@ -8,7 +8,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
@@ -35,7 +35,7 @@ public class BlockVillageStone extends BlockContainer
     public int quantityDropped(Random random) { return 0; }
 	
 	@Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, Player playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
                 if(worldIn.isRemote)
                 {
@@ -55,7 +55,7 @@ public class BlockVillageStone extends BlockContainer
         return false;
     }
 	
-	public void negate(World worldIn, BlockPos pos, EntityPlayer playerIn)
+	public void negate(World worldIn, BlockPos pos, Player playerIn)
 	{
 		TileEntityVillageStone te;
 		

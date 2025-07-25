@@ -16,8 +16,8 @@ import org.millenaire.networking.PacketSayTranslatedMessage;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompressedStreamTools;
@@ -39,7 +39,7 @@ public class PlanIO {
 	public static final String FILE_VERSION = "1";
 
 	//IBlockState[y][z][x]
-	public static void exportBuilding(EntityPlayer player, BlockPos startPoint) {
+	public static void exportBuilding(Player player, BlockPos startPoint) {
 		try {
 			TileEntitySign sign = (TileEntitySign)player.getEntityWorld().getTileEntity(startPoint);
 
@@ -54,7 +54,7 @@ public class PlanIO {
 
 			if(buildingLevel < 0) {
 				PacketSayTranslatedMessage packet = new PacketSayTranslatedMessage("message.error.exporting.level0");
-                                Millenaire.channel.sendTo(packet, (EntityPlayerMP)player);
+                                Millenaire.channel.sendTo(packet, (ServerPlayer)player);
 			}
 
 			int startLevel = -1;
@@ -65,7 +65,7 @@ public class PlanIO {
 
 			if(buildingName == null || buildingName.length() == 0) {
 				PacketSayTranslatedMessage packet = new PacketSayTranslatedMessage("message.error.exporting.noname");
-                                Millenaire.channel.sendTo(packet, (EntityPlayerMP)player);
+                                Millenaire.channel.sendTo(packet, (ServerPlayer)player);
 				throw new Exception("exporting.noname");
 			}
 			boolean foundEnd = false;
@@ -81,7 +81,7 @@ public class PlanIO {
 			}
 			if(!foundEnd) {
 				PacketSayTranslatedMessage packet = new PacketSayTranslatedMessage("message.error.exporting.xaxis");
-                                Millenaire.channel.sendTo(packet, (EntityPlayerMP)player);
+                                Millenaire.channel.sendTo(packet, (ServerPlayer)player);
 				throw new Exception("exporting.xaxis");
 			}
 			foundEnd = false;
@@ -97,7 +97,7 @@ public class PlanIO {
 			}
 			if(!foundEnd) {
 				PacketSayTranslatedMessage packet = new PacketSayTranslatedMessage("message.error.exporting.zaxis");
-                                Millenaire.channel.sendTo(packet, (EntityPlayerMP)player);
+                                Millenaire.channel.sendTo(packet, (ServerPlayer)player);
 				throw new Exception("Ahhh!");
 			}
 			final int width = xEnd - startPoint.getX() - 1;
@@ -159,12 +159,12 @@ public class PlanIO {
 		catch(Exception e) {
 			e.printStackTrace();
                         PacketSayTranslatedMessage packet2 = new PacketSayTranslatedMessage("message.notcompleted");
-                        Millenaire.channel.sendTo(packet2, (EntityPlayerMP)player);
+                        Millenaire.channel.sendTo(packet2, (ServerPlayer)player);
 		}
 	}
 
 	//Called only on the logical server
-	public static void importBuilding(EntityPlayer player, BlockPos startPos) {
+	public static void importBuilding(Player player, BlockPos startPos) {
 		try {
 			TileEntitySign te = (TileEntitySign)player.getEntityWorld().getTileEntity(startPos);
 			String name = te.signText[0].getUnformattedText();
@@ -175,9 +175,9 @@ public class PlanIO {
 
 			if(name == null || name.length() == 0) {
 				PacketSayTranslatedMessage message = new PacketSayTranslatedMessage("message.error.exporting.noname");
-                                Millenaire.channel.sendTo(message, (EntityPlayerMP)player);
+                                Millenaire.channel.sendTo(message, (ServerPlayer)player);
 				PacketSayTranslatedMessage packet = new PacketSayTranslatedMessage("message.notcompleted");
-                                Millenaire.channel.sendTo(packet, (EntityPlayerMP)player);
+                                Millenaire.channel.sendTo(packet, (ServerPlayer)player);
 				return;
 			}
 
@@ -186,9 +186,9 @@ public class PlanIO {
 			File schem = getBuildingFile(name);
 			if(!schem.exists()) {
 				PacketSayTranslatedMessage message = new PacketSayTranslatedMessage("message.error.importing.nofile");
-                                Millenaire.channel.sendTo(message, (EntityPlayerMP)player);
+                                Millenaire.channel.sendTo(message, (ServerPlayer)player);
 				PacketSayTranslatedMessage packet = new PacketSayTranslatedMessage("message.notcompleted");
-                                Millenaire.channel.sendTo(packet, (EntityPlayerMP)player);
+                                Millenaire.channel.sendTo(packet, (ServerPlayer)player);
 				return;
 			}
 			FileInputStream fis = new FileInputStream(schem);
@@ -206,7 +206,7 @@ public class PlanIO {
 		} catch (IOException e) {
 			e.printStackTrace();
 			PacketSayTranslatedMessage message = new PacketSayTranslatedMessage("message.error.unknown");
-                        Millenaire.channel.sendTo(message, (EntityPlayerMP)player);
+                        Millenaire.channel.sendTo(message, (ServerPlayer)player);
 		}
 	}
 	
@@ -340,14 +340,14 @@ public class PlanIO {
 	 * @return the file that is outputted to disk
 	 * @throws Exception 
 	 */
-	private static File exportToSchem(IBlockState[][][] blocks, short width, short height, short length, short depth, String name, int level, EntityPlayer player) throws Exception {
+	private static File exportToSchem(IBlockState[][][] blocks, short width, short height, short length, short depth, String name, int level, Player player) throws Exception {
 		File f1 = getBuildingFile(name);
 
 		NBTTagCompound tag = getBuildingTag(name, null, false);
 
 		if(!valid(width, height, length, depth, tag)) {
 			PacketSayTranslatedMessage packet = new PacketSayTranslatedMessage("message.error.exporting.dimensions");
-                        Millenaire.channel.sendTo(packet, (EntityPlayerMP)player);
+                        Millenaire.channel.sendTo(packet, (ServerPlayer)player);
 			throw new Exception("Ahhh!");
 		}
 
@@ -383,7 +383,7 @@ public class PlanIO {
 			e.printStackTrace();
 		}
 		PacketSayTranslatedMessage packet = new PacketSayTranslatedMessage("message.completed");
-                Millenaire.channel.sendTo(packet, (EntityPlayerMP)player);
+                Millenaire.channel.sendTo(packet, (ServerPlayer)player);
 		return f1;
 	}
 }
