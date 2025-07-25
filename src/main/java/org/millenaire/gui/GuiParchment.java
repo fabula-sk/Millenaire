@@ -19,8 +19,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiParchment extends Screen
 {
-	private final static ResourceLocation PARCHMENTGUI = new ResourceLocation(Millenaire.MODID + ":textures/gui/ML_parchment.png");
-	private final static ResourceLocation BOOKGUI = new ResourceLocation(Millenaire.MODID + ":textures/gui/ML_book.png");
+       private final static ResourceLocation PARCHMENTGUI = new ResourceLocation(Millenaire.MODID + ":textures/gui/ml_parchment.png");
+       private final static ResourceLocation BOOKGUI = new ResourceLocation(Millenaire.MODID + ":textures/gui/ml_book.png");
 
 	private ItemMillParchment item;
 	private List<String> stringPages = new ArrayList<String>();
