@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component;
 
 public class GuiOptions extends Screen
 {
-	private final static ResourceLocation OPTIONGUI = new ResourceLocation(Millenaire.MODID + ":textures/gui/ML_village_chief.png");
+       private final static ResourceLocation OPTIONGUI = new ResourceLocation(Millenaire.MODID + ":textures/gui/ml_village_chief.png");
 	private String string;
 	private int eventID;
 
