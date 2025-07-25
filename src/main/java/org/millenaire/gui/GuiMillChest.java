@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.millenaire.entities.TileEntityMillChest;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.ChestScreen;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
@@ -53,9 +54,9 @@ public class GuiMillChest extends ChestScreen
 		}
 		else 
 		{
-			if (par2 == 1 || par2 == this.mc.gameSettings.keyBindInventory.getKeyCode()) 
+			if (par2 == 1 || par2 == Minecraft.getInstance().gameSettings.keyBindInventory.getKeyCode()) 
 			{
-				this.mc.thePlayer.closeScreen();
+				Minecraft.getInstance().thePlayer.closeScreen();
 			}
 		}
 	}

@@ -99,7 +99,7 @@ public class GuiParchment extends Screen
 	}
 	
 	@Override
-        protected void actionPerformed(Button button)
+        protected void onPress(Button button)
 	{
 	    if (button == this.forward) 
 	    {

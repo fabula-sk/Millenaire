@@ -25,24 +25,26 @@ public class GuiOptions extends Screen
 	}
 	
 	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) 
+	public void render(com.mojang.blaze3d.vertex.PoseStack poseStack, int mouseX, int mouseY, float partialTicks) 
 	{
-	    this.drawDefaultBackground();
-	    mc.getTextureManager().bindTexture(OPTIONGUI);
-	    this.drawTexturedModalRect((this.width - 255) / 2, 2, 0, 0, 255, 199);
-	    this.fontRendererObj.drawSplitString(string, (this.width / 2) - 94, 20, 190, 0);
+	    this.renderBackground(poseStack);
+	    Minecraft.getInstance().getTextureManager().bind(OPTIONGUI);
+	    this.blit(poseStack, (this.width - 255) / 2, 2, 0, 0, 255, 199);
+	    this.font.drawWordWrap(Component.literal(string), (this.width / 2) - 94, 20, 190, 0);
 	    
-	    super.drawScreen(mouseX, mouseY, partialTicks);
+	    super.render(poseStack, mouseX, mouseY, partialTicks);
 	}
 	
-	public void initGui() 
-	{
-            this.buttonList.add(this.yes = new Button((this.width / 2) - 50, (this.height / 2) + 40, 40, 20, Component.literal("Yes"), b -> {}));
-            this.buttonList.add(this.no = new Button((this.width / 2) + 10, (this.height / 2) + 40, 40, 20, Component.literal("No"), b -> {}));
-	}
+        public void init()
+        {
+            this.yes = new Button((this.width / 2) - 50, (this.height / 2) + 40, 40, 20, Component.literal("Yes"), b -> {});
+            this.no = new Button((this.width / 2) + 10, (this.height / 2) + 40, 40, 20, Component.literal("No"), b -> {});
+            this.addRenderableWidget(this.yes);
+            this.addRenderableWidget(this.no);
+        }
 	
 	@Override
-        protected void actionPerformed(Button button)
+        protected void onPress(Button button)
 	{
 		if(button == this.yes)
 		{
@@ -58,15 +60,15 @@ public class GuiOptions extends Screen
 			{
                                 Millenaire.channel.sendToServer(new MillPacket(4));
 			}
-			this.mc.displayGuiScreen(null);
-	        if (this.mc.currentScreen == null)
-	            this.mc.setIngameFocus();
+			Minecraft.getInstance().displayGuiScreen(null);
+	        if (Minecraft.getInstance().currentScreen == null)
+	            Minecraft.getInstance().setIngameFocus();
 		}
 		if(button == this.no)
 		{
-			this.mc.displayGuiScreen(null);
-	        if (this.mc.currentScreen == null)
-	            this.mc.setIngameFocus();
+			Minecraft.getInstance().displayGuiScreen(null);
+	        if (Minecraft.getInstance().currentScreen == null)
+	            Minecraft.getInstance().setIngameFocus();
 		}
 	}
 	
