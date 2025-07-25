@@ -124,7 +124,7 @@ public class ItemMillAmulet extends Item
 
 		if(this == MillItems.amuletYggdrasil && entityIn instanceof Player)
 		{
-			int level = (int) Math.floor(entityIn.posY);
+                        int level = (int) Math.floor(entityIn.getY());
 
 			if(level > 255)
 			{

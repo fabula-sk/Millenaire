@@ -66,7 +66,7 @@ public class EntityAIGateOpen extends Goal
                     PathPoint pathpoint = pathentity.getPathPointFromIndex(i);
                     this.gatePosition = new BlockPos(pathpoint.xCoord, pathpoint.yCoord, pathpoint.zCoord);
 
-                    if (this.theEntity.getDistanceSq((double)this.gatePosition.getX(), this.theEntity.posY, (double)this.gatePosition.getZ()) <= 2.25D)
+                    if (this.theEntity.getDistanceSq((double)this.gatePosition.getX(), this.theEntity.getY(), (double)this.gatePosition.getZ()) <= 2.25D)
                     {
                     	System.out.println("gate check");
                         this.gateBlock = this.getBlockGate(this.gatePosition);
@@ -105,7 +105,7 @@ public class EntityAIGateOpen extends Goal
     public void start()
     {
         this.closeGateTemporisation = 20;
-        this.toggleGate(gateBlock, this.theEntity.worldObj, this.gatePosition, true);
+        this.toggleGate(gateBlock, this.theEntity.level, this.gatePosition, true);
     }
 
     /**
@@ -116,8 +116,8 @@ public class EntityAIGateOpen extends Goal
     {
     	--this.closeGateTemporisation;
     	
-        float f = (float)((double)((float)this.gatePosition.getX() + 0.5F) - this.theEntity.posX);
-        float f1 = (float)((double)((float)this.gatePosition.getZ() + 0.5F) - this.theEntity.posZ);
+        float f = (float)((double)((float)this.gatePosition.getX() + 0.5F) - this.theEntity.getX());
+        float f1 = (float)((double)((float)this.gatePosition.getZ() + 0.5F) - this.theEntity.getZ());
         float f2 = this.entityPositionX * f + this.entityPositionZ * f1;
 
         if (f2 < 0.0F)
@@ -131,13 +131,13 @@ public class EntityAIGateOpen extends Goal
     {
         if (this.closeGate)
         {
-            this.toggleGate(gateBlock, this.theEntity.worldObj, this.gatePosition, false);
+            this.toggleGate(gateBlock, this.theEntity.level, this.gatePosition, false);
         }
     }
 
     private BlockFenceGate getBlockGate(BlockPos pos)
     {
-        Block block = this.theEntity.worldObj.getBlockState(pos).getBlock();
+        Block block = this.theEntity.level.getBlockState(pos).getBlock();
         return block instanceof BlockFenceGate && block.getMaterial() == Material.wood ? (BlockFenceGate)block : null;
     }
     

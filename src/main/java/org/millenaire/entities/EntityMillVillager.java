@@ -157,7 +157,7 @@ public class EntityMillVillager extends PathfinderMob
     @Override
     public void onDeath(DamageSource cause)
     {
-    	InventoryHelper.dropInventoryItems(this.worldObj, this.getPosition(), this.villagerInventory);
+        InventoryHelper.dropInventoryItems(this.level, this.getPosition(), this.villagerInventory);
     }
     
     //Controls what happens when Villager encounters an Item on ground
@@ -213,10 +213,10 @@ public class EntityMillVillager extends PathfinderMob
 					}
 				}
 
-				final EntityArrow arrow = new EntityArrow(this.worldObj, this, (EntityLivingBase) entity, 1.6F, 12.0F);
+                                final EntityArrow arrow = new EntityArrow(this.level, this, (EntityLivingBase) entity, 1.6F, 12.0F);
 
-                                this.worldObj.playSound(null, this.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-				this.worldObj.spawnEntityInWorld(arrow);
+                                this.level.playSound(null, this.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+                                this.level.spawnEntityInWorld(arrow);
 
 				attackTime = 60;
 
@@ -257,9 +257,9 @@ public class EntityMillVillager extends PathfinderMob
 
 					if (!isRaider) {
 						if (!vtype.hostile) {
-							MillCommonUtilities.getServerProfile(player.worldObj, player.getDisplayName()).adjustReputation(getTownHall(), (int) (-i * 10));
+                                                        MillCommonUtilities.getServerProfile(player.level, player.getDisplayName()).adjustReputation(getTownHall(), (int) (-i * 10));
 						}
-						if (worldObj.difficultySetting != EnumDifficulty.PEACEFUL && this.getHealth() < getMaxHealth() - 10) {
+                                                if (level.difficultySetting != EnumDifficulty.PEACEFUL && this.getHealth() < getMaxHealth() - 10) {
 							entityToAttack = entity;
 							clearGoal();
 							if (getTownHall() != null) {
@@ -267,7 +267,7 @@ public class EntityMillVillager extends PathfinderMob
 							}
 						}
 
-						if (hadFullHealth && (player.getMainHandItem() == null || MillCommonUtilities.getItemWeaponDamage(player.getMainHandItem().getItem()) <= 1) && !worldObj.isRemote) {
+                                                if (hadFullHealth && (player.getMainHandItem() == null || MillCommonUtilities.getItemWeaponDamage(player.getMainHandItem().getItem()) <= 1) && !level.isRemote) {
 							ServerSender.sendTranslatedSentence(player, MLN.ORANGE, "ui.communicationexplanations");
 						}
 					}
@@ -387,13 +387,13 @@ public class EntityMillVillager extends PathfinderMob
 		if(type.hireCost > 0)
 		{
 			this.isPlayerInteracting = true;
-			playerIn.openGui(Millenaire.instance, 5, playerIn.worldObj, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ());
+                        playerIn.openGui(Millenaire.instance, 5, playerIn.level, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ());
 			return true;
 		}
 		if(type.isChief)
 		{
 			this.isPlayerInteracting = true;
-			playerIn.openGui(Millenaire.instance, 4, playerIn.worldObj, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ());
+                        playerIn.openGui(Millenaire.instance, 4, playerIn.level, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ());
 			return true;
 		}
 		//for Sadhu and Alchemist maitrepenser achievement
@@ -451,7 +451,7 @@ public class EntityMillVillager extends PathfinderMob
 		
 		if(isPlayerInteracting)
 		{
-			List<Player> playersNear = this.worldObj.getEntitiesWithinAABB(Player.class, new AABB(posX - 5, posY - 1, posZ - 5, posX + 5, posY + 1, posZ + 5));
+                        List<Player> playersNear = this.level.getEntitiesWithinAABB(Player.class, new AABB(getX() - 5, getY() - 1, getZ() - 5, getX() + 5, getY() + 1, getZ() + 5));
 			
 			if(playersNear.isEmpty())
 				isPlayerInteracting = false;
@@ -577,7 +577,7 @@ public class EntityMillVillager extends PathfinderMob
 	@Override
 	public String toString() 
 	{
-		return this.getClass().getSimpleName() + "@" + ": " + getName() + "/" + this.villagerID + "/" + worldObj;
+                return this.getClass().getSimpleName() + "@" + ": " + getName() + "/" + this.villagerID + "/" + level;
 	}
 	
 	//Update Texture for Byzantines with silk clothes, possibly further expand on this
