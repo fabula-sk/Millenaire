@@ -1,15 +1,15 @@
 package org.millenaire.blocks;
 
-import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.BlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.core.NonNullList;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -25,15 +25,13 @@ public class BlockDecorativeEarth extends Block
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list)
     {
-        if (Block.getBlockFromItem(itemIn) == this)
-        {
-            BlockDecorativeEarth.EnumType[] aenumtype = BlockDecorativeEarth.EnumType.values();
+        BlockDecorativeEarth.EnumType[] aenumtype = BlockDecorativeEarth.EnumType.values();
 
-            for (EnumType enumtype : aenumtype) {
-                list.add(new ItemStack(itemIn, 1, enumtype.getMetadata()));
-            }
+        Item itemIn = Item.getItemFromBlock(this);
+        for (EnumType enumtype : aenumtype) {
+            list.add(new ItemStack(itemIn, 1, enumtype.getMetadata()));
         }
     }
 
