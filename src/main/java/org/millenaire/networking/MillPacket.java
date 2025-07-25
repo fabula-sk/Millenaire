@@ -39,10 +39,10 @@ public class MillPacket
 
         public static void handle(MillPacket message, Supplier<NetworkEvent.Context> ctx) {
                 ctx.get().enqueueWork(() -> {
-                        EntityPlayerMP sendingPlayer = ctx.get().getSender();
+                        ServerPlayer sendingPlayer = ctx.get().getSender();
                         if (sendingPlayer != null) {
                                 if(message.getID() == 2) {
-                                        ItemStack heldItem = sendingPlayer.getHeldItem();
+                                        ItemStack heldItem = sendingPlayer.getMainHandItem();
                                         if(heldItem.getItem() == MillItems.wandNegation) {
                                                 Level world = sendingPlayer.level;
                                                 CompoundTag nbt = heldItem.getTag();
@@ -56,7 +56,7 @@ public class MillPacket
                                         }
                                 }
                                 if(message.getID() == 3) {
-                                        ItemStack heldItem = sendingPlayer.getHeldItem();
+                                        ItemStack heldItem = sendingPlayer.getMainHandItem();
                                         if(heldItem.getItem() == MillItems.wandNegation) {
                                                 Level world = sendingPlayer.level;
                                                 CompoundTag nbt = heldItem.getTag();
@@ -69,7 +69,7 @@ public class MillPacket
                                         }
                                 }
                                 if(message.getID() == 4) {
-                                        ItemStack heldItem = sendingPlayer.getHeldItem();
+                                        ItemStack heldItem = sendingPlayer.getMainHandItem();
                                         if(heldItem.getItem() == MillItems.wandSummoning) {
                                                 Level world = sendingPlayer.level;
                                                 CompoundTag nbt = heldItem.getTag();
@@ -82,7 +82,7 @@ public class MillPacket
                                         }
                                 }
                         } else {
-                                System.err.println("EntityPlayerMP was null when MillPacket was received");
+                                System.err.println("ServerPlayer was null when MillPacket was received");
                         }
                 });
                 ctx.get().setPacketHandled(true);

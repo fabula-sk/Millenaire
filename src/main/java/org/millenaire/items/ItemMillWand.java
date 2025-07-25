@@ -18,8 +18,8 @@ import org.millenaire.networking.PacketSayTranslatedMessage;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -36,7 +36,7 @@ public class ItemMillWand extends Item
 	ItemMillWand() { this.setMaxStackSize(1); }
 
 	@Override
-        public boolean onItemUseFirst(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ)
+        public boolean onItemUseFirst(ItemStack stack, Player playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ)
 	{
                 if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isRemote && this == MillItems.wandNegation) {
 			PacketExportBuilding packet = new PacketExportBuilding(pos);
@@ -52,7 +52,7 @@ public class ItemMillWand extends Item
 	}
 
 	@Override
-        public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ)
+        public boolean onItemUse(ItemStack stack, Player playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ)
 	{
 		if(this == MillItems.wandNegation)
 		{
@@ -78,7 +78,7 @@ public class ItemMillWand extends Item
 				if(!worldIn.isRemote)
 				{	
 					System.out.println("Gold Creation");
-                                        Millenaire.channel.sendTo(new PacketSayTranslatedMessage("message.notimplemented"), (EntityPlayerMP)playerIn);
+                                        Millenaire.channel.sendTo(new PacketSayTranslatedMessage("message.notimplemented"), (ServerPlayer)playerIn);
 					//Gui confirming action and desired village, then villageStone block is made and villageType assigned
 				}
 			}
@@ -94,7 +94,7 @@ public class ItemMillWand extends Item
 
 				if(!worldIn.isRemote)
 				{
-                                        Millenaire.channel.sendTo(new PacketSayTranslatedMessage("message.notimplemented"), (EntityPlayerMP)playerIn);
+                                        Millenaire.channel.sendTo(new PacketSayTranslatedMessage("message.notimplemented"), (ServerPlayer)playerIn);
 //					playerIn.openGui(Millenaire.instance, 4, worldIn, playerIn.getPosition().getX(), playerIn.getPosition().getY(), playerIn.getPosition().getZ());
 				} 
 
@@ -267,7 +267,7 @@ public class ItemMillWand extends Item
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, net.minecraft.entity.player.EntityPlayer player, EntityLivingBase entity)
+	public boolean itemInteractionForEntity(ItemStack stack, net.minecraft.world.entity.player.Player player, EntityLivingBase entity)
 	{
 		if(stack.getItem() == MillItems.wandNegation && entity instanceof EntityMillVillager)
 		{
@@ -287,7 +287,7 @@ public class ItemMillWand extends Item
 
 	@Override
         @OnlyIn(Dist.CLIENT)
-        public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+        public void addInformation(ItemStack stack, Player playerIn, List<String> tooltip, boolean advanced)
 	{
 		if(stack.getItem() == MillItems.wandCreative)
 		{

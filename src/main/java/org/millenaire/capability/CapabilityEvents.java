@@ -1,7 +1,7 @@
 package org.millenaire.capability;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -17,7 +17,7 @@ public class CapabilityEvents {
 
     @SubscribeEvent
     public void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof EntityPlayer) {
+        if (event.getObject() instanceof Player) {
             event.addCapability(PLAYER_CROP_DATA, new PlayerCropProvider());
         }
     }

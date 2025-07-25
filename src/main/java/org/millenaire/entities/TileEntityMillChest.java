@@ -1,6 +1,6 @@
 package org.millenaire.entities;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerChest;
@@ -28,7 +28,7 @@ public class TileEntityMillChest extends TileEntityChest
 		return isLocked;
 	}
 	
-	public boolean isLockedFor(EntityPlayer playerIn)
+	public boolean isLockedFor(Player playerIn)
 	{
 		if(playerIn == null)
 		{
@@ -72,7 +72,7 @@ public class TileEntityMillChest extends TileEntityChest
     }
     
 	@Override
-	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
+	public Container createContainer(InventoryPlayer playerInventory, Player playerIn)
     {
         return new ContainerChest(playerInventory, this, playerIn);
     }

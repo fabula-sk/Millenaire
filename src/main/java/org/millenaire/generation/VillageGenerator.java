@@ -6,7 +6,7 @@ import org.millenaire.MillConfig;
 import org.millenaire.VillageTracker;
 import org.millenaire.blocks.MillBlocks;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -36,7 +36,7 @@ public class VillageGenerator {
 			return false;
 		}
 		else {
-			EntityPlayer generatingPlayer = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), -1);
+			Player generatingPlayer = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), -1);
                         if(rand.nextInt(50) == 1 && world.getChunkFromBlockCoords(pos).isLoaded()) {
                                 world.setBlockState(pos, MillBlocks.villageStone.getDefaultState());
                         }

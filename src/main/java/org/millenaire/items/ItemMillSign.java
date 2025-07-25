@@ -4,7 +4,7 @@ import org.millenaire.MillTabs;
 import org.millenaire.blocks.BlockMillSign;
 import org.millenaire.blocks.MillBlocks;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -19,7 +19,7 @@ public class ItemMillSign extends Item
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onItemUse(ItemStack stack, Player playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		if (side == EnumFacing.DOWN)
 		{
@@ -33,7 +33,7 @@ public class ItemMillSign extends Item
 		{
 			pos = pos.offset(side);
 
-			if (!playerIn.canPlayerEdit(pos, side, stack))
+			if (!playerIn.mayUseItemAt(pos, side, stack))
 			{
 				return false;
 			}

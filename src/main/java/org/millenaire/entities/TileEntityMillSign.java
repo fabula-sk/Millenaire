@@ -1,6 +1,6 @@
 package org.millenaire.entities;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
@@ -27,7 +27,7 @@ public class TileEntityMillSign extends TileEntitySign implements ITickable
 	private BlockPos villageStoneLocation;
 
 	@Override
-	public boolean executeCommand(final EntityPlayer playerIn)
+	public boolean executeCommand(final Player playerIn)
 	{
 		//Display GuiPanel with appropriate info based on SignType
 		return false;

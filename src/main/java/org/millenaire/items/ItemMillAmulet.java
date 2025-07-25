@@ -5,7 +5,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +29,7 @@ public class ItemMillAmulet extends Item
 	}
 
 	@Override
-	public ItemStack onItemRightClick(final ItemStack itemstack, final World world, final EntityPlayer entityplayer) 
+	public ItemStack onItemRightClick(final ItemStack itemstack, final World world, final Player entityplayer) 
 	{
 		if(this == MillItems.amuletSkollHati && !world.isRemote)
 		{
@@ -58,7 +58,7 @@ public class ItemMillAmulet extends Item
 
 		int visScore = 0;
 
-		if(this == MillItems.amuletAlchemist && entityIn instanceof EntityPlayer)
+		if(this == MillItems.amuletAlchemist && entityIn instanceof Player)
 		{
 			int radius = 5;
 			BlockPos pos = entityIn.getPosition();
@@ -99,7 +99,7 @@ public class ItemMillAmulet extends Item
 			visScore = (visScore * 15) / 100;
 		}
 
-		if(this == MillItems.amuletVishnu && entityIn instanceof EntityPlayer)
+		if(this == MillItems.amuletVishnu && entityIn instanceof Player)
 		{
 			double level;
 			final int radius = 20;
@@ -122,7 +122,7 @@ public class ItemMillAmulet extends Item
 			visScore = (int) (level * 15);
 		}
 
-		if(this == MillItems.amuletYggdrasil && entityIn instanceof EntityPlayer)
+		if(this == MillItems.amuletYggdrasil && entityIn instanceof Player)
 		{
 			int level = (int) Math.floor(entityIn.posY);
 

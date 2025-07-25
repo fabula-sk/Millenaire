@@ -2,7 +2,7 @@ package org.millenaire.items;
 
 import org.millenaire.gui.MillAchievement;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -36,7 +36,7 @@ public class ItemMillFood extends ItemFood
 	public EnumAction getItemUseAction(ItemStack stack) { return isDrink ? EnumAction.DRINK : EnumAction.EAT; }
 	
 	@Override
-	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player)
+	protected void onFoodEaten(ItemStack stack, World worldIn, Player player)
     {
 		player.heal(healAmount);
 

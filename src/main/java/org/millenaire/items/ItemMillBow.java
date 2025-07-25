@@ -5,7 +5,7 @@ import org.millenaire.Millenaire;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBow;
@@ -32,7 +32,7 @@ public class ItemMillBow extends ItemBow
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(final ItemStack stack, final World worldIn, final EntityPlayer playerIn, final int timeLeft) 
+	public void onPlayerStoppedUsing(final ItemStack stack, final World worldIn, final Player playerIn, final int timeLeft) 
 	{
 		int i = this.getMaxItemUseDuration(stack) - timeLeft;
         net.minecraftforge.event.entity.player.ArrowLooseEvent event = new net.minecraftforge.event.entity.player.ArrowLooseEvent(playerIn, stack, i);
@@ -41,7 +41,7 @@ public class ItemMillBow extends ItemBow
 
 		final boolean var5 = playerIn.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
 
-		if (var5 || playerIn.inventory.hasItem(Items.arrow)) 
+		if (var5 || playerIn.getInventory().hasItem(Items.arrow)) 
 		{
 			float var7 = i / 20.0F;
 			var7 = (var7 * var7 + var7 * 2.0F) / 3.0F;
@@ -91,7 +91,7 @@ public class ItemMillBow extends ItemBow
             }
 			else
 			{
-                playerIn.inventory.consumeInventoryItem(Items.arrow);
+                playerIn.getInventory().consumeInventoryItem(Items.arrow);
             }
 
 			// faster MLN arrows
@@ -111,7 +111,7 @@ public class ItemMillBow extends ItemBow
 	
 	@Override
         @OnlyIn(Dist.CLIENT)
-        public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int ticksRemaining)
+        public ModelResourceLocation getModel(ItemStack stack, Player player, int ticksRemaining)
 	{
 		if (player.isUsingItem()) 
 		{
