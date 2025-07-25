@@ -1,6 +1,5 @@
 package org.millenaire.blocks;
 
-import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -11,9 +10,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.core.NonNullList;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -48,15 +48,13 @@ public class BlockMillPath extends Block
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list)
     {
-        if (Block.getBlockFromItem(itemIn) == this)
-        {
-            BlockMillPath.EnumType[] aenumtype = BlockMillPath.EnumType.values();
+        BlockMillPath.EnumType[] aenumtype = BlockMillPath.EnumType.values();
 
-            for (EnumType enumtype : aenumtype) {
-                list.add(new ItemStack(itemIn, 1, enumtype.getMetadata()));
-            }
+        Item itemIn = Item.getItemFromBlock(this);
+        for (EnumType enumtype : aenumtype) {
+            list.add(new ItemStack(itemIn, 1, enumtype.getMetadata()));
         }
     }
 
