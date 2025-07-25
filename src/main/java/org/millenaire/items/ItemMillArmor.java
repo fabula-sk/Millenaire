@@ -5,26 +5,25 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.IArmorMaterial;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.EnumHelper;
 
 public class ItemMillArmor 
 {
-	static ArmorMaterial ARMOR_norman = EnumHelper.addArmorMaterial("normanArmour", "millenaire:normanArmor", 66, new int[] { 3, 8, 6, 3 }, 10);
-	static ArmorMaterial ARMOR_japaneseWarriorRed = EnumHelper.addArmorMaterial("japaneseWarriorRed", "millenaire:japaneseWarriorArmorRed", 33, new int[] { 2, 6, 5, 2 }, 25);
-	static ArmorMaterial ARMOR_japaneseWarriorBlue = EnumHelper.addArmorMaterial("japaneseWarriorBlue", "millenaire:japaneseWarriorArmorBlue", 33, new int[] { 2, 6, 5, 2 }, 25);
-	static ArmorMaterial ARMOR_japaneseGuard = EnumHelper.addArmorMaterial("japaneseGuard", "millenaire:japaneseGuardArmor", 25, new int[] { 2, 5, 4, 1 }, 25);
-	static ArmorMaterial ARMOR_byzantine = EnumHelper.addArmorMaterial("byzantineArmour", "millenaire:byzantineArmor", 33, new int[] { 3, 8, 6, 3 }, 20);
-	static ArmorMaterial ARMOR_mayanQuest = EnumHelper.addArmorMaterial("mayanQuest", "millenaire:mayanQuest", 5, new int[]{1, 3, 2, 1}, 35);
+    static IArmorMaterial ARMOR_norman = MillArmorMaterial.NORMAN;
+    static IArmorMaterial ARMOR_japaneseWarriorRed = MillArmorMaterial.JAPANESE_WARRIOR_RED;
+    static IArmorMaterial ARMOR_japaneseWarriorBlue = MillArmorMaterial.JAPANESE_WARRIOR_BLUE;
+    static IArmorMaterial ARMOR_japaneseGuard = MillArmorMaterial.JAPANESE_GUARD;
+    static IArmorMaterial ARMOR_byzantine = MillArmorMaterial.BYZANTINE;
+    static IArmorMaterial ARMOR_mayanQuest = MillArmorMaterial.MAYAN_QUEST;
 	
-	public static class mayanQuestCrown extends ItemArmor
-	{
+        public static class mayanQuestCrown extends ItemArmor
+        {
 
-		public mayanQuestCrown(ArmorMaterial material, int renderIndex, int armorType) 
-		{
-			super(material, renderIndex, armorType);
-		}
+                public mayanQuestCrown(IArmorMaterial material, int renderIndex, int armorType)
+                {
+                        super(material, renderIndex, armorType);
+                }
 		
 		@Override
 		public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)

@@ -18,6 +18,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.item.ItemTier;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.api.distmarker.Dist;
@@ -319,10 +320,10 @@ public class MillItems
 		mayanMace = new ItemSword(ItemMillTool.TOOLS_obsidian);
 		ITEMS.register("mayan_mace", () -> mayanMace);
 		
-		byzantineMace = new ItemMillMace(Item.ToolMaterial.IRON);
+                byzantineMace = new ItemMillMace(ItemTier.IRON);
 		ITEMS.register("byzantine_mace", () -> byzantineMace);
 		
-		japaneseSword = new ItemSword(Item.ToolMaterial.IRON);
+                japaneseSword = new ItemSword(ItemTier.IRON);
 		ITEMS.register("japanese_sword", () -> japaneseSword);
 		japaneseBow = new ItemMillBow(2, 0.5F, "japanese_bow");
 		ITEMS.register("japanese_bow", () -> japaneseBow);
