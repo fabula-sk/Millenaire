@@ -16,6 +16,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.block.Block;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -29,12 +33,12 @@ public class BlockMillPathSlab extends BlockSlab
 		super(Material.ground);
 
 		if(this.isDouble())
-        	this.setDefaultState(this.blockState.getBaseState().withProperty(SEAMLESS, true));
+                this.setDefaultState(this.blockState.getBaseState().withProperty(SEAMLESS, true));
         else
-        	this.setDefaultState(this.blockState.getBaseState().withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM));
-		
-		this.useNeighborBrightness = true;
-	}
+                this.setDefaultState(this.blockState.getBaseState().withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM));
+
+                this.useNeighborBrightness = true;
+        }
 	
 	@Override
 	public boolean isDouble() { return false; }
@@ -48,11 +52,25 @@ public class BlockMillPathSlab extends BlockSlab
     @SideOnly(Side.CLIENT)
     public Item getItem(World worldIn, BlockPos pos) { return Item.getItemFromBlock(MillBlocks.blockMillPathSlab); }
     
-	@Override
-    public boolean isFullCube() { return false; }
-	
-	@Override
-    public boolean isOpaqueCube() { return false; }
+        /**
+         * Shapes replacing the old setBlockBounds based logic.
+         */
+        private static final VoxelShape DOUBLE_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 15.0D, 16.0D);
+        private static final VoxelShape TOP_SHAPE = Block.box(0.0D, 8.0D, 0.0D, 16.0D, 15.0D, 16.0D);
+        private static final VoxelShape BOTTOM_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 7.0D, 16.0D);
+
+        @Override
+        public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+                if (this.isDouble()) {
+                        return DOUBLE_SHAPE;
+                }
+                return state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP ? TOP_SHAPE : BOTTOM_SHAPE;
+        }
+
+        @Override
+        public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+                return getShape(state, worldIn, pos, context);
+        }
 	
     @Override
     public boolean doesSideBlockRendering(IBlockAccess world, BlockPos pos, EnumFacing face)
@@ -67,30 +85,6 @@ public class BlockMillPathSlab extends BlockSlab
         return (side == EnumBlockHalf.TOP && face == EnumFacing.DOWN) || (side == EnumBlockHalf.BOTTOM && face == EnumFacing.UP);
     }
 
-	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-    {
-        if (this.isDouble())
-        {
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
-        }
-        else
-        {
-            BlockState iblockstate = worldIn.getBlockState(pos);
-
-            if (iblockstate.getBlock() == this)
-            {
-                if (iblockstate.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP)
-                {
-                    this.setBlockBounds(0.0F, 0.5F, 0.0F, 1.0F, 0.9375F, 1.0F);
-                }
-                else
-                {
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.4375F, 1.0F);
-                }
-            }
-        }
-    }
 
     public String getUnlocalizedName(int meta)
     {

@@ -8,6 +8,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.block.Block;
 
 public class BlockDecorativeCarving extends BlockDecorativeOriented {
 
@@ -15,34 +18,24 @@ public class BlockDecorativeCarving extends BlockDecorativeOriented {
                 super(materialIn);
         }
 
-	@Override
-	public boolean isOpaqueCube() { return false; }
+        /**
+         * Old bounding box logic handled via {@code setBlockBoundsBasedOnState}
+         * has been replaced with voxel shapes.
+         */
+        private static final VoxelShape NS_SHAPE = Block.box(4.0D, 0.0D, 0.0D, 12.0D, 8.0D, 16.0D);
+        private static final VoxelShape EW_SHAPE = Block.box(0.0D, 0.0D, 4.0D, 16.0D, 8.0D, 12.0D);
 
-	@Override
-	public boolean isFullBlock() { return false; }
+        @Override
+        public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+                return state.getValue(FACING).getAxis() == Direction.Axis.Z ? NS_SHAPE : EW_SHAPE;
+        }
 
-	@Override
-    public boolean isFullCube() { return false; }
+        @Override
+        public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+                return getShape(state, worldIn, pos, context);
+        }
 
     @SideOnly(Side.CLIENT)
     public float getAmbientOcclusionLightValue() { return 0.85F; }
 
-	@Override
-        public void setBlockBoundsBasedOnState(BlockGetter worldIn, BlockPos pos)
-        {
-                BlockState iblockstate = worldIn.getBlockState(pos);
-
-		if (iblockstate.getBlock() == this)
-		{
-                        if (iblockstate.getValue(FACING) == Direction.NORTH || iblockstate.getValue(FACING) == Direction.SOUTH)
-			{
-				this.setBlockBounds(0.25F, 0.0F, 0.0F, 0.75F, 0.5F, 1.0F);
-			}
-			else
-			{
-				this.setBlockBounds(0.0F, 0.0F, 0.25F, 1.0F, 0.5F, 0.75F);
-			}
-		}
-
-	}
 }

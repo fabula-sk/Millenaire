@@ -9,6 +9,10 @@ import org.millenaire.items.ItemMillSign;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockWallSign;
 import net.minecraft.block.BlockState;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.core.BlockPos;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
@@ -35,12 +39,19 @@ public class BlockMillSign extends BlockWallSign
 	@Override
 	public Item getItemDropped(BlockState state, Random rand, int fortune) { return null; }
 	
-	@Override
-	public boolean isOpaqueCube() { return false; }
-	
-	@Override
-	public int getRenderType() { return -1; }
+        @Override
+        public int getRenderType() { return -1; }
 
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) { return new TileEntityMillSign(); }
+        @Override
+        public TileEntity createNewTileEntity(World worldIn, int meta) { return new TileEntityMillSign(); }
+
+        @Override
+        public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+                return super.getShape(state, worldIn, pos, context);
+        }
+
+        @Override
+        public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+                return super.getCollisionShape(state, worldIn, pos, context);
+        }
 }

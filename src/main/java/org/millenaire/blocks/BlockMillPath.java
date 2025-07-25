@@ -7,6 +7,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,14 +26,22 @@ public class BlockMillPath extends Block
 	{
 		super(Material.ground);
 		
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
-	}
-	
-	@Override
-    public boolean isFullCube() { return false; }
-	
-	@Override
-    public boolean isOpaqueCube() { return false; }
+                // old bounding box handled via setBlockBounds. Replaced by
+                // static voxel shapes in getShape/getCollisionShape.
+        }
+
+        /** Height of the path is 15/16 of a block. */
+        private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 15.0D, 16.0D);
+
+        @Override
+        public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+                return SHAPE;
+        }
+
+        @Override
+        public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+                return SHAPE;
+        }
 	
 
 	public IProperty getVariantProperty() { return VARIANT; }
