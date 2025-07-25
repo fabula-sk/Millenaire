@@ -11,24 +11,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemMillWallet extends Item
 {
-	@Override
-	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, Player playerIn)
+        @Override
+public InteractionResultHolder<ItemStack> use(World worldIn, Player playerIn, InteractionHand hand)
     {
-		if(playerIn.getInventory().hasItem(MillItems.denier) || playerIn.getInventory().hasItem(MillItems.denierArgent) || playerIn.getInventory().hasItem(MillItems.denierOr))
-		{
-			addDenierToWallet(itemStackIn, playerIn);
-		}
-		else
-		{
-			emptyWallet(itemStackIn, playerIn);
-		}
-		
-        return itemStackIn;
+                ItemStack itemStackIn = playerIn.getItemInHand(hand);
+                if(playerIn.getInventory().hasItem(MillItems.denier) || playerIn.getInventory().hasItem(MillItems.denierArgent) || playerIn.getInventory().hasItem(MillItems.denierOr))
+                {
+                        addDenierToWallet(itemStackIn, playerIn);
+                }
+                else
+                {
+                        emptyWallet(itemStackIn, playerIn);
+                }
+
+        return InteractionResultHolder.success(itemStackIn);
     }
 	
 	@Override
@@ -73,27 +76,28 @@ public class ItemMillWallet extends Item
 			int argent = 0;
 			int or = 0;
 			
-			for(int i = 0; i < playerIn.getInventory().getSizeInventory(); i++)
-			{
-				if(playerIn.getInventory().getStackInSlot(i) != null)
-				{
-					if(playerIn.getInventory().getStackInSlot(i).getItem() == MillItems.denier)
-					{
-						denier += playerIn.getInventory().getStackInSlot(i).stackSize;
-						playerIn.getInventory().removeStackFromSlot(i);
-					}
-					else if(playerIn.getInventory().getStackInSlot(i).getItem() == MillItems.denierArgent)
-					{
-						argent += playerIn.getInventory().getStackInSlot(i).stackSize;
-						playerIn.getInventory().removeStackFromSlot(i);
-					}
-					else if(playerIn.getInventory().getStackInSlot(i).getItem() == MillItems.denierOr)
-					{
-						or += playerIn.getInventory().getStackInSlot(i).stackSize;
-						playerIn.getInventory().removeStackFromSlot(i);
-					}
-				}
-			}
+                        for(int i = 0; i < playerIn.getInventory().getSizeInventory(); i++)
+                        {
+                                if(playerIn.getInventory().getStackInSlot(i) != null)
+                                {
+                                        ItemStack invStack = playerIn.getInventory().getStackInSlot(i);
+                                        if(invStack.getItem() == MillItems.denier)
+                                        {
+                                                denier += invStack.getCount();
+                                                playerIn.getInventory().removeStackFromSlot(i);
+                                        }
+                                        else if(invStack.getItem() == MillItems.denierArgent)
+                                        {
+                                                argent += invStack.getCount();
+                                                playerIn.getInventory().removeStackFromSlot(i);
+                                        }
+                                        else if(invStack.getItem() == MillItems.denierOr)
+                                        {
+                                                or += invStack.getCount();
+                                                playerIn.getInventory().removeStackFromSlot(i);
+                                        }
+                                }
+                        }
 			
 			NBTTagCompound nbt;
 			

@@ -9,8 +9,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.core.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.InteractionResult;
 
 public class ItemMillSign extends Item
 {
@@ -19,38 +21,43 @@ public class ItemMillSign extends Item
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public boolean onItemUse(ItemStack stack, Player playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
-	{
-		if (side == EnumFacing.DOWN)
-		{
-			return false;
-		}
-		else if (!worldIn.getBlockState(pos).getBlock().getMaterial().isSolid())
-		{
-			return false;
-		}
-		else
-		{
-			pos = pos.offset(side);
+        public InteractionResult useOn(UseOnContext context)
+        {
+                ItemStack stack = context.getItemInHand();
+                Player playerIn = context.getPlayer();
+                World worldIn = context.getLevel();
+                BlockPos pos = context.getClickedPos();
+                Direction side = context.getClickedFace();
 
-			if (!playerIn.mayUseItemAt(pos, side, stack))
-			{
-				return false;
-			}
-			else if (worldIn.isRemote)
-			{
-				return true;
-			}
-			else
-			{
-                                worldIn.setBlockState(pos, MillBlocks.blockMillSign.getDefaultState().withProperty(BlockMillSign.FACING, side)/*Blocks.wall_sign.getDefaultState().withProperty(BlockWallSign.FACING, side)*/, 3);
+                if (side == Direction.DOWN)
+                {
+                        return InteractionResult.FAIL;
+                }
+                else if (!worldIn.getBlockState(pos).getBlock().getMaterial().isSolid())
+                {
+                        return InteractionResult.FAIL;
+                }
+                else
+                {
+                        pos = pos.offset(side);
 
+                        if (playerIn == null || !playerIn.mayUseItemAt(pos, side, stack))
+                        {
+                                return InteractionResult.FAIL;
+                        }
+                        else if (worldIn.isRemote)
+                        {
+                                return InteractionResult.SUCCESS;
+                        }
+                        else
+                        {
+                                worldIn.setBlockState(pos, MillBlocks.blockMillSign.getDefaultState().withProperty(BlockMillSign.FACING, side), 3);
 
-				--stack.stackSize;
-				TileEntity tileentity = worldIn.getTileEntity(pos);
+                                stack.shrink(1);
+                                TileEntity tileentity = worldIn.getTileEntity(pos);
 
-				return true;
-			}
-		}
-	}
+                                return InteractionResult.SUCCESS;
+                        }
+                }
+        }
 }

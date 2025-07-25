@@ -8,8 +8,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.InteractionResult;
 
 public class ItemMillSeeds extends ItemSeeds
 {
@@ -19,8 +20,13 @@ public class ItemMillSeeds extends ItemSeeds
 		super(crops, Blocks.farmland);
 	}
 
-	@Override
-	public boolean onItemUse(ItemStack stack, Player playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-		return !worldIn.isRemote && PlayerTracker.get(playerIn).canPlayerUseCrop(stack.getItem()) && super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
-	}
+        @Override
+        public InteractionResult useOn(UseOnContext context) {
+                Player playerIn = context.getPlayer();
+                World worldIn = context.getLevel();
+                if(playerIn != null && !worldIn.isRemote && PlayerTracker.get(playerIn).canPlayerUseCrop(context.getItemInHand().getItem())) {
+                        return super.useOn(context);
+                }
+                return InteractionResult.FAIL;
+        }
 }

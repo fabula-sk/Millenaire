@@ -13,6 +13,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -28,12 +30,13 @@ public class ItemMillAmulet extends Item
 
 	}
 
-	@Override
-	public ItemStack onItemRightClick(final ItemStack itemstack, final World world, final Player entityplayer) 
-	{
-		if(this == MillItems.amuletSkollHati && !world.isRemote)
-		{
-			final long time = world.getWorldTime() + 24000L;
+        @Override
+        public InteractionResultHolder<ItemStack> use(final World world, final Player entityplayer, InteractionHand hand)
+        {
+                ItemStack itemstack = entityplayer.getItemInHand(hand);
+                if(this == MillItems.amuletSkollHati && !world.isRemote)
+                {
+                        final long time = world.getWorldTime() + 24000L;
 
 			if (time % 24000L > 11000L && time % 24000L < 23500L) 
 			{
@@ -47,8 +50,8 @@ public class ItemMillAmulet extends Item
 			itemstack.damageItem(1, entityplayer);
 		}
 
-		return itemstack;
-	}
+                return InteractionResultHolder.success(itemstack);
+        }
 
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
