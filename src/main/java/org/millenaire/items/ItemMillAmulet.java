@@ -13,8 +13,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemMillAmulet extends Item
 {
@@ -148,7 +148,7 @@ public class ItemMillAmulet extends Item
 		stack.setTagCompound(nbt);
 	}
 
-       @SideOnly(Side.CLIENT)
+       @OnlyIn(Dist.CLIENT)
        public int getColor(ItemStack stack, int tintIndex)
        {
                NBTTagCompound nbt = stack.getTagCompound();

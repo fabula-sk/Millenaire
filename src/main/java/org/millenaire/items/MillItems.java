@@ -20,8 +20,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -401,12 +401,12 @@ public class MillItems
                 // crafting recipes are now defined via JSON in data/millenaire/recipes
         }
 	
-       @SideOnly(Side.CLIENT)
+       @OnlyIn(Dist.CLIENT)
        public static void prerender() {
                // model registration handled automatically via registry names
        }
 	
-	@SideOnly(Side.CLIENT)
+        @OnlyIn(Dist.CLIENT)
         public static void render() {
                 // item model rendering now handled by Forge automatically
         }

@@ -13,8 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.init.SoundEvents;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemMillBow extends ItemBow
 {
@@ -110,8 +110,8 @@ public class ItemMillBow extends ItemBow
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int ticksRemaining) 
+        @OnlyIn(Dist.CLIENT)
+        public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int ticksRemaining)
 	{
 		if (player.isUsingItem()) 
 		{
