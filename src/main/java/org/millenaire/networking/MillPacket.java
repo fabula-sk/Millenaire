@@ -61,7 +61,7 @@ public class MillPacket
                                                 Level world = sendingPlayer.level;
                                                 CompoundTag nbt = heldItem.getTag();
                                                 int id = nbt.getInteger("ID");
-                                                world.createExplosion(world.getEntityByID(id), world.getEntityByID(id).posX, world.getEntityByID(id).posY, world.getEntityByID(id).posZ, 0.0F, false);
+                                                world.createExplosion(world.getEntityByID(id), world.getEntityByID(id).getX(), world.getEntityByID(id).getY(), world.getEntityByID(id).getZ(), 0.0F, false);
                                                 world.playSound(null, world.getEntityByID(id).getPosition(), SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1.0F, 0.4F);
                                                 world.removeEntity(world.getEntityByID(id));
                                         } else {
