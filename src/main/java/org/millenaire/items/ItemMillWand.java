@@ -28,6 +28,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.InteractionResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -48,12 +50,20 @@ public class ItemMillWand extends Item
                         Millenaire.channel.sendToServer(packet);
 			return true;
 		}
-		return false;
-	}
+                return InteractionResult.PASS;
+        }
 
-	@Override
-        public boolean onItemUse(ItemStack stack, Player playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ)
-	{
+        @Override
+        public InteractionResult useOn(UseOnContext context)
+        {
+                ItemStack stack = context.getItemInHand();
+                Player playerIn = context.getPlayer();
+                World worldIn = context.getLevel();
+                BlockPos pos = context.getClickedPos();
+                Direction side = context.getClickedFace();
+                float hitX = (float)context.getClickLocation().x;
+                float hitY = (float)context.getClickLocation().y;
+                float hitZ = (float)context.getClickLocation().z;
 		if(this == MillItems.wandNegation)
 		{
 			if(worldIn.getBlockState(pos).getBlock() == MillBlocks.villageStone)
@@ -263,8 +273,8 @@ public class ItemMillWand extends Item
                         playerIn.sendSystemMessage(Component.literal(output));
 		}
 
-		return false;
-	}
+                return InteractionResult.PASS;
+        }
 
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, net.minecraft.world.entity.player.Player player, EntityLivingBase entity)

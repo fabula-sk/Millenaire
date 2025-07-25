@@ -20,54 +20,54 @@ public class CommonUtilities
 	 */
 	public static void changeMoney(Player playerIn)
 	{
-		ItemStack denier = new ItemStack(MillItems.denier, 0, 0);
-		ItemStack argent = new ItemStack(MillItems.denierArgent, 0, 0);
-		ItemStack or = new ItemStack(MillItems.denierOr, 0, 0);
+                ItemStack denier = new ItemStack(MillItems.denier, 0, 0);
+                ItemStack argent = new ItemStack(MillItems.denierArgent, 0, 0);
+                ItemStack or = new ItemStack(MillItems.denierOr, 0, 0);
 		
 		for(int i = 0; i < playerIn.getInventory().getSizeInventory(); i++)
 		{
-			ItemStack stack = playerIn.getInventory().getStackInSlot(i);
-			if(stack != null)
-			{
-				if(stack.getItem() == MillItems.denier)
-				{
-					denier.stackSize = denier.stackSize + stack.stackSize;
-					playerIn.getInventory().removeStackFromSlot(i);
-				}
-				if(stack.getItem() == MillItems.denierArgent)
-				{
-					argent.stackSize = argent.stackSize + stack.stackSize;
-					playerIn.getInventory().removeStackFromSlot(i);
-				}
-				if(stack.getItem() == MillItems.denierOr)
-				{
-					or.stackSize = or.stackSize + stack.stackSize;
-					playerIn.getInventory().removeStackFromSlot(i);
-				}
-			}
-		}
-		
-		argent.stackSize = argent.stackSize + (denier.stackSize / 64);
-		denier.stackSize = denier.stackSize % 64;
-		
-		or.stackSize = or.stackSize + (argent.stackSize / 64);
-		if(or.stackSize >= 1)
-		{
-			playerIn.addStat(MillAchievement.cresus, 1);
-		}
+                        ItemStack stack = playerIn.getInventory().getStackInSlot(i);
+                        if(stack != null)
+                        {
+                                if(stack.getItem() == MillItems.denier)
+                                {
+                                        denier.grow(stack.getCount());
+                                        playerIn.getInventory().removeStackFromSlot(i);
+                                }
+                                if(stack.getItem() == MillItems.denierArgent)
+                                {
+                                        argent.grow(stack.getCount());
+                                        playerIn.getInventory().removeStackFromSlot(i);
+                                }
+                                if(stack.getItem() == MillItems.denierOr)
+                                {
+                                        or.grow(stack.getCount());
+                                        playerIn.getInventory().removeStackFromSlot(i);
+                                }
+                        }
+                }
 
-		argent.stackSize = argent.stackSize % 64;
-		
-		playerIn.getInventory().addItemStackToInventory(denier);
-		playerIn.getInventory().addItemStackToInventory(argent);
-		
-		while(or.stackSize > 64)
-		{
-			playerIn.getInventory().addItemStackToInventory(new ItemStack(MillItems.denierOr, 64, 0));
-			or.stackSize = or.stackSize - 64;
-		}
+                argent.grow(denier.getCount() / 64);
+                denier.setCount(denier.getCount() % 64);
 
-		playerIn.getInventory().addItemStackToInventory(or);
+                or.grow(argent.getCount() / 64);
+                if(or.getCount() >= 1)
+                {
+                        playerIn.addStat(MillAchievement.cresus, 1);
+                }
+
+                argent.setCount(argent.getCount() % 64);
+
+                playerIn.getInventory().addItemStackToInventory(denier);
+                playerIn.getInventory().addItemStackToInventory(argent);
+
+                while(or.getCount() > 64)
+                {
+                        playerIn.getInventory().addItemStackToInventory(new ItemStack(MillItems.denierOr, 64, 0));
+                        or.shrink(64);
+                }
+
+                playerIn.getInventory().addItemStackToInventory(or);
 	}
 	
 	/**
