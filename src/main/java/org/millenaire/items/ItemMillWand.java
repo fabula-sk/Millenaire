@@ -23,6 +23,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.util.text.ITextComponent;
+import javax.annotation.Nullable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -295,13 +298,13 @@ public class ItemMillWand extends Item
 		return false;
 	}
 
-	@Override
-        @OnlyIn(Dist.CLIENT)
-        public void addInformation(ItemStack stack, Player playerIn, List<String> tooltip, boolean advanced)
-	{
-		if(stack.getItem() == MillItems.wandCreative)
-		{
-            tooltip.add("�lCreative Mode ONLY");
-        }
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flag)
+    {
+            if(stack.getItem() == MillItems.wandCreative)
+            {
+        tooltip.add("§lCreative Mode ONLY");
+    }
 	}
 }

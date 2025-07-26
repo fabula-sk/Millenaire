@@ -4,11 +4,12 @@ import org.millenaire.gui.MillAchievement;
 
 import net.minecraft.entity.player.Player;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemFood;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import net.minecraft.entity.LivingEntity;
 
 public class ItemMillFood extends ItemFood
 {
@@ -35,23 +36,27 @@ public class ItemMillFood extends ItemFood
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack) { return isDrink ? EnumAction.DRINK : EnumAction.EAT; }
 	
-	@Override
-	protected void onFoodEaten(ItemStack stack, World worldIn, Player player)
+        @Override
+        public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entity)
     {
-		player.heal(healAmount);
+                if (entity instanceof Player)
+                {
+                        Player player = (Player) entity;
+                        player.heal(healAmount);
 
-		if (isDrink) {
-			player.addStat(MillAchievement.cheers, 1);
-		}
+                        if (isDrink) {
+                                player.addStat(MillAchievement.cheers, 1);
+                        }
 
-		if (regDuration > 0) {
-			player.addPotionEffect(new PotionEffect(Potion.regeneration.id, regDuration * 20, 0));
-		}
+                        if (regDuration > 0) {
+                                player.addPotionEffect(new PotionEffect(Potion.regeneration.id, regDuration * 20, 0));
+                        }
 
-		if (drunkDuration > 0) {
-			player.addPotionEffect(new PotionEffect(Potion.confusion.id, drunkDuration * 20, 0));
-		}
-		
-		super.onFoodEaten(stack, worldIn, player);
+                        if (drunkDuration > 0) {
+                                player.addPotionEffect(new PotionEffect(Potion.confusion.id, drunkDuration * 20, 0));
+                        }
+                }
+
+                return super.finishUsingItem(stack, worldIn, entity);
     }
 }

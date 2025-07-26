@@ -4,12 +4,14 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemSpade;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.HoeItem;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
+import net.minecraft.item.SwordItem;
+import net.minecraft.item.Item.Properties;
+import org.millenaire.MillTabs;
 import net.minecraft.world.World;
 
 public class ItemMillTool 
@@ -17,29 +19,39 @@ public class ItemMillTool
     static IItemTier TOOLS_norman = MillItemTier.NORMAN;
     static IItemTier TOOLS_obsidian = MillItemTier.OBSIDIAN;
 
-        static class ItemMillAxe extends ItemAxe
+        static class ItemMillAxe extends AxeItem
         {
-                ItemMillAxe(IItemTier material) { super(material); }
+                ItemMillAxe(IItemTier material) {
+                        super(material, 5.0F, -3.0F, new Properties().tab(MillTabs.MILLENAIRE_TAB));
+                }
         }
 
-        static class ItemMillShovel extends ItemSpade
+        static class ItemMillShovel extends ShovelItem
         {
-                ItemMillShovel(IItemTier material) { super(material); }
+                ItemMillShovel(IItemTier material) {
+                        super(material, 1.5F, -3.0F, new Properties().tab(MillTabs.MILLENAIRE_TAB));
+                }
         }
 
-        static class ItemMillPickaxe extends ItemPickaxe
+        static class ItemMillPickaxe extends PickaxeItem
         {
-                ItemMillPickaxe(IItemTier material) { super(material); }
+                ItemMillPickaxe(IItemTier material) {
+                        super(material, 1, -2.8F, new Properties().tab(MillTabs.MILLENAIRE_TAB));
+                }
         }
 
-        static class ItemMillHoe extends ItemHoe
+        static class ItemMillHoe extends HoeItem
         {
-                ItemMillHoe(IItemTier material) { super(material); }
+                ItemMillHoe(IItemTier material) {
+                        super(material, 0, -3.0F, new Properties().tab(MillTabs.MILLENAIRE_TAB));
+                }
         }
 	
-        public static class ItemMillMace extends ItemSword
+        public static class ItemMillMace extends SwordItem
         {
-                ItemMillMace(IItemTier material) { super(material); }
+                ItemMillMace(IItemTier material) {
+                        super(material, 3, -2.4F, new Properties().tab(MillTabs.MILLENAIRE_TAB));
+                }
 		
 		@Override
 		public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
