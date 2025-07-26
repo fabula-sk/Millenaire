@@ -245,18 +245,20 @@ public class VillageGeography
 		// We have to test not just for this chunk but the surrounding ones also
 		// as we need to do some operations that involve
 		// neighbouring blocks
-		for (int i = -1; i < 2; i++) 
-		{
-			for (int j = -1; j < 2; j++) 
-			{
-				if (!world.getChunkProvider().chunkExists((startX + mapStartX >> 4) + i, (startZ + mapStartZ >> 4) + j))
-				{
-					world.getChunkProvider().provideChunk((startX + mapStartX >> 4) + i, (startZ + mapStartZ >> 4) + j);
-				}
-			}
-		}
+                for (int i = -1; i < 2; i++)
+                {
+                        for (int j = -1; j < 2; j++)
+                        {
+                                int cx = (startX + mapStartX >> 4) + i;
+                                int cz = (startZ + mapStartZ >> 4) + j;
+                                if (!world.getChunkSource().hasChunk(cx, cz))
+                                {
+                                        world.getChunkSource().getChunk(cx, cz);
+                                }
+                        }
+                }
 
-		final Chunk chunk = world.getChunkFromBlockCoords(new BlockPos(startX + mapStartX, yBaseline ,startZ + mapStartZ));
+                final Chunk chunk = world.getChunk(new BlockPos(startX + mapStartX, yBaseline ,startZ + mapStartZ));
 
 		for (int i = 0; i < 16; i++) 
 		{
