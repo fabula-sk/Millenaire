@@ -44,22 +44,22 @@ public class VillageGenerator {
 	/**
 	 * Attempt to generate the village
 	 */
-       private static boolean generateVillageAt(Random rand, BlockPos pos, Level world) {
-		if(!MillConfig.generateVillages && !MillConfig.generateLoneBuildings || (world.getSpawnPoint().distanceSq(pos) < MillConfig.spawnDistance)) {
-			return false;
-		}
-               if(world.isClientSide) {
+      private static boolean generateVillageAt(Random rand, BlockPos pos, Level level) {
+               if(!MillConfig.generateVillages && !MillConfig.generateLoneBuildings || (level.getSpawnPoint().distanceSq(pos) < MillConfig.spawnDistance)) {
                        return false;
                }
-		if(!VillageTracker.get(world).getNearVillages(pos, MillConfig.minVillageDistance).isEmpty()) {
-			return false;
-		}
-                else {
-                        Player generatingPlayer = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), -1);
-                        if(rand.nextInt(50) == 1) {
-                                world.setBlock(pos, MillBlocks.villageStone.get().defaultBlockState(), 3);
-                        }
-                        return false;
-                }
-	}
+              if(level.isClientSide) {
+                       return false;
+               }
+               if(!VillageTracker.get(level).getNearVillages(pos, MillConfig.minVillageDistance).isEmpty()) {
+                       return false;
+               }
+               else {
+                       Player generatingPlayer = level.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), -1);
+                       if(rand.nextInt(50) == 1) {
+                               level.setBlock(pos, MillBlocks.villageStone.get().defaultBlockState(), 3);
+                       }
+                       return false;
+               }
+       }
 }

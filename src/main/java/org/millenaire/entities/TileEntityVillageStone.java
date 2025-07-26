@@ -20,7 +20,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class TileEntityVillageStone extends TileEntity
 {
@@ -39,15 +39,15 @@ public class TileEntityVillageStone extends TileEntity
 	@Override
 	public void onLoad()
 	{
-		World world = this.getWorld();
-		BlockPos pos = this.getPos();
-                if(!world.isClientSide) { //server only
-			if(world.getBlockState(pos).getBlock() instanceof BlockVillageStone)
+               Level level = this.getWorld();
+               BlockPos pos = this.getPos();
+               if(!level.isClientSide) { //server only
+                       if(level.getBlockState(pos).getBlock() instanceof BlockVillageStone)
 			{
 
 				if(culture.equalsIgnoreCase("biome"))
 				{
-					if (world.getBiomeGenForCoords(pos) != null)
+                                       if (level.getBiomeGenForCoords(pos) != null)
 					{
 						//Do awesome stuff and set culture.  Below is simply for testing.
 						System.out.println("Village Culture being set by biome");
@@ -64,20 +64,20 @@ public class TileEntityVillageStone extends TileEntity
 
 					villageName = villageType.getVillageName();
 					
-					Village v = Village.createVillage(this.getPos(), world, villageType, MillCulture.getCulture(culture));
+                                       Village v = Village.createVillage(this.getPos(), level, villageType, MillCulture.getCulture(culture));
 					v.setupVillage();
 
 					if(MillConfig.villageAnnouncement)
 					{
-                                                if(!world.isClientSide)
-						{
-                                                        for(int i = 0; i < world.playerEntities.size(); i++)
-                                                                world.playerEntities.get(i).sendMessage(new TextComponent(culture + " village " + villageName + " discovered at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ()), world.playerEntities.get(i).getUUID());
-						}
-					}
+                                               if(!level.isClientSide)
+                                               {
+                                                       for(int i = 0; i < level.playerEntities.size(); i++)
+                                                               level.playerEntities.get(i).sendMessage(new TextComponent(culture + " village " + villageName + " discovered at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ()), level.playerEntities.get(i).getUUID());
+                                               }
+                                       }
 
-                                        if(!world.isClientSide)
-						System.out.println(culture + " village " + villageName + " created at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ());
+                                       if(!level.isClientSide)
+                                               System.out.println(culture + " village " + villageName + " created at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ());
 					for(BuildingProject p : MillCulture.getCulture(culture).getVillageType(villageName).startingBuildings) {
 						BuildingType t = BuildingTypes.getTypeFromProject(p);
 						BuildingPlan plan = t.loadBuilding();
@@ -99,8 +99,8 @@ public class TileEntityVillageStone extends TileEntity
 	}
 
 	//@SideOnly(Side.SERVER)
-	public EntityMillVillager createVillager(World worldIn, MillCulture cultureIn, int villagerID)
-	{
+       public EntityMillVillager createVillager(Level level, MillCulture cultureIn, int villagerID)
+       {
 		VillagerType currentVillagerType;
 		int currentGender;
 
@@ -151,7 +151,7 @@ public class TileEntityVillageStone extends TileEntity
 				currentVillagerType = cultureIn.getChildType(1);
 			}
 
-                        EntityMillVillager newVillager = new EntityMillVillager(EntityMillVillager.MILL_VILLAGER.get(), worldIn, villagerID, cultureIn);
+                       EntityMillVillager newVillager = new EntityMillVillager(EntityMillVillager.MILL_VILLAGER.get(), level, villagerID, cultureIn);
 			newVillager.setTypeAndGender(currentVillagerType, currentGender);
 
 			return newVillager;
