@@ -121,7 +121,7 @@ public class ItemMillWand extends Item
 //					System.out.println(entity.getVillagerType());
 //					entity.setChild();
 //					entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
-//					worldIn.spawnEntityInWorld(entity);
+//					worldIn.addFreshEntity(entity);
 //				}
 //				stack.stackSize--;
 //				return true;
@@ -137,7 +137,7 @@ public class ItemMillWand extends Item
 //					entity = entity.setTypeAndGender(MillCulture.normanCulture.getVillagerType("normanLady"), 1);
 //					System.out.println(entity.getVillagerType());
 //					entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
-//					worldIn.spawnEntityInWorld(entity);
+//					worldIn.addFreshEntity(entity);
 //				}
 //				stack.stackSize--;
 //				return true;

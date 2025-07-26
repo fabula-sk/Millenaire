@@ -216,7 +216,7 @@ public class EntityMillVillager extends PathfinderMob
                                 final EntityArrow arrow = new EntityArrow(this.level, this, (EntityLivingBase) entity, 1.6F, 12.0F);
 
                                 this.level.playSound(null, this.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-                                this.level.spawnEntityInWorld(arrow);
+                                this.level.addFreshEntity(arrow);
 
 				attackTime = 60;
 
