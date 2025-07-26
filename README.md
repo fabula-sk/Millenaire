@@ -19,3 +19,13 @@ Feel free to include the mod in your modpack! Although, we'd love it if you shar
 
 ### Redistributing
 Check out the LICENSE file.
+
+## Development setup
+To install the correct JDK and prefetch dependencies, run:
+
+```
+./scripts/setup.sh
+```
+
+The script also works around a bug in `ca-certificates-java` on minimal
+systems by creating a symlink at `/lib/security/cacerts` if it is missing.
