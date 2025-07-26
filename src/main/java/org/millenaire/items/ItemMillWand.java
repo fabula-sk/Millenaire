@@ -43,12 +43,12 @@ public class ItemMillWand extends Item
 	@Override
         public boolean onItemUseFirst(ItemStack stack, Player playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ)
 	{
-                if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isRemote && this == MillItems.wandNegation) {
+                if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isClientSide && this == MillItems.wandNegation) {
 			PacketExportBuilding packet = new PacketExportBuilding(pos);
                         Millenaire.channel.sendToServer(packet);
 			return true;
 		}
-                else if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isRemote && this == MillItems.wandSummoning) {
+                else if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isClientSide && this == MillItems.wandSummoning) {
 			PacketImportBuilding packet =  new PacketImportBuilding(pos);
                         Millenaire.channel.sendToServer(packet);
 			return true;
@@ -77,7 +77,7 @@ public class ItemMillWand extends Item
                                 nbt.putInt("Y", pos.getY());
                                 nbt.putInt("Z", pos.getZ());
 
-                                if(worldIn.isRemote)
+                                if(worldIn.isClientSide)
                                 {
                                         // TODO migrate GUI opening to new Menu API
                                 }
@@ -88,7 +88,7 @@ public class ItemMillWand extends Item
 		{
 			if(worldIn.getBlockState(pos).getBlock() == Blocks.gold_block)
 			{
-				if(!worldIn.isRemote)
+                                if(!worldIn.isClientSide)
 				{	
 					System.out.println("Gold Creation");
                                         Millenaire.channel.sendTo(new PacketSayTranslatedMessage("message.notimplemented"), (ServerPlayer)playerIn);
@@ -105,7 +105,7 @@ public class ItemMillWand extends Item
                                 nbt.putInt("Y", pos.getY());
                                 nbt.putInt("Z", pos.getZ());
 
-				if(!worldIn.isRemote)
+                                if(!worldIn.isClientSide)
 				{
                                         Millenaire.channel.sendTo(new PacketSayTranslatedMessage("message.notimplemented"), (ServerPlayer)playerIn);
 //					playerIn.openGui(Millenaire.instance, 4, worldIn, playerIn.getPosition().getX(), playerIn.getPosition().getY(), playerIn.getPosition().getZ());
@@ -160,7 +160,7 @@ public class ItemMillWand extends Item
 					hasCrop = PlayerTracker.get(playerIn).canPlayerUseCrop(((BlockMillCrops)worldIn.getBlockState(pos).getBlock()).getSeed());
 					System.out.println((worldIn.getBlockState(pos).getBlock()).getItem(worldIn, pos).toString());
 
-					if(worldIn.isRemote)
+                                        if(worldIn.isClientSide)
 					{
 						if(hasCrop)
 						{
@@ -182,7 +182,7 @@ public class ItemMillWand extends Item
 						succeeded = true;
 					}
 
-					if(worldIn.isRemote)
+                                        if(worldIn.isClientSide)
 					{
 						if(succeeded)
 						{
@@ -218,7 +218,7 @@ public class ItemMillWand extends Item
                     PlayerTracker.get(playerIn).setCanUseCrop(MillItems.turmeric, true);
                 }
 
-				if(worldIn.isRemote)
+                                if(worldIn.isClientSide)
 				{
                                         playerIn.sendSystemMessage(Component.literal(playerIn.getDisplayNameString() + " can now plant everything"));
 				}
@@ -228,7 +228,7 @@ public class ItemMillWand extends Item
                         {
                                 boolean isLocked = ((TileEntityMillChest)worldIn.getBlockEntity(pos)).setLock();
 
-				if(worldIn.isRemote)
+                                if(worldIn.isClientSide)
 				{
 					if(isLocked)
 					{
@@ -255,7 +255,7 @@ public class ItemMillWand extends Item
 			else
 			{
 				CommonUtilities.changeMoney(playerIn);
-				if(worldIn.isRemote)
+                                if(worldIn.isClientSide)
 				{
                     playerIn.sendSystemMessage(Component.literal("Fixing Denier in " + playerIn.getDisplayNameString() + "'s Inventory"));
                 }

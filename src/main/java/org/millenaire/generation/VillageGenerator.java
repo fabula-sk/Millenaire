@@ -29,9 +29,9 @@ public class VillageGenerator {
 		if(!MillConfig.generateVillages && !MillConfig.generateLoneBuildings || (world.getSpawnPoint().distanceSq(pos) < MillConfig.spawnDistance)) {
 			return false;
 		}
-		if(world.isRemote) {
-			return false;
-		}
+               if(world.isClientSide) {
+                       return false;
+               }
 		if(!VillageTracker.get(world).getNearVillages(pos, MillConfig.minVillageDistance).isEmpty()) {
 			return false;
 		}

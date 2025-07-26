@@ -267,7 +267,7 @@ public class EntityMillVillager extends PathfinderMob
 							}
 						}
 
-                                                if (hadFullHealth && (player.getMainHandItem() == null || MillCommonUtilities.getItemWeaponDamage(player.getMainHandItem().getItem()) <= 1) && !level.isRemote) {
+                                                if (hadFullHealth && (player.getMainHandItem() == null || MillCommonUtilities.getItemWeaponDamage(player.getMainHandItem().getItem()) <= 1) && !level.isClientSide) {
 							ServerSender.sendTranslatedSentence(player, MLN.ORANGE, "ui.communicationexplanations");
 						}
 					}

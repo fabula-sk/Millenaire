@@ -45,7 +45,7 @@ public class ItemMillSign extends Item
                         {
                                 return InteractionResult.FAIL;
                         }
-                        else if (worldIn.isRemote)
+                        else if (worldIn.isClientSide)
                         {
                                 return InteractionResult.SUCCESS;
                         }

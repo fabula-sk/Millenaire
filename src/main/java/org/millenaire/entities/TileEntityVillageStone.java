@@ -41,7 +41,7 @@ public class TileEntityVillageStone extends TileEntity
 	{
 		World world = this.getWorld();
 		BlockPos pos = this.getPos();
-		if(!world.isRemote) { //server only
+                if(!world.isClientSide) { //server only
 			if(world.getBlockState(pos).getBlock() instanceof BlockVillageStone)
 			{
 
@@ -69,14 +69,14 @@ public class TileEntityVillageStone extends TileEntity
 
 					if(MillConfig.villageAnnouncement)
 					{
-						if(!world.isRemote)
+                                                if(!world.isClientSide)
 						{
                                                         for(int i = 0; i < world.playerEntities.size(); i++)
                                                                 world.playerEntities.get(i).sendMessage(new TextComponent(culture + " village " + villageName + " discovered at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ()), world.playerEntities.get(i).getUUID());
 						}
 					}
 
-					if(!world.isRemote)
+                                        if(!world.isClientSide)
 						System.out.println(culture + " village " + villageName + " created at " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ());
 					for(BuildingProject p : MillCulture.getCulture(culture).getVillageType(villageName).startingBuildings) {
 						BuildingType t = BuildingTypes.getTypeFromProject(p);
