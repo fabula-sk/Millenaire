@@ -15,10 +15,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
+import net.minecraft.item.SwordItem;
 import net.minecraft.item.ItemTier;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.api.distmarker.Dist;
@@ -238,52 +239,52 @@ public class MillItems
     	ITEMS.register("ikayaki", () -> ikayaki);
     	
     	//Armour
-    	normanHelmet = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 0);
-		ITEMS.register("norman_helmet", () -> normanHelmet);
-		normanChestplate = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 1);
-		ITEMS.register("norman_chestplate", () -> normanChestplate);
-		normanLeggings = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 2);
-		ITEMS.register("norman_leggings", () -> normanLeggings);
-		normanBoots = new ItemArmor(ItemMillArmor.ARMOR_norman, 2, 3);
-		ITEMS.register("norman_boots", () -> normanBoots);
+        normanHelmet = new ArmorItem(ItemMillArmor.ARMOR_norman, EquipmentSlotType.HEAD, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
+                ITEMS.register("norman_helmet", () -> normanHelmet);
+                normanChestplate = new ArmorItem(ItemMillArmor.ARMOR_norman, EquipmentSlotType.CHEST, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
+                ITEMS.register("norman_chestplate", () -> normanChestplate);
+                normanLeggings = new ArmorItem(ItemMillArmor.ARMOR_norman, EquipmentSlotType.LEGS, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
+                ITEMS.register("norman_leggings", () -> normanLeggings);
+                normanBoots = new ArmorItem(ItemMillArmor.ARMOR_norman, EquipmentSlotType.FEET, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
+                ITEMS.register("norman_boots", () -> normanBoots);
 		
-		byzantineHelmet = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 0);
+                byzantineHelmet = new ArmorItem(ItemMillArmor.ARMOR_byzantine, EquipmentSlotType.HEAD, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("byzantine_helmet", () -> byzantineHelmet);
-		byzantineChestplate = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 1);
+                byzantineChestplate = new ArmorItem(ItemMillArmor.ARMOR_byzantine, EquipmentSlotType.CHEST, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("byzantine_chestplate", () -> byzantineChestplate);
-		byzantineLeggings = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 2);
+                byzantineLeggings = new ArmorItem(ItemMillArmor.ARMOR_byzantine, EquipmentSlotType.LEGS, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("byzantine_leggings", () -> byzantineLeggings);
-		byzantineBoots = new ItemArmor(ItemMillArmor.ARMOR_byzantine, 2, 3);
+                byzantineBoots = new ArmorItem(ItemMillArmor.ARMOR_byzantine, EquipmentSlotType.FEET, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("byzantine_boots", () -> byzantineBoots);
 		
-		japaneseGuardHelmet = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 0);
+                japaneseGuardHelmet = new ArmorItem(ItemMillArmor.ARMOR_japaneseGuard, EquipmentSlotType.HEAD, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_guard_helmet", () -> japaneseGuardHelmet);
-		japaneseGuardChestplate = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 1);
+                japaneseGuardChestplate = new ArmorItem(ItemMillArmor.ARMOR_japaneseGuard, EquipmentSlotType.CHEST, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_guard_chestplate", () -> japaneseGuardChestplate);
-		japaneseGuardLeggings = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 2);
+                japaneseGuardLeggings = new ArmorItem(ItemMillArmor.ARMOR_japaneseGuard, EquipmentSlotType.LEGS, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_guard_leggings", () -> japaneseGuardLeggings);
-		japaneseGuardBoots = new ItemArmor(ItemMillArmor.ARMOR_japaneseGuard, 2, 3);
+                japaneseGuardBoots = new ArmorItem(ItemMillArmor.ARMOR_japaneseGuard, EquipmentSlotType.FEET, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_guard_boots", () -> japaneseGuardBoots);
 		
-		japaneseBlueHelmet = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 0);
+                japaneseBlueHelmet = new ArmorItem(ItemMillArmor.ARMOR_japaneseWarriorBlue, EquipmentSlotType.HEAD, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_blue_helmet", () -> japaneseBlueHelmet);
-		japaneseBlueChestplate = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 1);
+                japaneseBlueChestplate = new ArmorItem(ItemMillArmor.ARMOR_japaneseWarriorBlue, EquipmentSlotType.CHEST, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_blue_chestplate", () -> japaneseBlueChestplate);
-		japaneseBlueLeggings = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 2);
+                japaneseBlueLeggings = new ArmorItem(ItemMillArmor.ARMOR_japaneseWarriorBlue, EquipmentSlotType.LEGS, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_blue_leggings", () -> japaneseBlueLeggings);
-		japaneseBlueBoots = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorBlue, 2, 3);
+                japaneseBlueBoots = new ArmorItem(ItemMillArmor.ARMOR_japaneseWarriorBlue, EquipmentSlotType.FEET, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_blue_boots", () -> japaneseBlueBoots);
 		
-		japaneseRedHelmet = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 0);
+                japaneseRedHelmet = new ArmorItem(ItemMillArmor.ARMOR_japaneseWarriorRed, EquipmentSlotType.HEAD, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_red_helmet", () -> japaneseRedHelmet);
-		japaneseRedChestplate = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 1);
+                japaneseRedChestplate = new ArmorItem(ItemMillArmor.ARMOR_japaneseWarriorRed, EquipmentSlotType.CHEST, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_red_chestplate", () -> japaneseRedChestplate);
-		japaneseRedLeggings = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 2);
+                japaneseRedLeggings = new ArmorItem(ItemMillArmor.ARMOR_japaneseWarriorRed, EquipmentSlotType.LEGS, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_red_leggings", () -> japaneseRedLeggings);
-		japaneseRedBoots = new ItemArmor(ItemMillArmor.ARMOR_japaneseWarriorRed, 2, 3);
+                japaneseRedBoots = new ArmorItem(ItemMillArmor.ARMOR_japaneseWarriorRed, EquipmentSlotType.FEET, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_red_boots", () -> japaneseRedBoots);
 		
-		mayanQuestCrown = new mayanQuestCrown(ItemMillArmor.ARMOR_mayanQuest, 2, 0);
+                mayanQuestCrown = new mayanQuestCrown(ItemMillArmor.ARMOR_mayanQuest);
 		ITEMS.register("mayan_quest_crown", () -> mayanQuestCrown);
 		
 		//Wands
@@ -306,10 +307,10 @@ public class MillItems
 		ITEMS.register("norman_pickaxe", () -> normanPickaxe);
 		normanHoe = new ItemMillHoe(ItemMillTool.TOOLS_norman);
 		ITEMS.register("norman_hoe", () -> normanHoe);
-		normanSword = new ItemSword(ItemMillTool.TOOLS_norman);
+                normanSword = new SwordItem(ItemMillTool.TOOLS_norman, 3, -2.4F, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("norman_sword", () -> normanSword);
 		
-		mayanAxe = new ItemMillAxe(ItemMillTool.TOOLS_obsidian);
+                mayanAxe = new ItemMillAxe(ItemMillTool.TOOLS_obsidian);
 		ITEMS.register("mayan_axe", () -> mayanAxe);
 		mayanShovel = new ItemMillShovel(ItemMillTool.TOOLS_obsidian);
 		ITEMS.register("mayan_shovel", () -> mayanShovel);
@@ -317,13 +318,13 @@ public class MillItems
 		ITEMS.register("mayan_pickaxe", () -> mayanPickaxe);
 		mayanHoe = new ItemMillHoe(ItemMillTool.TOOLS_obsidian);
 		ITEMS.register("mayan_hoe", () -> mayanHoe);
-		mayanMace = new ItemSword(ItemMillTool.TOOLS_obsidian);
+                mayanMace = new SwordItem(ItemMillTool.TOOLS_obsidian, 3, -2.4F, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("mayan_mace", () -> mayanMace);
 		
                 byzantineMace = new ItemMillMace(ItemTier.IRON);
 		ITEMS.register("byzantine_mace", () -> byzantineMace);
 		
-                japaneseSword = new ItemSword(ItemTier.IRON);
+                japaneseSword = new SwordItem(ItemTier.IRON, 3, -2.4F, new Item.Properties().tab(MillTabs.MILLENAIRE_TAB));
 		ITEMS.register("japanese_sword", () -> japaneseSword);
 		japaneseBow = new ItemMillBow(2, 0.5F, "japanese_bow");
 		ITEMS.register("japanese_bow", () -> japaneseBow);

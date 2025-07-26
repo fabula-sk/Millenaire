@@ -29,27 +29,27 @@ public enum MillArmorMaterial implements IArmorMaterial {
     }
 
     @Override
-    public int getDurability(EquipmentSlotType slot) {
+    public int getDurabilityForSlot(EquipmentSlotType slot) {
         return BASE_DURABILITY[slot.getIndex()] * this.durabilityFactor;
     }
 
     @Override
-    public int getDamageReductionAmount(EquipmentSlotType slot) {
+    public int getDefenseForSlot(EquipmentSlotType slot) {
         return this.damageReduction[slot.getIndex()];
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 
     @Override
-    public SoundEvent getSoundEvent() {
+    public SoundEvent getEquipSound() {
         return SoundEvents.ITEM_ARMOR_EQUIP_GENERIC;
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
+    public Ingredient getRepairIngredient() {
         return Ingredient.EMPTY;
     }
 
@@ -60,6 +60,11 @@ public enum MillArmorMaterial implements IArmorMaterial {
 
     @Override
     public float getToughness() {
+        return 0.0F;
+    }
+
+    @Override
+    public float getKnockbackResistance() {
         return 0.0F;
     }
 }

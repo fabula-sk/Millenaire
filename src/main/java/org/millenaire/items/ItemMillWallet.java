@@ -13,6 +13,9 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.util.text.ITextComponent;
+import javax.annotation.Nullable;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -36,11 +39,11 @@ public InteractionResultHolder<ItemStack> use(World worldIn, Player playerIn, In
 	
 	@Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, Player playerIn, List<String> tooltip, boolean advanced)
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flag)
     {
-		if(stack.hasTagCompound())
-		{
-			NBTTagCompound nbt = stack.getTagCompound();
+                if(stack.hasTagCompound())
+                {
+                        NBTTagCompound nbt = stack.getTagCompound();
 			
 			if(nbt.hasKey("DenierOr") && nbt.getInteger("DenierOr") > 0)
 			{

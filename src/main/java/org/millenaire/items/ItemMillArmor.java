@@ -3,9 +3,12 @@ package org.millenaire.items;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.IArmorMaterial;
+import net.minecraft.item.Item.Properties;
+import net.minecraft.inventory.EquipmentSlotType;
+import org.millenaire.MillTabs;
 import net.minecraft.world.World;
 
 public class ItemMillArmor 
@@ -17,17 +20,16 @@ public class ItemMillArmor
     static IArmorMaterial ARMOR_byzantine = MillArmorMaterial.BYZANTINE;
     static IArmorMaterial ARMOR_mayanQuest = MillArmorMaterial.MAYAN_QUEST;
 	
-        public static class mayanQuestCrown extends ItemArmor
+        public static class mayanQuestCrown extends ArmorItem
         {
-
-                public mayanQuestCrown(IArmorMaterial material, int renderIndex, int armorType)
+                public mayanQuestCrown(IArmorMaterial material)
                 {
-                        super(material, renderIndex, armorType);
+                        super(material, EquipmentSlotType.HEAD, new Properties().tab(MillTabs.MILLENAIRE_TAB));
                 }
 		
-		@Override
-		public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
-	    {
+                @Override
+                public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+            {
 			if (EnchantmentHelper.getEnchantmentLevel(Enchantment.respiration.effectId, stack) == 0)
 			{
 				stack.addEnchantment(Enchantment.respiration, 3);
