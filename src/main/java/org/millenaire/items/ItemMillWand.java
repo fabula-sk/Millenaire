@@ -221,9 +221,9 @@ public class ItemMillWand extends Item
 				}
 			}
 			//Lock and Unlock Chests
-			else if(worldIn.getBlockState(pos).getBlock() instanceof BlockMillChest)
-			{
-				boolean isLocked = ((TileEntityMillChest)worldIn.getTileEntity(pos)).setLock();
+                        else if(worldIn.getBlockState(pos).getBlock() instanceof BlockMillChest)
+                        {
+                                boolean isLocked = ((TileEntityMillChest)worldIn.getBlockEntity(pos)).setLock();
 
 				if(worldIn.isRemote)
 				{

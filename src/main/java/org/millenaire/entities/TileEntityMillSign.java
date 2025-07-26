@@ -41,7 +41,7 @@ public class TileEntityMillSign extends TileEntitySign implements ITickable
 
 		if(!(villageStoneLocation == null)) {
                         signText[0] = new TextComponent("The End is Nigh");
-			TileEntityVillageStone TEVS = (TileEntityVillageStone)this.getWorld().getTileEntity(villageStoneLocation);
+                        TileEntityVillageStone TEVS = (TileEntityVillageStone)this.getWorld().getBlockEntity(villageStoneLocation);
                         signText[1] = new TextComponent(TEVS.testVar + " clicks");
 
 			/*switch(thisSignType) {
