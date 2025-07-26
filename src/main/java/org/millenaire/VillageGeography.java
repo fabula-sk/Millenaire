@@ -131,7 +131,7 @@ public class VillageGeography
 	private static boolean isForbiddenBlockForConstruction(final Block block)
 	{
         return block == Blocks.WATER || block == Blocks.ICE || block == Blocks.LAVA || block == Blocks.OAK_PLANKS || block == Blocks.COBBLESTONE || block == Blocks.BRICKS || block == Blocks.CHEST || block == Blocks.GLASS || block == Blocks.STONE_BRICKS || block == Blocks.PRISMARINE
-                                || block instanceof BlockWall || block instanceof BlockFence || block == MillBlocks.blockDecorativeEarth.get() || block == MillBlocks.blockDecorativeStone.get() || block == MillBlocks.blockDecorativeWood.get() || block == MillBlocks.byzantineTile.get() || block == MillBlocks.byzantineTileSlab.get() || block == MillBlocks.byzantineStoneTile.get() || block == MillBlocks.paperWall.get() || block == MillBlocks.emptySericulture.get();
+                                || block instanceof BlockWall || block instanceof BlockFence || block == MillBlocks.blockDecorativeEarth.get() || block instanceof BlockDecorativeStone || block == MillBlocks.blockDecorativeWood.get() || block == MillBlocks.byzantineTile.get() || block == MillBlocks.byzantineTileSlab.get() || block == MillBlocks.byzantineStoneTile.get() || block == MillBlocks.paperWall.get() || block == MillBlocks.emptySericulture.get();
 	}
 	
 	private void registerBuildingLocation(final BuildingLocation bl) 

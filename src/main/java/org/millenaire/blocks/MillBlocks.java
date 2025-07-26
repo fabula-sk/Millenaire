@@ -33,7 +33,9 @@ public class MillBlocks {
         public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Millenaire.MODID);
         public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Millenaire.MODID);
 
-        public static final RegistryObject<Block> blockDecorativeStone = BLOCKS.register("block_decorative_stone", BlockDecorativeStone::new);
+        public static final RegistryObject<Block> goldOrnament = BLOCKS.register("gold_ornament", BlockDecorativeStone::new);
+        public static final RegistryObject<Block> cookedBrick = BLOCKS.register("cooked_brick", BlockDecorativeStone::new);
+        public static final RegistryObject<Block> galianiteBlock = BLOCKS.register("galianite_block", BlockDecorativeStone::new);
         public static final RegistryObject<Block> blockDecorativeWood = BLOCKS.register("block_decorative_wood", BlockDecorativeWood::new);
         public static final RegistryObject<Block> blockDecorativeEarth = BLOCKS.register("block_decorative_earth", BlockDecorativeEarth::new);
 

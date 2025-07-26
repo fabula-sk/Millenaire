@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "variant=goldornament": { "model": "millenaire:gold_ornament" },
-        "variant=cookedbrick": { "model": "millenaire:cooked_brick" },
-        "variant=galianiteBlock": { "model": "millenaire:galianite_block" }
-    }
-}

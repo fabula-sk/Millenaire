@@ -1,24 +1,14 @@
 package org.millenaire.items;
 
-import org.millenaire.blocks.BlockDecorativeStone;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 
 public class ItemBlockDecorativeStone extends BlockItem
 {
 
-       public ItemBlockDecorativeStone(Block block, Item.Properties properties)
-       {
-               super(block, properties);
-       }
-
-	public String getUnlocalizedName(ItemStack stack)
+    public ItemBlockDecorativeStone(Block block, Item.Properties properties)
     {
-        return ((BlockDecorativeStone)this.block).getUnlocalizedName(stack.getMetadata());
+        super(block, properties);
     }
-	
-	public int getMetadata(int damage) { return damage; }
 }
