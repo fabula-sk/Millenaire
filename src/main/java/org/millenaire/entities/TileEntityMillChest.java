@@ -2,7 +2,11 @@ package org.millenaire.entities;
 
 import net.minecraft.entity.player.Inventory;
 import net.minecraft.entity.player.Player;
+
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.nbt.CompoundTag;
+
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
@@ -85,6 +89,9 @@ public class TileEntityMillChest extends ChestBlockEntity implements MenuProvide
         @Override
         public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player)
     {
-        return ChestMenu.threeRows(id, playerInventory, this);
+        if (player instanceof ServerPlayer) {
+            return ChestMenu.threeRows(id, playerInventory, this);
+        }
+        return null;
     }
 }
