@@ -5,8 +5,8 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 
-# Desired JDK version (default 17)
-JDK_VERSION="${JDK_VERSION:-17}"
+# Desired JDK version (default 8 for Minecraft 1.14)
+JDK_VERSION="${JDK_VERSION:-8}"
 
 need_jdk=false
 if ! type -p javac >/dev/null; then
