@@ -412,4 +412,3 @@ public class MillItems
                 // item model rendering now handled by Forge automatically
         }
 	}
-}
