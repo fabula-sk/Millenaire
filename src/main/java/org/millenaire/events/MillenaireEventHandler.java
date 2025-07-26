@@ -3,16 +3,16 @@ package org.millenaire.events;
 import org.millenaire.PlayerTracker;
 
 import net.minecraft.entity.player.Player;
-import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class MillenaireEventHandler {
 
 	@SubscribeEvent
-	public void onEntityConstructing(EntityConstructing event) {
-		if (event.entity instanceof Player && PlayerTracker.get((Player) event.entity) == null)
-		{
-			PlayerTracker.register((Player) event.entity);
-		}
-	}
+        public void onEntityConstructing(EntityJoinWorldEvent event) {
+                if (event.getEntity() instanceof Player && PlayerTracker.get((Player) event.getEntity()) == null)
+                {
+                        PlayerTracker.register((Player) event.getEntity());
+                }
+        }
 }
