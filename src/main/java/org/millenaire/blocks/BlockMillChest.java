@@ -1,144 +1,56 @@
 package org.millenaire.blocks;
 
-import java.util.Random;
-
-import org.millenaire.Millenaire;
 import org.millenaire.entities.TileEntityMillChest;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockChest;
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.player.Player;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.ILockableContainer;
-import net.minecraft.world.World;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
+
 import org.millenaire.gui.EmptyMenu;
 import org.millenaire.gui.MillMenus;
+import org.millenaire.blocks.MillBlocks;
 
-public class BlockMillChest extends BlockChest
-{
-	BlockMillChest()
-	{
-		super(2);
-		
-		this.setBlockUnbreakable();
-	}
+public class BlockMillChest extends ChestBlock {
 
-	@Override
-	public int quantityDropped(final Random random) { return 0; }
-	
-	@Override
-    public void breakBlock(World worldIn, BlockPos pos, BlockState state)
-    {
-        if (hasTileEntity(state) && !(this instanceof BlockContainer))
-        {
-            worldIn.removeTileEntity(pos);
-        }
-    }
-	
-	@Override
-        public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, Player playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
-    {
-        if (!worldIn.isRemote)
-        {
-            MenuProvider provider = new SimpleMenuProvider((id, inv, player) -> new EmptyMenu(MillMenus.CHEST_MENU.get(), id), new TextComponent("Mill Chest"));
-            NetworkHooks.openGui((net.minecraft.server.level.ServerPlayer)playerIn, provider, pos);
-        }
-        return true;
-    }
-	
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) { return new TileEntityMillChest(); }
-	
-	@Override
-    public ILockableContainer getLockableContainer(World worldIn, BlockPos pos)
-    {
-        TileEntity tileentity = worldIn.getTileEntity(pos);
-
-        if (!(tileentity instanceof TileEntityMillChest))
-        {
-            return null;
-        }
-        else
-        {
-            ILockableContainer ilockablecontainer = (TileEntityMillChest)tileentity;
-            
-            //String doubleName = ((TileEntityMillChest)ilockablecontainer).getLargeDisplayName();
-
-            if (this.isBlocked(worldIn, pos))
-            {
-                return null;
-            }
-            else
-            {
-                for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
-                {
-                    BlockPos blockpos = pos.offset(enumfacing);
-                    Block block = worldIn.getBlockState(blockpos).getBlock();
-
-                    if (block == this)
-                    {
-                        if (this.isBlocked(worldIn, blockpos))
-                        {
-                            return null;
-                        }
-
-                        TileEntity tileentity1 = worldIn.getTileEntity(blockpos);
-
-                        if (tileentity1 instanceof TileEntityChest)
-                        {
-                            if (enumfacing != EnumFacing.WEST && enumfacing != EnumFacing.NORTH)
-                            {
-                                ilockablecontainer = new InventoryLargeChest("test", ilockablecontainer, (TileEntityChest)tileentity1);
-                            }
-                            else
-                            {
-                                ilockablecontainer = new InventoryLargeChest("test2", (TileEntityChest)tileentity1, ilockablecontainer);
-                            }
-                        }
-                    }
-                }
-
-                return ilockablecontainer;
-            }
-        }
-    }
-	
-    private boolean isBlocked(World worldIn, BlockPos pos)
-    {
-        return this.isBelowSolidBlock(worldIn, pos) || this.isOcelotSittingOnChest(worldIn, pos);
+    public BlockMillChest() {
+        super(BlockBehaviour.Properties.of(Material.WOOD).strength(-1.0F, 6000000.0F),
+                () -> MillBlocks.MILL_CHEST_TILE.get());
     }
 
-    private boolean isBelowSolidBlock(World worldIn, BlockPos pos)
-    {
-        return worldIn.isSideSolid(pos.up(), EnumFacing.DOWN, false);
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() != newState.getBlock()) {
+            clearContainer(level, pos, newState);
+            super.onRemove(state, level, pos, newState, isMoving);
+        }
     }
 
-    private boolean isOcelotSittingOnChest(World worldIn, BlockPos pos)
-    {
-        for (Entity entity : worldIn.getEntitiesWithinAABB(EntityOcelot.class, new AABB((double)pos.getX(), (double)(pos.getY() + 1), (double)pos.getZ(), (double)(pos.getX() + 1), (double)(pos.getY() + 2), (double)(pos.getZ() + 1))))
-        {
-            EntityOcelot entityocelot = (EntityOcelot)entity;
-
-            if (entityocelot.isSitting())
-            {
-                return true;
-            }
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
+            BlockHitResult hit) {
+        if (!level.isClientSide) {
+            MenuProvider provider = new SimpleMenuProvider((id, inv, p) -> new EmptyMenu(MillMenus.CHEST_MENU.get(), id),
+                    new TextComponent("Mill Chest"));
+            NetworkHooks.openGui((ServerPlayer) player, provider, pos);
         }
+        return InteractionResult.SUCCESS;
+    }
 
-        return false;
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new TileEntityMillChest();
     }
 }

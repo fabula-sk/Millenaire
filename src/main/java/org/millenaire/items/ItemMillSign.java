@@ -7,7 +7,7 @@ import org.millenaire.blocks.MillBlocks;
 import net.minecraft.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.World;
@@ -54,7 +54,7 @@ public class ItemMillSign extends Item
                                 worldIn.setBlockState(pos, MillBlocks.blockMillSign.get().getDefaultState().withProperty(BlockMillSign.FACING, side), 3);
 
                                 stack.shrink(1);
-                                TileEntity tileentity = worldIn.getTileEntity(pos);
+                                BlockEntity tileentity = worldIn.getBlockEntity(pos);
 
                                 return InteractionResult.SUCCESS;
                         }
