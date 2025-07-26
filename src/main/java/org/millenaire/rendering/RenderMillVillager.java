@@ -8,28 +8,27 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderBiped;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
-import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;
+import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
-public class RenderMillVillager extends RenderBiped<EntityMillVillager>
+public class RenderMillVillager extends MobRenderer<EntityMillVillager, ModelBiped>
 {
 	private ResourceLocation villagerTexture;
 	
 	protected String name = "Suzy Carmichael";
 	private String quest = null;
 	
-	public RenderMillVillager(RenderManager rendermanagerIn, ModelBiped modelbaseIn, float shadowsizeIn) 
-	{
-		super(rendermanagerIn, modelbaseIn, shadowsizeIn);
-		this.addLayer(new LayerBipedArmor(this));
-        this.addLayer(new LayerHeldItem(this));
-	}
+    public RenderMillVillager(EntityRendererProvider.Context context)
+    {
+            super(context, new ModelBiped(), 0.5F);
+            this.addLayer(new BipedArmorLayer<>(this));
+            this.addLayer(new ItemInHandLayer<>(this));
+    }
 	
 	@Override
 	protected boolean canRenderName(EntityMillVillager entity) { return true; }
@@ -45,20 +44,20 @@ public class RenderMillVillager extends RenderBiped<EntityMillVillager>
 		{
 			if(entity.getGender() == 1)
 			{
-				this.mainModel = new ModelFemaleAsym();
+                        this.model = new ModelFemaleAsym();
 			}
 			else if(entity.getGender() == 2)
 			{
-				this.mainModel = new ModelFemaleSym();
+                                this.model = new ModelFemaleSym();
 			}
 			else
 			{
-				this.mainModel = new ModelBiped();
+                                this.model = new ModelBiped();
 			}
     	}
 		else
 		{
-			this.mainModel = new ModelBiped();
+                        this.model = new ModelBiped();
 		}
     }
 
@@ -132,12 +131,12 @@ public class RenderMillVillager extends RenderBiped<EntityMillVillager>
 	
 	//////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	public static class millVillagerRenderFactory implements IRenderFactory
-	{
-		@Override
-		public Render createRenderFor(RenderManager manager) 
-		{
-			return new RenderMillVillager(manager, new ModelBiped(), 0.5F);
-		}
-	}
+        public static class millVillagerRenderFactory implements IRenderFactory<EntityMillVillager>
+        {
+                @Override
+                public MobRenderer<? super EntityMillVillager, ?> createRenderFor(EntityRendererProvider.Context context)
+                {
+                        return new RenderMillVillager(context);
+                }
+        }
 }
