@@ -32,7 +32,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -40,7 +39,6 @@ import net.minecraftforge.fml.client.registry.ScreenManager;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.fml.relauncher.Side;
 
 
 @Mod(Millenaire.MODID)
@@ -54,13 +52,13 @@ public class Millenaire
 	
 	public List<Block> forbiddenBlocks;
 	
-        @Instance
-        public static Millenaire instance = new Millenaire();
-        public static SimpleChannel channel = MillNetwork.CHANNEL;
+       public static Millenaire instance;
+       public static SimpleChannel channel = MillNetwork.CHANNEL;
 
-        public Millenaire() {
-                FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-                FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+       public Millenaire() {
+               instance = this;
+               FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+               FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
 
                 MillBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
                 MillBlocks.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
