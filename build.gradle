@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:5.1.77'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
 
@@ -14,7 +14,7 @@ apply plugin: "net.minecraftforge.gradle"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 project.group = "org.millenaire.millenaire"
-project.version = "1.8.9-7.0.0-A2.3"
+project.version = "1.14.4-7.0.0"
 
 
 minecraft {
