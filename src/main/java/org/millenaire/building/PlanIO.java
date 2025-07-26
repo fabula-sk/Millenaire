@@ -18,17 +18,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
+import net.minecraft.block.Blocks;
+import net.minecraft.world.item.Item;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.NBTUtil;
+import net.minecraft.tags.BlockTags;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -40,17 +40,17 @@ public class PlanIO {
 
 	//BlockState[y][z][x]
 	public static void exportBuilding(Player player, BlockPos startPoint) {
-		try {
-			TileEntitySign sign = (TileEntitySign)player.getEntityWorld().getTileEntity(startPoint);
+               try {
+                       SignBlockEntity sign = (SignBlockEntity)player.getEntityWorld().getBlockEntity(startPoint);
 
-			String buildingName = sign.signText[0].getUnformattedText();
-			boolean saveSnow = (sign.signText[3].getUnformattedText().toLowerCase() == "snow");
+                       String buildingName = sign.getMessage(0, false).getString();
+                       boolean saveSnow = sign.getMessage(3, false).getString().equalsIgnoreCase("snow");
 
 			int buildingLevel = 1;
 
-			if(sign.signText[1] != null && sign.signText[1].getUnformattedText().length() > 0) {
-				buildingLevel = Integer.parseInt(sign.signText[1].getUnformattedText());
-			}
+                       if(!sign.getMessage(1, false).getString().isEmpty()) {
+                               buildingLevel = Integer.parseInt(sign.getMessage(1, false).getString());
+                       }
 
 			if(buildingLevel < 0) {
 				PacketSayTranslatedMessage packet = new PacketSayTranslatedMessage("message.error.exporting.level0");
@@ -59,9 +59,9 @@ public class PlanIO {
 
 			int startLevel = -1;
 
-			if (sign.signText[2] != null && sign.signText[2].getUnformattedText().length() > 0) {
-				startLevel = Integer.parseInt(sign.signText[2].getUnformattedText());
-			}
+                       if (!sign.getMessage(2, false).getString().isEmpty()) {
+                               startLevel = Integer.parseInt(sign.getMessage(2, false).getString());
+                       }
 
 			if(buildingName == null || buildingName.length() == 0) {
 				PacketSayTranslatedMessage packet = new PacketSayTranslatedMessage("message.error.exporting.noname");
@@ -71,12 +71,12 @@ public class PlanIO {
 			boolean foundEnd = false;
 			int xEnd = startPoint.getX() + 1;
 			while(!foundEnd && xEnd < startPoint.getX() + 257) {
-				final BlockState block = player.getEntityWorld().getBlockState(new BlockPos(xEnd, startPoint.getY(), startPoint.getZ()));
+                               final BlockState block = player.getEntityWorld().getBlockState(new BlockPos(xEnd, startPoint.getY(), startPoint.getZ()));
 
-				if (block.getBlock() == Blocks.standing_sign) {
-					foundEnd = true;
-					break;
-				}
+                               if (block.is(BlockTags.SIGNS)) {
+                                       foundEnd = true;
+                                       break;
+                               }
 				xEnd++;
 			}
 			if(!foundEnd) {
@@ -87,12 +87,12 @@ public class PlanIO {
 			foundEnd = false;
 			int zEnd = startPoint.getZ() + 1;
 			while(!foundEnd && zEnd < startPoint.getZ() + 257) {
-				final BlockState block = player.getEntityWorld().getBlockState(new BlockPos(startPoint.getX(), startPoint.getY(), zEnd));
+                               final BlockState block = player.getEntityWorld().getBlockState(new BlockPos(startPoint.getX(), startPoint.getY(), zEnd));
 
-				if (block.getBlock() == Blocks.standing_sign) {
-					foundEnd = true;
-					break;
-				}
+                               if (block.is(BlockTags.SIGNS)) {
+                                       foundEnd = true;
+                                       break;
+                               }
 				zEnd++;
 			}
 			if(!foundEnd) {
@@ -166,12 +166,12 @@ public class PlanIO {
 	//Called only on the logical server
 	public static void importBuilding(Player player, BlockPos startPos) {
 		try {
-			TileEntitySign te = (TileEntitySign)player.getEntityWorld().getTileEntity(startPos);
-			String name = te.signText[0].getUnformattedText();
-			int level = 1;
-			if(te.signText[1] != null && te.signText[1].getUnformattedText().length() > 0) {
-				level = Integer.parseInt(te.signText[1].getUnformattedText());
-			}
+                       SignBlockEntity te = (SignBlockEntity)player.getEntityWorld().getBlockEntity(startPos);
+                       String name = te.getMessage(0, false).getString();
+                       int level = 1;
+                       if(!te.getMessage(1, false).getString().isEmpty()) {
+                               level = Integer.parseInt(te.getMessage(1, false).getString());
+                       }
 
 			if(name == null || name.length() == 0) {
 				PacketSayTranslatedMessage message = new PacketSayTranslatedMessage("message.error.exporting.noname");
@@ -222,7 +222,7 @@ public class PlanIO {
 		}
 	}
 
-	public static BuildingPlan loadSchematic(NBTTagCompound nbt, MillCulture culture, int level) throws IOException {
+       public static BuildingPlan loadSchematic(CompoundNBT nbt, MillCulture culture, int level) throws IOException {
 		//Convert Stream to NBTTagCompound
 
 		//width = x-axis, height = y-axis, length = z-axis
@@ -234,16 +234,16 @@ public class PlanIO {
 		//height = nbt.getShort("Height");
 		length = nbt.getShort("Length"); 
 
-                NBTTagList list = nbt.getTagList("level_" + level, Constants.NBT.TAG_COMPOUND);
-                NBTTagCompound levelTag = list.getCompoundTagAt(0);
-                NBTTagList stateTagList = levelTag.getTagList("BlockStates", Constants.NBT.TAG_COMPOUND);
+               ListNBT list = nbt.getList("level_" + level, Constants.NBT.TAG_COMPOUND);
+               CompoundNBT levelTag = list.getCompound(0);
+               ListNBT stateTagList = levelTag.getList("BlockStates", Constants.NBT.TAG_COMPOUND);
                 height = levelTag.getShort("Height");
 
-                BlockState[] states = new BlockState[stateTagList.tagCount()];
+               BlockState[] states = new BlockState[stateTagList.size()];
 
-                for(int i = 0; i < stateTagList.tagCount(); i++) {
-                        states[i] = NBTUtil.readBlockState(stateTagList.getCompoundTagAt(i));
-                }
+               for(int i = 0; i < stateTagList.size(); i++) {
+                        states[i] = NBTUtil.readBlockState(stateTagList.getCompound(i));
+               }
 
 		//turn into a 3D block array for use with BuildingPlan
 		//in format [y][z][x]! IMPORTANT!
@@ -258,7 +258,7 @@ public class PlanIO {
 		}
 
 		//load milleniare extra data
-		short depth = list.getCompoundTagAt(0).getShort("StartLevel");
+               short depth = list.getCompound(0).getShort("StartLevel");
 
 		String name = nbt.getString("BuildingName");
 
@@ -266,7 +266,7 @@ public class PlanIO {
 				.setHeightDepth(height, depth).setDistance(0, 5).setOrientation(EnumFacing.getHorizontal(2)).setPlan(organized).setLengthWidth(length, width);
 	}
 
-        public static NBTTagCompound getBuildingTag(final String name, MillCulture culture, final boolean packaged) {
+       public static CompoundNBT getBuildingTag(final String name, MillCulture culture, final boolean packaged) {
                 if(packaged) {
                         IResourceManager rm = ServerLifecycleHooks.getCurrentServer().getResourceManager();
                         try {
@@ -276,10 +276,10 @@ public class PlanIO {
                                                 return CompressedStreamTools.readCompressed(x);
                                         }
                                 }
-                                return new NBTTagCompound();
+                               return new CompoundNBT();
                         } catch (IOException e) {
                                 e.printStackTrace();
-                                return new NBTTagCompound();
+                               return new CompoundNBT();
                         }
                 }
                 else {
@@ -287,7 +287,7 @@ public class PlanIO {
 				File f1 = getBuildingFile(name);
 				if(!f1.exists())
 				{
-					return new NBTTagCompound();
+                                       return new CompoundNBT();
 				}
 				else
 				{
@@ -297,7 +297,7 @@ public class PlanIO {
 			}
 			catch(Exception ex) {
 				ex.printStackTrace();
-				return new NBTTagCompound();
+                                return new CompoundNBT();
 			}
 		}
 	}
@@ -312,7 +312,7 @@ public class PlanIO {
 		return new File(f, name + ".mlplan");
 	}
 
-	private static boolean valid(short width, short height, short length, short depth, NBTTagCompound tag) {
+       private static boolean valid(short width, short height, short length, short depth, CompoundNBT tag) {
 		boolean valid = true;
 		if(tag.getShort("Width") != width && tag.getShort("Width") != 0) {
 			valid = false;
@@ -343,7 +343,7 @@ public class PlanIO {
 	private static File exportToSchem(BlockState[][][] blocks, short width, short height, short length, short depth, String name, int level, Player player) throws Exception {
 		File f1 = getBuildingFile(name);
 
-		NBTTagCompound tag = getBuildingTag(name, null, false);
+               CompoundNBT tag = getBuildingTag(name, null, false);
 
 		if(!valid(width, height, length, depth, tag)) {
 			PacketSayTranslatedMessage packet = new PacketSayTranslatedMessage("message.error.exporting.dimensions");
@@ -351,32 +351,32 @@ public class PlanIO {
 			throw new Exception("Ahhh!");
 		}
 
-                NBTTagList stateList = new NBTTagList();
+               ListNBT stateList = new ListNBT();
 
                 for(int x = 0; x < width; x++) {
                         for(int y = 0; y < height; y++) {
-                                for(int z = 0; z < length; z++) {
-                                        stateList.appendTag(NBTUtil.writeBlockState(blocks[y][z][x]));
-                                }
+                               for(int z = 0; z < length; z++) {
+                                        stateList.add(NBTUtil.writeBlockState(blocks[y][z][x]));
+                               }
                         }
                 }
 
-                NBTTagList LevelTagComp = new NBTTagList();
-                NBTTagCompound tag2 = new NBTTagCompound();
-                tag2.setTag("BlockStates", stateList);
-                tag2.setShort("Height", height);
-                tag2.setShort("StartLevel", depth);
-                LevelTagComp.appendTag(tag2);
+               ListNBT LevelTagComp = new ListNBT();
+               CompoundNBT tag2 = new CompoundNBT();
+               tag2.put("BlockStates", stateList);
+               tag2.putShort("Height", height);
+               tag2.putShort("StartLevel", depth);
+               LevelTagComp.add(tag2);
 
-		tag.setTag("level_" + level, LevelTagComp);
+               tag.put("level_" + level, LevelTagComp);
 
-		tag.setString("Version", FILE_VERSION);
+               tag.putString("Version", FILE_VERSION);
 
-		tag.setShort("Width", width);
+               tag.putShort("Width", width);
 		//tag.setShort("Height", height);
-		tag.setShort("Length", length);
+               tag.putShort("Length", length);
 		//tag.setShort("StartLevel", depth);
-		tag.setString("BuildingName", name);
+               tag.putString("BuildingName", name);
 		try {
 			CompressedStreamTools.writeCompressed(tag, new FileOutputStream(f1));
 		} catch (IOException e) {
