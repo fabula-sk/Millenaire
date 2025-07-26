@@ -6,7 +6,7 @@ import org.millenaire.MillConfig;
 import org.millenaire.entities.EntityMillVillager;
 import org.millenaire.util.ResourceLocationUtil;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -51,19 +51,19 @@ public class BuildingLocation
 		maxxMargin = maxx + MillConfig.minBuildingDistance + 1;
 		maxzMargin = maxz + MillConfig.minBuildingDistance + 1;
 	}
-	/*
-	public static BuildingLocation fromNBT(NBTTagCompound nbt) {
+        /*
+        public static BuildingLocation fromNBT(CompoundNBT nbt) {
 		ResourceLocation rl = ResourceLocationUtil.getRL(nbt.getString("planID"));
 		BlockPos pos = BlockPos.fromLong(nbt.getLong("pos"));
 		EnumFacing fac = EnumFacing.getHorizontal(nbt.getInteger("facing"));
 		return new BuildingLocation(rl, pos, fac);
 	}
 	
-	public NBTTagCompound toNBT() {
-		NBTTagCompound nbt = new NBTTagCompound();
+        public CompoundNBT toNBT() {
+                CompoundNBT nbt = new CompoundNBT();
 		
-		nbt.setString("planID", ResourceLocationUtil.getString(planid));
-		nbt.setInteger("facing", orientation.getHorizontalIndex());
+                nbt.putString("planID", ResourceLocationUtil.getString(planid));
+                nbt.putInt("facing", orientation.getHorizontalIndex());
 		
 		
 		return nbt;
