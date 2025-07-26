@@ -2,7 +2,7 @@ package org.millenaire;
 
 import org.millenaire.capability.IPlayerCropData;
 
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 

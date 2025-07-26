@@ -2,7 +2,7 @@ package org.millenaire.gui;
 
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.entity.player.Inventory;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 public class OptionsScreen extends AbstractContainerScreen<EmptyMenu> {

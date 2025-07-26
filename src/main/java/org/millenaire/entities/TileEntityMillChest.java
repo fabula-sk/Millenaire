@@ -1,7 +1,7 @@
 package org.millenaire.entities;
 
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.MenuProvider;
@@ -28,7 +28,8 @@ public class TileEntityMillChest extends ChestBlockEntity implements MenuProvide
                 if (level != null) {
                         for (Direction dir : Direction.Plane.HORIZONTAL) {
                                 BlockPos pos = worldPosition.relative(dir);
-                                if (level.getBlockEntity(pos) instanceof TileEntityMillChest other) {
+                                if (level.getBlockEntity(pos) instanceof TileEntityMillChest) {
+                                        TileEntityMillChest other = (TileEntityMillChest) level.getBlockEntity(pos);
                                         other.isLocked = this.isLocked;
                                 }
                         }

@@ -1,6 +1,6 @@
 package org.millenaire.entities;
 
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Player;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;

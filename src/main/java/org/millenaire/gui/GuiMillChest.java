@@ -6,10 +6,10 @@ import org.millenaire.entities.TileEntityMillChest;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.ChestScreen;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 

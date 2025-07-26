@@ -4,7 +4,7 @@ import org.millenaire.MillTabs;
 import org.millenaire.blocks.BlockMillSign;
 import org.millenaire.blocks.MillBlocks;
 
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

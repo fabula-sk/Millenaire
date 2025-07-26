@@ -16,7 +16,7 @@ import org.millenaire.networking.PacketSayTranslatedMessage;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.item.Item;

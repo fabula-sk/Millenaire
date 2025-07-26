@@ -2,8 +2,8 @@ package org.millenaire.entities.ai;
 
 import org.millenaire.entities.EntityMillVillager;
 
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.Goal;
 
 public class EntityAIBuild extends Goal
 {

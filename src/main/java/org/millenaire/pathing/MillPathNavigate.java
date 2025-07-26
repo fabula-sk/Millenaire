@@ -1,8 +1,8 @@
 package org.millenaire.pathing;
 
-import net.minecraft.world.entity.Mob;
+import net.minecraft.entity.Mob;
 import net.minecraft.world.level.pathfinder.PathFinder;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.level.Level;
 
 public class MillPathNavigate extends GroundPathNavigation

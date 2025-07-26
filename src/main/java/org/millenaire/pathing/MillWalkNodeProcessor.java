@@ -3,7 +3,7 @@ package org.millenaire.pathing;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BlockFenceGate;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.entity.Mob;
 import net.minecraft.world.level.pathfinder.PathPoint;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.pathfinder.WalkNodeProcessor;

@@ -2,7 +2,7 @@ package org.millenaire.items;
 
 import org.millenaire.gui.MillAchievement;
 
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
