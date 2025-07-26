@@ -18,7 +18,7 @@ import org.millenaire.networking.PacketSayTranslatedMessage;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -31,7 +31,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.core.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -47,7 +47,7 @@ public class ItemMillWand extends Item
 	ItemMillWand() { this.setMaxStackSize(1); }
 
 	@Override
-        public boolean onItemUseFirst(ItemStack stack, Player playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ)
+        public boolean onItemUseFirst(ItemStack stack, Player playerIn, Level worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ)
 	{
                 if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isClientSide && this == MillItems.wandNegation) {
 			PacketExportBuilding packet = new PacketExportBuilding(pos);
@@ -67,7 +67,7 @@ public class ItemMillWand extends Item
         {
                 ItemStack stack = context.getItemInHand();
                 Player playerIn = context.getPlayer();
-                World worldIn = context.getLevel();
+                Level worldIn = context.getLevel();
                 BlockPos pos = context.getClickedPos();
                 Direction side = context.getClickedFace();
                 float hitX = (float)context.getClickLocation().x;
@@ -255,7 +255,7 @@ public class ItemMillWand extends Item
                 }
 				else
 				{
-                    worldIn.setBlockState(pos, worldIn.getBlockState(pos).cycleProperty(StoredPosition.VARIANT));
+                    worldIn.setBlock(pos, worldIn.getBlockState(pos).cycle(StoredPosition.VARIANT), 3);
                 }
 			}
 			//Fixes All Denier in your inventory (if no specific block/entity is clicked)
@@ -308,7 +308,7 @@ public class ItemMillWand extends Item
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flag)
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip, ITooltipFlag flag)
     {
             if(stack.getItem() == MillItems.wandCreative)
             {

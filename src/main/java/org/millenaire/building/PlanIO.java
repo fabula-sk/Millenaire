@@ -16,7 +16,7 @@ import org.millenaire.networking.PacketSayTranslatedMessage;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.item.Item;
@@ -31,7 +31,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.Constants;
 
 public class PlanIO {
@@ -181,7 +181,7 @@ public class PlanIO {
 				return;
 			}
 
-                        World world = ServerLifecycleHooks.getCurrentServer().getEntityWorld();
+                        Level world = ServerLifecycleHooks.getCurrentServer().getLevel(Level.OVERWORLD);
 
 			File schem = getBuildingFile(name);
 			if(!schem.exists()) {
@@ -199,7 +199,7 @@ public class PlanIO {
 			for(int x = 0; x < plan.width; x++) {
 				for(int y = 0; y < plan.height; y++) {
 					for(int z = 0; z < plan.length; z++) {
-                                                world.setBlockState(new BlockPos(x + startPos.getX() + 1, y + startPos.getY() + plan.depth, z + startPos.getZ() + 1), blocks[y][z][x], 2);
+                                                world.setBlock(new BlockPos(x + startPos.getX() + 1, y + startPos.getY() + plan.depth, z + startPos.getZ() + 1), blocks[y][z][x], 2);
 					}
 				}
 			}
@@ -210,13 +210,13 @@ public class PlanIO {
 		}
 	}
 	
-	public static void placeBuilding(BuildingPlan plan, BuildingLocation loc, World world) {
+        public static void placeBuilding(BuildingPlan plan, BuildingLocation loc, Level world) {
 		BlockState[][][] blocks = plan.buildingArray;
 
 		for(int x = 0; x < plan.width; x++) {
 			for(int y = 0; y < plan.height; y++) {
 				for(int z = 0; z < plan.length; z++) {
-                                        world.setBlockState(new BlockPos(x + loc.position.getX(), y + loc.position.getY() + plan.depth, z + loc.position.getZ()), blocks[y][z][x], 2);
+                                        world.setBlock(new BlockPos(x + loc.position.getX(), y + loc.position.getY() + plan.depth, z + loc.position.getZ()), blocks[y][z][x], 2);
 				}
 			}
 		}

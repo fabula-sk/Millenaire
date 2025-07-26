@@ -10,7 +10,7 @@ import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class EntityAIGateOpen extends Goal
 {
@@ -141,7 +141,7 @@ public class EntityAIGateOpen extends Goal
         return block instanceof BlockFenceGate && block.getMaterial() == Material.wood ? (BlockFenceGate)block : null;
     }
     
-    private void toggleGate(BlockFenceGate gateIn, World worldIn, BlockPos pos, boolean open)
+    private void toggleGate(BlockFenceGate gateIn, Level worldIn, BlockPos pos, boolean open)
     {
     	if(gateIn == null)
     	{
@@ -156,12 +156,12 @@ public class EntityAIGateOpen extends Goal
     	
     	if(open)
     	{
-            worldIn.setBlockState(pos, state.withProperty(BlockFenceGate.OPEN, true));
+            worldIn.setBlock(pos, state.setValue(BlockFenceGate.OPEN, true), 3);
         }
     	
     	if(!open)
     	{
-            worldIn.setBlockState(pos, state.withProperty(BlockFenceGate.OPEN, false));
+            worldIn.setBlock(pos, state.setValue(BlockFenceGate.OPEN, false), 3);
         }
     }
 }
