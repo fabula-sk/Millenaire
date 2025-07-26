@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraftforge.api.distmarker.Dist;
@@ -31,20 +31,20 @@ public class ItemMillAmulet extends Item
 	}
 
         @Override
-        public InteractionResultHolder<ItemStack> use(final World world, final Player entityplayer, InteractionHand hand)
-        {
-                ItemStack itemstack = entityplayer.getItemInHand(hand);
-                if(this == MillItems.amuletSkollHati && !world.isClientSide)
-                {
-                        final long time = world.getWorldTime() + 24000L;
+       public InteractionResultHolder<ItemStack> use(final Level level, final Player entityplayer, InteractionHand hand)
+       {
+               ItemStack itemstack = entityplayer.getItemInHand(hand);
+               if(this == MillItems.amuletSkollHati && !level.isClientSide)
+               {
+                       final long time = level.getWorldTime() + 24000L;
 
 			if (time % 24000L > 11000L && time % 24000L < 23500L) 
 			{
-				world.setWorldTime(time - time % 24000L - 500L);
+                                level.setWorldTime(time - time % 24000L - 500L);
 			} 
 			else 
 			{
-				world.setWorldTime(time - time % 24000L + 13000L);
+                                level.setWorldTime(time - time % 24000L + 13000L);
 			}
 
 			itemstack.damageItem(1, entityplayer);
@@ -54,10 +54,10 @@ public class ItemMillAmulet extends Item
         }
 
 	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
-	{
-		if(this == MillItems.amuletSkollHati)
-			return;
+       public void onUpdate(ItemStack stack, Level level, Entity entityIn, int itemSlot, boolean isSelected)
+       {
+               if(this == MillItems.amuletSkollHati)
+                       return;
 
 		int visScore = 0;
 
@@ -75,7 +75,7 @@ public class ItemMillAmulet extends Item
 				{
 					for (int k = startY; k < endY; k++) 
 					{
-						final Block block = worldIn.getBlockState(new BlockPos(i, k, j)).getBlock();
+                                                final Block block = level.getBlockState(new BlockPos(i, k, j)).getBlock();
 						if (block == Blocks.coal_ore)
 							visScore++;
 						else if (block == Blocks.diamond_ore)
@@ -108,7 +108,7 @@ public class ItemMillAmulet extends Item
 			final int radius = 20;
 			double closestDistance = Double.MAX_VALUE;
 
-			final List<EntityMob> entities = worldIn.getEntitiesWithinAABB(EntityMob.class, new AABB(entityIn.lastTickPosX, entityIn.lastTickPosY, entityIn.lastTickPosZ, entityIn.lastTickPosX + 1.0D, entityIn.lastTickPosY + 1.0D, entityIn.lastTickPosZ + 1.0D).expand(20, 20, 20));
+                       final List<EntityMob> entities = level.getEntitiesWithinAABB(EntityMob.class, new AABB(entityIn.lastTickPosX, entityIn.lastTickPosY, entityIn.lastTickPosZ, entityIn.lastTickPosX + 1.0D, entityIn.lastTickPosY + 1.0D, entityIn.lastTickPosZ + 1.0D).expand(20, 20, 20));
 
 			for (final Entity ent : entities) 
 			{
