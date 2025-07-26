@@ -152,4 +152,3 @@ public class GuiParchment extends Screen
             }
         }
     }
-}
