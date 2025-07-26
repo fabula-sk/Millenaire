@@ -3,38 +3,34 @@ package org.millenaire.items;
 import org.millenaire.gui.MillAchievement;
 
 import net.minecraft.entity.player.Player;
-import net.minecraft.item.EnumAction;
+import net.minecraft.item.UseAnim;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemFood;
+import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraft.entity.LivingEntity;
 
-public class ItemMillFood extends ItemFood
+public class ItemMillFood extends Item
 {
 	private boolean isDrink;
 	private int healAmount;
 	private int drunkDuration;
 	private int regDuration;
 
-	ItemMillFood(int healIn, int regIn, int drunkIn, int hungerIn, float saturationIn, boolean drinkIn)
-	{	
-		super(hungerIn, saturationIn, false);
+        ItemMillFood(int healIn, int regIn, int drunkIn, int hungerIn, float saturationIn, boolean drinkIn)
+        {
+                super();
 
 		healAmount = healIn;
 		regDuration = regIn;
 		drunkDuration = drunkIn;
 		
-		isDrink = drinkIn;
-		if(isDrink)
-		{
-			this.setAlwaysEdible();
-		}
+                isDrink = drinkIn;
 	}
 
 	@Override
-	public EnumAction getItemUseAction(ItemStack stack) { return isDrink ? EnumAction.DRINK : EnumAction.EAT; }
+        public UseAnim getUseAnimation(ItemStack stack) { return isDrink ? UseAnim.DRINK : UseAnim.EAT; }
 	
         @Override
         public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entity)
