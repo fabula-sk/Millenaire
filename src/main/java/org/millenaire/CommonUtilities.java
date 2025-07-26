@@ -7,8 +7,8 @@ import org.millenaire.items.MillItems;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.item.ItemStack;
 
 public class CommonUtilities 
@@ -19,13 +19,13 @@ public class CommonUtilities
 	 * pretty much orgainizes the player's money
 	 * @param playerIn The player to orgainize
 	 */
-       public static void changeMoney(PlayerEntity playerIn)
+       public static void changeMoney(Player playerIn)
        {
                ItemStack denier = new ItemStack(MillItems.denier, 0);
                ItemStack argent = new ItemStack(MillItems.denierArgent, 0);
                ItemStack or = new ItemStack(MillItems.denierOr, 0);
 		
-               PlayerInventory inv = playerIn.inventory;
+               Inventory inv = playerIn.inventory;
                for(int i = 0; i < inv.getContainerSize(); i++)
                {
                        ItemStack stack = inv.getItem(i);

@@ -1,10 +1,10 @@
 package org.millenaire;
 
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 
 public class RaidTracker extends SavedData
 {
@@ -24,11 +24,11 @@ public class RaidTracker extends SavedData
                return nbt;
        }
 
-       public static RaidTracker get(World world)
+       public static RaidTracker get(Level world)
        {
-               if (world instanceof ServerWorld)
+               if (world instanceof ServerLevel)
                {
-                       DimensionDataStorage storage = ((ServerWorld)world).getDataStorage();
+                       DimensionDataStorage storage = ((ServerLevel)world).getDataStorage();
                        return storage.computeIfAbsent(RaidTracker::new, IDENTITY);
                }
                return new RaidTracker();

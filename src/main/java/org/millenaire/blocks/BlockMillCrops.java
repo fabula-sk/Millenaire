@@ -15,7 +15,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,7 +36,7 @@ public class BlockMillCrops extends BlockCrops
 	}
 	
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, BlockState state, Random rand)
+        public void updateTick(Level worldIn, BlockPos pos, BlockState state, Random rand)
     {
         super.checkAndDropBlock(worldIn, pos, state);
 
@@ -52,14 +52,14 @@ public class BlockMillCrops extends BlockCrops
                 {
                 	if (rand.nextInt((int)(25.0F / f) + 1) == 0)
                 	{
-                                worldIn.setBlockState(pos, state.withProperty(AGE, i + 1), 2);
+                                worldIn.setBlock(pos, state.setValue(AGE, i + 1), 2);
                 	}
                 }
             }
         }
     }
 	
-	private float getLocalGrowthChance(Block blockIn, World worldIn, BlockPos pos)
+        private float getLocalGrowthChance(Block blockIn, Level worldIn, BlockPos pos)
 	{
 		BlockState groundIn = worldIn.getBlockState(pos.down());
 		if(groundIn.getBlock() != Blocks.farmland)

@@ -11,10 +11,10 @@ import org.millenaire.village.Village;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 
 public class VillageTracker extends SavedData
 {
@@ -76,11 +76,11 @@ public class VillageTracker extends SavedData
 	
 	public void unregisterVillage(UUID id) { villages.remove(id); }
 	
-       public static VillageTracker get(World world)
+       public static VillageTracker get(Level world)
        {
-               if (world instanceof ServerWorld)
+               if (world instanceof ServerLevel)
                {
-                       DimensionDataStorage storage = ((ServerWorld)world).getDataStorage();
+                       DimensionDataStorage storage = ((ServerLevel)world).getDataStorage();
                        return storage.computeIfAbsent(() -> new VillageTracker(IDENTITY), IDENTITY);
                }
                return new VillageTracker(IDENTITY);

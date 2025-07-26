@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.BlockState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class BlockDecorativeUpdate extends Block
 {
@@ -19,13 +19,13 @@ public class BlockDecorativeUpdate extends Block
 		this.setTickRandomly(true);
 	}
 
-	public void updateTick(World worldIn, BlockPos pos, BlockState state, Random rand)
+        public void updateTick(Level worldIn, BlockPos pos, BlockState state, Random rand)
     {
 		int i = rand.nextInt(3);
 
         if (i > 1)
         {
-                worldIn.setBlockState(pos, updateState);
+                worldIn.setBlock(pos, updateState, 3);
         }
     }
 }

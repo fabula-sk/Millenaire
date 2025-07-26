@@ -64,7 +64,7 @@ public class BuildingBlock
        {
                if (specialBlock != BuildingBlock.PRESERVEGROUNDDEPTH && specialBlock != BuildingBlock.PRESERVEGROUNDSURFACE && specialBlock != BuildingBlock.CLEARTREE)
                {
-                    worldIn.setBlockState(position, blockState);
+                    worldIn.setBlock(position, blockState);
                     worldIn.playSound(null, position, blockState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 0.3F, 0.6F);
                }
 		
@@ -106,17 +106,17 @@ public class BuildingBlock
                                 }
 
 				assert targetblock != null;
-                                worldIn.setBlockState(position, targetblock.defaultBlockState());
+                                worldIn.setBlock(position, targetblock.defaultBlockState());
                                 worldIn.playSound(null, position, targetblock.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 0.3F, 0.6F);
 			} 
                         else if (onGeneration && validGroundBlock == Blocks.DIRT && worldIn.isEmptyBlock(position.above()))
                         {
-                                worldIn.setBlockState(position, Blocks.GRASS_BLOCK.defaultBlockState());
+                                worldIn.setBlock(position, Blocks.GRASS_BLOCK.defaultBlockState());
                                 worldIn.playSound(null, position, Blocks.GRASS_BLOCK.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 0.3F, 0.6F);
                         }
                         else if (validGroundBlock != block && !(validGroundBlock == Blocks.DIRT && block == Blocks.GRASS_BLOCK))
 			{
-                                worldIn.setBlockState(position, validGroundBlock.defaultBlockState());
+                                worldIn.setBlock(position, validGroundBlock.defaultBlockState());
                                 worldIn.playSound(null, position, validGroundBlock.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 0.3F, 0.6F);
 			}
 		}
@@ -135,11 +135,11 @@ public class BuildingBlock
 
                                 if (onGeneration && targetBlock == Blocks.DIRT)
                                 {
-                                worldIn.setBlockState(position.down(), Blocks.GRASS_BLOCK.defaultBlockState());
+                                worldIn.setBlock(position.down(), Blocks.GRASS_BLOCK.defaultBlockState());
                                 }
 				else if (targetBlock != null) 
 				{
-                                worldIn.setBlockState(position.down(), targetBlock.defaultBlockState());
+                                worldIn.setBlock(position.down(), targetBlock.defaultBlockState());
 				}
 			}
 
@@ -157,11 +157,11 @@ public class BuildingBlock
 
                         if (onGeneration && targetBlock == Blocks.DIRT)
                         {
-                        worldIn.setBlockState(position.down(), Blocks.GRASS_BLOCK.defaultBlockState());
+                        worldIn.setBlock(position.down(), Blocks.GRASS_BLOCK.defaultBlockState());
                         }
 			else if (targetBlock != null) 
 			{
-                        worldIn.setBlockState(position.down(), targetBlock.defaultBlockState());
+                        worldIn.setBlock(position.down(), targetBlock.defaultBlockState());
 			}
 		}
                 else if (specialBlock == BuildingBlock.OAKSPAWN)
@@ -190,43 +190,43 @@ public class BuildingBlock
                 }
                 else if (specialBlock == BuildingBlock.SPAWNERSKELETON)
                 {
-                        worldIn.setBlockState(position, Blocks.SPAWNER.defaultBlockState());
+                        worldIn.setBlock(position, Blocks.SPAWNER.defaultBlockState());
                         final SpawnerBlockEntity tileentitymobspawner = (SpawnerBlockEntity) worldIn.getBlockEntity(position);
                         tileentitymobspawner.getSpawner().setEntityId(EntityType.SKELETON);
                 }
                 else if (specialBlock == BuildingBlock.SPAWNERZOMBIE)
                 {
-                        worldIn.setBlockState(position, Blocks.SPAWNER.defaultBlockState());
+                        worldIn.setBlock(position, Blocks.SPAWNER.defaultBlockState());
                         final SpawnerBlockEntity tileentitymobspawner = (SpawnerBlockEntity) worldIn.getBlockEntity(position);
                         tileentitymobspawner.getSpawner().setEntityId(EntityType.ZOMBIE);
                 }
                 else if (specialBlock == BuildingBlock.SPAWNERSPIDER)
                 {
-                        worldIn.setBlockState(position, Blocks.SPAWNER.defaultBlockState());
+                        worldIn.setBlock(position, Blocks.SPAWNER.defaultBlockState());
                         final SpawnerBlockEntity tileentitymobspawner = (SpawnerBlockEntity) worldIn.getBlockEntity(position);
                         tileentitymobspawner.getSpawner().setEntityId(EntityType.SPIDER);
                 }
                 else if (specialBlock == BuildingBlock.SPAWNERCAVESPIDER)
                 {
-                        worldIn.setBlockState(position, Blocks.SPAWNER.defaultBlockState());
+                        worldIn.setBlock(position, Blocks.SPAWNER.defaultBlockState());
                         final SpawnerBlockEntity tileentitymobspawner = (SpawnerBlockEntity) worldIn.getBlockEntity(position);
                         tileentitymobspawner.getSpawner().setEntityId(EntityType.CAVE_SPIDER);
                 }
                 else if (specialBlock == BuildingBlock.SPAWNERCREEPER)
                 {
-                        worldIn.setBlockState(position, Blocks.SPAWNER.defaultBlockState());
+                        worldIn.setBlock(position, Blocks.SPAWNER.defaultBlockState());
                         final SpawnerBlockEntity tileentitymobspawner = (SpawnerBlockEntity) worldIn.getBlockEntity(position);
                         tileentitymobspawner.getSpawner().setEntityId(EntityType.CREEPER);
                 }
                 else if (specialBlock == BuildingBlock.SPAWNERBLAZE)
                 {
-                        worldIn.setBlockState(position, Blocks.SPAWNER.defaultBlockState());
+                        worldIn.setBlock(position, Blocks.SPAWNER.defaultBlockState());
                         final SpawnerBlockEntity tileentitymobspawner = (SpawnerBlockEntity) worldIn.getBlockEntity(position);
                         tileentitymobspawner.getSpawner().setEntityId(EntityType.BLAZE);
                 }
                 else if (specialBlock == BuildingBlock.DISPENDERUNKNOWNPOWDER)
                 {
-                        worldIn.setBlockState(position, Blocks.DISPENSER.defaultBlockState());
+                        worldIn.setBlock(position, Blocks.DISPENSER.defaultBlockState());
                         final DispenserBlockEntity dispenser = (DispenserBlockEntity)worldIn.getBlockEntity(position);
                         dispenser.addItem(new ItemStack(MillItems.unknownPowder, 2));
                 }
