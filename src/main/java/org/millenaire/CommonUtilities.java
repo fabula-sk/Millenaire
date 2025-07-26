@@ -6,8 +6,9 @@ import org.millenaire.gui.MillAchievement;
 import org.millenaire.items.MillItems;
 
 import net.minecraft.block.Block;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 
 public class CommonUtilities 
@@ -18,34 +19,35 @@ public class CommonUtilities
 	 * pretty much orgainizes the player's money
 	 * @param playerIn The player to orgainize
 	 */
-	public static void changeMoney(Player playerIn)
-	{
-                ItemStack denier = new ItemStack(MillItems.denier, 0, 0);
-                ItemStack argent = new ItemStack(MillItems.denierArgent, 0, 0);
-                ItemStack or = new ItemStack(MillItems.denierOr, 0, 0);
+       public static void changeMoney(PlayerEntity playerIn)
+       {
+               ItemStack denier = new ItemStack(MillItems.denier, 0);
+               ItemStack argent = new ItemStack(MillItems.denierArgent, 0);
+               ItemStack or = new ItemStack(MillItems.denierOr, 0);
 		
-		for(int i = 0; i < playerIn.getInventory().getSizeInventory(); i++)
-		{
-                        ItemStack stack = playerIn.getInventory().getStackInSlot(i);
-                        if(stack != null)
-                        {
-                                if(stack.getItem() == MillItems.denier)
-                                {
-                                        denier.grow(stack.getCount());
-                                        playerIn.getInventory().removeStackFromSlot(i);
-                                }
-                                if(stack.getItem() == MillItems.denierArgent)
-                                {
-                                        argent.grow(stack.getCount());
-                                        playerIn.getInventory().removeStackFromSlot(i);
-                                }
-                                if(stack.getItem() == MillItems.denierOr)
-                                {
-                                        or.grow(stack.getCount());
-                                        playerIn.getInventory().removeStackFromSlot(i);
-                                }
-                        }
-                }
+               PlayerInventory inv = playerIn.inventory;
+               for(int i = 0; i < inv.getContainerSize(); i++)
+               {
+                       ItemStack stack = inv.getItem(i);
+                       if(stack != null)
+                       {
+                               if(stack.getItem() == MillItems.denier)
+                               {
+                                       denier.grow(stack.getCount());
+                                       inv.removeItemNoUpdate(i);
+                               }
+                               if(stack.getItem() == MillItems.denierArgent)
+                               {
+                                       argent.grow(stack.getCount());
+                                       inv.removeItemNoUpdate(i);
+                               }
+                               if(stack.getItem() == MillItems.denierOr)
+                               {
+                                       or.grow(stack.getCount());
+                                       inv.removeItemNoUpdate(i);
+                               }
+                       }
+               }
 
                 argent.grow(denier.getCount() / 64);
                 denier.setCount(denier.getCount() % 64);
@@ -56,19 +58,19 @@ public class CommonUtilities
                         playerIn.addStat(MillAchievement.cresus, 1);
                 }
 
-                argent.setCount(argent.getCount() % 64);
+               argent.setCount(argent.getCount() % 64);
 
-                playerIn.getInventory().placeItemBackInInventory(denier);
-                playerIn.getInventory().placeItemBackInInventory(argent);
+               inv.addItemStackToInventory(denier);
+               inv.addItemStackToInventory(argent);
 
                 while(or.getCount() > 64)
                 {
-                        playerIn.getInventory().placeItemBackInInventory(new ItemStack(MillItems.denierOr, 64, 0));
-                        or.shrink(64);
-                }
+                       inv.addItemStackToInventory(new ItemStack(MillItems.denierOr, 64));
+                       or.shrink(64);
+               }
 
-                playerIn.getInventory().placeItemBackInInventory(or);
-	}
+               inv.addItemStackToInventory(or);
+       }
 	
 	/**
 	 * yep
