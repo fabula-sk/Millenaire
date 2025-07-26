@@ -17,6 +17,7 @@ import org.millenaire.items.ItemMillAmulet;
 import org.millenaire.networking.MillNetwork;
 import org.millenaire.capability.PlayerCropProvider;
 import org.millenaire.capability.CapabilityEvents;
+import org.millenaire.events.MillenaireEventHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
@@ -76,6 +77,7 @@ public class Millenaire
                 PlayerCropProvider.register();
                 new CapabilityEvents();
                 MinecraftForge.EVENT_BUS.register(new RaidEvent.RaidEventHandler());
+                MinecraftForge.EVENT_BUS.register(new MillenaireEventHandler());
 
                 setForbiddenBlocks();
 
