@@ -163,7 +163,7 @@ public class EntityMillVillager extends PathfinderMob
     public boolean allowLeashing() { return false; }
     
     @Override
-    public void onDeath(DamageSource cause)
+    public void die(DamageSource cause)
     {
         InventoryHelper.dropInventoryItems(this.level, this.getPosition(), this.villagerInventory);
     }
@@ -433,9 +433,9 @@ public class EntityMillVillager extends PathfinderMob
 	//Local merchants have inn or townhall as 'house', handle moving them, taking items from townhall, and what happens if inn is full
 	
 	@Override
-	public void onLivingUpdate() 
-	{
-		super.onLivingUpdate();
+        public void aiStep()
+        {
+                super.aiStep();
 
 		this.updateArmSwingProgress();
 
