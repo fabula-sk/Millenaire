@@ -1,8 +1,8 @@
 {
     "parent": "millenaire:block/path",
     "textures": {
-        "side": "millenaire:blocks/pathslabs_halfside",
-        "top": "millenaire:blocks/pathslabs",
-        "bottom": "millenaire:blocks/pathbottom"
+        "side": "millenaire:block/pathslabs_halfside",
+        "top": "millenaire:block/pathslabs",
+        "bottom": "millenaire:block/pathbottom"
     }
 }

@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/japaneseblueboots"
+        "layer0": "millenaire:item/japaneseblueboots"
     },
     "display": {
         "thirdperson": {

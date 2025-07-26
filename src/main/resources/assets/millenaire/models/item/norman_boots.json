@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/normanboots"
+        "layer0": "millenaire:item/normanboots"
     },
     "display": {
         "thirdperson": {

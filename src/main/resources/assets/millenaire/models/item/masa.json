@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/masa"
+        "layer0": "millenaire:item/masa"
     },
     "display": {
         "thirdperson": {

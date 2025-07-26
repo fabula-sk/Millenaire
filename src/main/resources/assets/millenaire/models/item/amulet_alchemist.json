@@ -1,8 +1,8 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/amulet_alchemist",
-        "layer1": "millenaire:items/amulet_alchemist_overlay"
+        "layer0": "millenaire:item/amulet_alchemist",
+        "layer1": "millenaire:item/amulet_alchemist_overlay"
     },
     "display": {
         "thirdperson": {

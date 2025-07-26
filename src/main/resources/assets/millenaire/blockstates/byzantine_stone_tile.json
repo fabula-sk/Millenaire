@@ -3,11 +3,11 @@
     "defaults": {
     	"textures": {
        	    "particle": "blocks:stonebrick",
-       		"top": "millenaire:blocks/tilestopvert",
-    		"bottom": "blocks/stonebrick",
-    		"front": "millenaire:blocks/tileshalffront",
-        	"back": "millenaire:blocks/tileshalffront",
-        	"side": "millenaire:blocks/tileshalfside"
+       		"top": "millenaire:block/tilestopvert",
+    		"bottom": "block/stonebrick",
+    		"front": "millenaire:block/tileshalffront",
+        	"back": "millenaire:block/tileshalffront",
+        	"side": "millenaire:block/tileshalfside"
         },
         "model": "millenaire:byzantine_stone_tile_bottom",
         "uvlock": true

@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:blocks/paperwall"
+        "layer0": "millenaire:block/paperwall"
     },
     "display": {
         "thirdperson": {

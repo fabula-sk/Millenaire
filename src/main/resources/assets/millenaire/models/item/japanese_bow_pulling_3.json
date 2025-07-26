@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/yumibow3"
+        "layer0": "millenaire:item/yumibow3"
     },
     "display": {
         "thirdperson": {

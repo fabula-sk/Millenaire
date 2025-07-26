@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/japaneseredplate"
+        "layer0": "millenaire:item/japaneseredplate"
     },
     "display": {
         "thirdperson": {

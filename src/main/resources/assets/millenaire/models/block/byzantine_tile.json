@@ -1,8 +1,8 @@
 {
     "parent": "block/cube_bottom_top",
     "textures": {
-        "top": "millenaire:blocks/tilestopvert",
-        "bottom": "millenaire:blocks/tilestopvert",
-        "side": "millenaire:blocks/tilesfront"
+        "top": "millenaire:block/tilestopvert",
+        "bottom": "millenaire:block/tilestopvert",
+        "side": "millenaire:block/tilesfront"
     }
 }

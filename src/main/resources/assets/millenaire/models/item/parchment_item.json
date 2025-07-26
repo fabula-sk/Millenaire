@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/parchmentitems"
+        "layer0": "millenaire:item/parchmentitems"
     },
     "display": {
         "thirdperson": {

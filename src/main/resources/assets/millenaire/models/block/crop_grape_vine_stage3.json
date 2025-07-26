@@ -1,6 +1,6 @@
 {
     "parent": "block/crop",
     "textures": {
-        "crop": "millenaire:blocks/vine1"
+        "crop": "millenaire:block/vine1"
     }
 }

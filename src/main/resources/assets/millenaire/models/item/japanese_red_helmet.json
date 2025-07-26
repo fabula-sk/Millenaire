@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/japaneseredhelmet"
+        "layer0": "millenaire:item/japaneseredhelmet"
     },
     "display": {
         "thirdperson": {

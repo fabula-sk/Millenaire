@@ -1,9 +1,9 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "blocks/log_oak",
-        "1": "millenaire:blocks/inuit_carving",
-        "particle": "millenaire:blocks/inuit_carving"
+        "0": "block/log_oak",
+        "1": "millenaire:block/inuit_carving",
+        "particle": "millenaire:block/inuit_carving"
     },
     "elements": [
         {

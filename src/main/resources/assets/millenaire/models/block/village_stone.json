@@ -1,8 +1,8 @@
 {
     "parent": "block/orientable",
     "textures": {
-        "top": "blocks/stone",
-        "front": "millenaire:blocks/village_stone",
-        "side": "blocks/stone"
+        "top": "block/stone",
+        "front": "millenaire:block/village_stone",
+        "side": "block/stone"
     }
 }

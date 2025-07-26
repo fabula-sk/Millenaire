@@ -1,9 +1,9 @@
 {
     "parent": "block/cube_bottom_top",
     "textures": {
-        "bottom": "blocks/stonebrick",
-        "top": "millenaire:blocks/tilestophor",
-        "side": "millenaire:blocks/tileshalfside"
+        "bottom": "block/stonebrick",
+        "top": "millenaire:block/tilestophor",
+        "side": "millenaire:block/tileshalfside"
     },
     "display": {
         "thirdperson": {

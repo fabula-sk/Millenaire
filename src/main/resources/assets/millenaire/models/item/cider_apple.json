@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/ciderapple"
+        "layer0": "millenaire:item/ciderapple"
     },
     "display": {
         "thirdperson": {
