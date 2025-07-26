@@ -19,6 +19,12 @@ if [ "$need_jdk" = true ]; then
   echo "Installing OpenJDK ${JDK_VERSION}..."
   if command -v apt-get >/dev/null; then
     sudo apt-get update
+    # Work around ca-certificates-java bug on minimal systems.
+    # Some packages expect /lib/security/cacerts to exist.
+    if [ ! -e /lib/security/cacerts ]; then
+      sudo mkdir -p /lib/security
+      sudo ln -sf /etc/ssl/certs/java/cacerts /lib/security/cacerts
+    fi
     sudo apt-get install -y "openjdk-${JDK_VERSION}-jdk"
   else
     echo "Please install OpenJDK ${JDK_VERSION} manually." >&2
