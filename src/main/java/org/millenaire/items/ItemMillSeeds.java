@@ -24,7 +24,7 @@ public class ItemMillSeeds extends ItemSeeds
         public InteractionResult useOn(UseOnContext context) {
                 Player playerIn = context.getPlayer();
                 World worldIn = context.getLevel();
-                if(playerIn != null && !worldIn.isRemote && PlayerTracker.get(playerIn).canPlayerUseCrop(context.getItemInHand().getItem())) {
+                if(playerIn != null && !worldIn.isClientSide && PlayerTracker.get(playerIn).canPlayerUseCrop(context.getItemInHand().getItem())) {
                         return super.useOn(context);
                 }
                 return InteractionResult.FAIL;

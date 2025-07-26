@@ -34,7 +34,7 @@ public class ItemMillAmulet extends Item
         public InteractionResultHolder<ItemStack> use(final World world, final Player entityplayer, InteractionHand hand)
         {
                 ItemStack itemstack = entityplayer.getItemInHand(hand);
-                if(this == MillItems.amuletSkollHati && !world.isRemote)
+                if(this == MillItems.amuletSkollHati && !world.isClientSide)
                 {
                         final long time = world.getWorldTime() + 24000L;
 

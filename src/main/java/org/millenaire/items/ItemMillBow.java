@@ -102,7 +102,7 @@ public class ItemMillBow extends ItemBow
 			// extra arrow damage
 			entityArrow.setDamage(entityArrow.getDamage() + damageBonus);
 
-                        if (!worldIn.isRemote)
+                        if (!worldIn.isClientSide)
                         {
                                 worldIn.addFreshEntity(entityArrow);
                         }
