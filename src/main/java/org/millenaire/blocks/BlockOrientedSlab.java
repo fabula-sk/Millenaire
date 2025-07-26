@@ -8,7 +8,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -58,9 +59,6 @@ public class BlockOrientedSlab extends BlockSlab
     		return super.getItem(worldIn, pos);
     }
 
-    public String getUnlocalizedName(int meta)
-    {
-        return super.getUnlocalizedName();
     }
     
     @Override
@@ -112,9 +110,13 @@ public class BlockOrientedSlab extends BlockSlab
 
     // Metadata handling removed in favor of pure block states
 	
-	@Override
-    protected BlockState createBlockState()
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
-        return this.isDouble() ? new BlockState(this, new IProperty[] {SEAMLESS, FACING}): new BlockState(this, new IProperty[] {HALF, FACING});
+        if (this.isDouble()) {
+            builder.add(SEAMLESS, FACING);
+        } else {
+            builder.add(HALF, FACING);
+        }
     }
 }

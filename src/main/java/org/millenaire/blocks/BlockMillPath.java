@@ -5,7 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -48,25 +49,16 @@ public class BlockMillPath extends Block
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list)
-    {
-        BlockMillPath.EnumType[] aenumtype = BlockMillPath.EnumType.values();
-
-        Item itemIn = Item.getItemFromBlock(this);
-        for (EnumType enumtype : aenumtype) {
-            list.add(new ItemStack(itemIn, 1, enumtype.getMetadata()));
-        }
     }
 
-    public String getUnlocalizedName(int meta)
-    {
-        return super.getUnlocalizedName() + "." + BlockMillPath.EnumType.byMetadata(meta).getUnlocalizedName();
     }
 
     // Metadata handling removed in favor of pure block states
 
     @Override
-    protected BlockState createBlockState() { return new BlockState(this, VARIANT); }
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(VARIANT);
+    }
     
     //////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

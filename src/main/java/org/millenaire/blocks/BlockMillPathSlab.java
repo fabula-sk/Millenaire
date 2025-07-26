@@ -7,7 +7,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.item.CreativeModeTab;
@@ -49,46 +50,8 @@ public class BlockMillPathSlab extends BlockSlab
         return Item.getItemFromBlock(MillBlocks.blockMillPathSlab.get());
     }
 
-    @SideOnly(Side.CLIENT)
-    public Item getItem(World worldIn, BlockPos pos) { return Item.getItemFromBlock(MillBlocks.blockMillPathSlab.get()); }
-    
-        /**
-         * Shapes replacing the old setBlockBounds based logic.
-         */
-        private static final VoxelShape DOUBLE_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 15.0D, 16.0D);
-        private static final VoxelShape TOP_SHAPE = Block.box(0.0D, 8.0D, 0.0D, 16.0D, 15.0D, 16.0D);
-        private static final VoxelShape BOTTOM_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 7.0D, 16.0D);
-
-        @Override
-        public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-                if (this.isDouble()) {
-                        return DOUBLE_SHAPE;
-                }
-                return state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP ? TOP_SHAPE : BOTTOM_SHAPE;
-        }
-
-        @Override
-        public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-                return getShape(state, worldIn, pos, context);
-        }
-	
-    @Override
-    public boolean doesSideBlockRendering(IBlockAccess world, BlockPos pos, EnumFacing face)
-	{
-        if (this.isDouble())
-        {
-            return false;
-        }
-        
-        // face is on the block being rendered, not this block.
-        EnumBlockHalf side = world.getBlockState(pos).getValue(HALF);
-        return (side == EnumBlockHalf.TOP && face == EnumFacing.DOWN) || (side == EnumBlockHalf.BOTTOM && face == EnumFacing.UP);
-    }
 
 
-    public String getUnlocalizedName(int meta)
-    {
-        return super.getUnlocalizedName() + "." + BlockMillPath.EnumType.byMetadata(meta).getUnlocalizedName();
     }
     
 	@Override
@@ -100,26 +63,17 @@ public class BlockMillPathSlab extends BlockSlab
         return BlockMillPath.EnumType.byMetadata(stack.getMetadata() & 7);
     }
 
-    @SideOnly(Side.CLIENT)
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list)
-    {
-        Item itemIn = Item.getItemFromBlock(this);
-        if (itemIn != Item.getItemFromBlock(MillBlocks.blockMillPathSlabDouble.get()))
-        {
-            BlockMillPath.EnumType[] aenumtype = BlockMillPath.EnumType.values();
-
-            for (BlockMillPath.EnumType enumtype : aenumtype) {
-                list.add(new ItemStack(itemIn, 1, enumtype.getMetadata()));
-            }
-        }
-    }
 
     // Metadata handling removed in favor of pure block states
     
     @Override
-    protected BlockState createBlockState()
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
-        return this.isDouble() ? new BlockState(this, SEAMLESS, VARIANT): new BlockState(this, HALF, VARIANT);
+        if (this.isDouble()) {
+            builder.add(SEAMLESS, VARIANT);
+        } else {
+            builder.add(HALF, VARIANT);
+        }
     }
 
 }

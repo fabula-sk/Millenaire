@@ -6,7 +6,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.item.CreativeModeTab;
@@ -32,25 +33,16 @@ public class BlockDecorativeSodPlank extends Block
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list)
-    {
-        BlockDecorativeSodPlank.EnumType[] aenumtype = BlockDecorativeSodPlank.EnumType.values();
-
-        Item itemIn = Item.getItemFromBlock(this);
-        for (EnumType enumtype : aenumtype) {
-            list.add(new ItemStack(itemIn, 1, enumtype.getMetadata()));
-        }
     }
 
-    public String getUnlocalizedName(int meta)
-    {
-        return super.getUnlocalizedName() + "." + BlockDecorativeSodPlank.EnumType.byMetadata(meta).getUnlocalizedName();
     }
 
     // Metadata handling removed in favor of pure block states
 
     @Override
-    protected BlockState createBlockState() { return new BlockState(this, VARIANT); }
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(VARIANT);
+    }
 
     //////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

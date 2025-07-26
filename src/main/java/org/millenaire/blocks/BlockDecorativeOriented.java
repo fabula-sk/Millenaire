@@ -2,7 +2,8 @@ package org.millenaire.blocks;
 
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -21,6 +22,8 @@ public class BlockDecorativeOriented extends BlockDirectional
 
     // Metadata handling removed in favor of pure block states
 	
-	@Override
-	protected BlockState createBlockState() { return new BlockState(this, FACING); }
+        @Override
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+                builder.add(FACING);
+        }
 }
