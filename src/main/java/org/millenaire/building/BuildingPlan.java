@@ -25,8 +25,8 @@ import net.minecraft.block.BlockWoodSlab;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -422,10 +422,8 @@ public class BuildingPlan
 						addToCost(new ItemStack(Blocks.brick_block), 2);
 					else if (state.getBlock() == Blocks.ladder)
 						plankCost += 2;
-					else if (state.getBlock() == Blocks.standing_sign)
-						plankCost += 7;
-					else if (state.getBlock() == Blocks.wall_sign)
-						plankCost += 7;
+                                       else if (state.is(BlockTags.SIGNS))
+                                               plankCost += 7;
 					//else if (state.getBlock() == BlockMillSign.)
 					//	plankCost += 7;
 					else if (state.getBlock() == Blocks.oak_door)
