@@ -8,7 +8,7 @@ import org.millenaire.gui.MillAchievement;
 import net.minecraft.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.InteractionHand;
@@ -41,28 +41,28 @@ public InteractionResultHolder<ItemStack> use(World worldIn, Player playerIn, In
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flag)
     {
-                if(stack.hasTagCompound())
+                if(stack.hasTag())
                 {
-                        NBTTagCompound nbt = stack.getTagCompound();
+                        CompoundNBT nbt = stack.getTag();
 			
-			if(nbt.hasKey("DenierOr") && nbt.getInteger("DenierOr") > 0)
-			{
-				String or = nbt.getInteger("DenierOr") + "o ";
-				String argent = nbt.getInteger("DenierArgent") + "a ";
-				String denier = nbt.getInteger("Denier") + "d";
+                        if(nbt.contains("DenierOr") && nbt.getInt("DenierOr") > 0)
+                        {
+                                String or = nbt.getInt("DenierOr") + "o ";
+                                String argent = nbt.getInt("DenierArgent") + "a ";
+                                String denier = nbt.getInt("Denier") + "d";
 
 				tooltip.add(EnumChatFormatting.YELLOW + or + EnumChatFormatting.GRAY + argent + EnumChatFormatting.GOLD + denier);
 			}
-			else if(nbt.hasKey("DenierArgent") && nbt.getInteger("DenierArgent") > 0)
-			{
-				String argent = nbt.getInteger("DenierArgent") + "a ";
-				String denier = nbt.getInteger("Denier") + "d";
+                        else if(nbt.contains("DenierArgent") && nbt.getInt("DenierArgent") > 0)
+                        {
+                                String argent = nbt.getInt("DenierArgent") + "a ";
+                                String denier = nbt.getInt("Denier") + "d";
 
 				tooltip.add(EnumChatFormatting.GRAY + argent + EnumChatFormatting.GOLD + denier);
 			}
 			else
 			{
-				String denier = nbt.getInteger("Denier") + "d";
+                                String denier = nbt.getInt("Denier") + "d";
 
 				tooltip.add(EnumChatFormatting.GOLD + denier);
 			}
@@ -102,54 +102,54 @@ public InteractionResultHolder<ItemStack> use(World worldIn, Player playerIn, In
                                 }
                         }
 			
-			NBTTagCompound nbt;
+                        CompoundNBT nbt;
 			
-			if(!stack.hasTagCompound())
-			{
-				nbt = new NBTTagCompound();
-				stack.setTagCompound(nbt);
-			}
-			else
-				nbt = stack.getTagCompound();
+                        if(!stack.hasTag())
+                        {
+                                nbt = new CompoundNBT();
+                                stack.setTag(nbt);
+                        }
+                        else
+                                nbt = stack.getTag();
 			
-			denier += nbt.getInteger("Denier");
-			argent += nbt.getInteger("DenierArgent");
-			or += nbt.getInteger("DenierOr");
+                        denier += nbt.getInt("Denier");
+                        argent += nbt.getInt("DenierArgent");
+                        or += nbt.getInt("DenierOr");
 			
 			if(or >= 1)
 				playerIn.addStat(MillAchievement.cresus, 1);
 			
-			nbt.setInteger("Denier", denier);
-			nbt.setInteger("DenierArgent", argent);
-			nbt.setInteger("DenierOr", or);
+                        nbt.putInt("Denier", denier);
+                        nbt.putInt("DenierArgent", argent);
+                        nbt.putInt("DenierOr", or);
 		}
 	}
 
     private void emptyWallet(ItemStack stack, Player playerIn)
 	{
-		if(stack.hasTagCompound())
-		{
-			NBTTagCompound nbt = stack.getTagCompound();
+                if(stack.hasTag())
+                {
+                        CompoundNBT nbt = stack.getTag();
 			
-			if(nbt.hasKey("DenierOr") && nbt.getInteger("DenierOr") > 0)
-			{
-                                ItemStack or = new ItemStack(MillItems.denierOr.get(), nbt.getInteger("DenierOr"), 0);
+                        if(nbt.contains("DenierOr") && nbt.getInt("DenierOr") > 0)
+                        {
+                                ItemStack or = new ItemStack(MillItems.denierOr.get(), nbt.getInt("DenierOr"), 0);
                                 playerIn.getInventory().placeItemBackInInventory(or);
-			}
-			
-			if(nbt.hasKey("DenierArgent") && nbt.getInteger("DenierArgent") > 0)
-			{
-                                ItemStack argent = new ItemStack(MillItems.denierArgent.get(), nbt.getInteger("DenierArgent"), 0);
+                        }
+
+                        if(nbt.contains("DenierArgent") && nbt.getInt("DenierArgent") > 0)
+                        {
+                                ItemStack argent = new ItemStack(MillItems.denierArgent.get(), nbt.getInt("DenierArgent"), 0);
                                 playerIn.getInventory().placeItemBackInInventory(argent);
-			}
-			
-			if(nbt.hasKey("Denier") && nbt.getInteger("Denier") > 0)
-			{
-                                ItemStack denier = new ItemStack(MillItems.denier.get(), nbt.getInteger("Denier"), 0);
+                        }
+
+                        if(nbt.contains("Denier") && nbt.getInt("Denier") > 0)
+                        {
+                                ItemStack denier = new ItemStack(MillItems.denier.get(), nbt.getInt("Denier"), 0);
                                 playerIn.getInventory().placeItemBackInInventory(denier);
-			}
-			
-			stack.setTagCompound(null);
-		}
+                        }
+
+                        stack.setTag(null);
+                }
 	}
 }

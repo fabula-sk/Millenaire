@@ -16,7 +16,7 @@ import org.millenaire.building.BuildingTypes;
 import org.millenaire.building.BuildingTypes.BuildingType;
 import org.millenaire.village.Village;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
@@ -173,13 +173,13 @@ public class TileEntityVillageStone extends TileEntity
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+        public void readFromNBT(CompoundNBT compound)
 	{
 
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound compound)
+        public void writeToNBT(CompoundNBT compound)
 	{
 
 	}

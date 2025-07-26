@@ -2,8 +2,11 @@ package org.millenaire.entities;
 
 import net.minecraft.entity.player.Inventory;
 import net.minecraft.entity.player.Player;
+
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
+
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
@@ -58,7 +61,7 @@ public class TileEntityMillChest extends ChestBlockEntity implements MenuProvide
 	}
 	
 	@Override
-        public void load(CompoundTag compound)
+        public void load(CompoundNBT compound)
     {
         super.load(compound);
 
@@ -69,7 +72,7 @@ public class TileEntityMillChest extends ChestBlockEntity implements MenuProvide
     }
 	
 	@Override
-        public CompoundTag save(CompoundTag compound)
+        public CompoundNBT save(CompoundNBT compound)
     {
         super.save(compound);
 
