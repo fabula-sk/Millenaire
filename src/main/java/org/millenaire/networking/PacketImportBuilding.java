@@ -2,7 +2,7 @@ package org.millenaire.networking;
 
 import org.millenaire.building.PlanIO;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 import net.minecraftforge.server.ServerLifecycleHooks;
@@ -17,11 +17,11 @@ public class PacketImportBuilding {
 	}
 	
 	public PacketImportBuilding(BlockPos startPos) { this.pos = startPos; }
-        public static void encode(PacketImportBuilding msg, FriendlyByteBuf buf) {
+        public static void encode(PacketImportBuilding msg, PacketBuffer buf) {
                 buf.writeBlockPos(msg.pos);
         }
 
-        public static PacketImportBuilding decode(FriendlyByteBuf buf) {
+        public static PacketImportBuilding decode(PacketBuffer buf) {
                 return new PacketImportBuilding(buf.readBlockPos());
         }
 
