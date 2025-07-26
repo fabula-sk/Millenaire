@@ -9,51 +9,53 @@ import java.util.UUID;
 
 import org.millenaire.village.Village;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldSavedData;
-import net.minecraft.world.storage.MapStorage;
+import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.storage.DimensionDataStorage;
+import net.minecraft.world.server.ServerWorld;
 
-public class VillageTracker extends WorldSavedData
+public class VillageTracker extends SavedData
 {
 	private final static String IDENTITY = "Millenaire.VillageInfo";
 
 	private Map<UUID, Village> villages = new HashMap<>();
 	
-	public VillageTracker() { super(IDENTITY); }
-	
-	private VillageTracker(String id) { super(id); }
+       public VillageTracker() { super(IDENTITY); }
 
-	@Override
-	public void readFromNBT(NBTTagCompound nbt) 
-	{
-		System.out.println("Village Tracker reading from NBT");
-		for(String s : nbt.getKeySet()) {
-			if(nbt.getTag(s) instanceof NBTTagCompound) {
-				villages.put(UUID.fromString(s), readVillageFromCompound(nbt.getCompoundTag(s)));
-			}
-		}
-	}
+       private VillageTracker(String id) { super(id); }
 
-	private Village readVillageFromCompound(NBTTagCompound nbt) {
-		Village vil = new Village();
-		vil.setPos(BlockPos.fromLong(nbt.getLong("pos")));
-		return vil;
-	}
+       @Override
+       public void load(CompoundNBT nbt)
+        {
+                System.out.println("Village Tracker reading from NBT");
+               for(String s : nbt.getAllKeys()) {
+                       if(nbt.get(s) instanceof CompoundNBT) {
+                               villages.put(UUID.fromString(s), readVillageFromCompound(nbt.getCompound(s)));
+                        }
+                }
+        }
 
-	@Override
-	public void writeToNBT(NBTTagCompound nbt) 
-	{
-		System.out.println("Village Tracker Writing to NBT");
-		for(Entry<UUID, Village> e : villages.entrySet()) {
-			NBTTagCompound villageTag = new NBTTagCompound();
-			
-			villageTag.setLong("Pos", e.getValue().getPos().toLong());
-			
-			nbt.setTag(e.getKey().toString(), villageTag);
-		}
-	}
+       private Village readVillageFromCompound(CompoundNBT nbt) {
+               Village vil = new Village();
+               vil.setPos(BlockPos.fromLong(nbt.getLong("pos")));
+               return vil;
+       }
+
+       @Override
+       public CompoundNBT save(CompoundNBT nbt)
+       {
+               System.out.println("Village Tracker Writing to NBT");
+               for(Entry<UUID, Village> e : villages.entrySet()) {
+                       CompoundNBT villageTag = new CompoundNBT();
+
+                       villageTag.setLong("Pos", e.getValue().getPos().toLong());
+
+                       nbt.put(e.getKey().toString(), villageTag);
+               }
+               return nbt;
+       }
 	
 	/**
 	 * @return All Villages within a radius from a Block
@@ -74,16 +76,13 @@ public class VillageTracker extends WorldSavedData
 	
 	public void unregisterVillage(UUID id) { villages.remove(id); }
 	
-	public static VillageTracker get(World world)
-	{
-		MapStorage storage = world.getPerWorldStorage();
-		VillageTracker data = (VillageTracker)storage.loadData(VillageTracker.class, IDENTITY);
-		if(data == null)
-		{
-			data = new VillageTracker(IDENTITY);
-			storage.setData(IDENTITY, data);
-		}
-		
-		return data;
-	}
+       public static VillageTracker get(World world)
+       {
+               if (world instanceof ServerWorld)
+               {
+                       DimensionDataStorage storage = ((ServerWorld)world).getDataStorage();
+                       return storage.computeIfAbsent(() -> new VillageTracker(IDENTITY), IDENTITY);
+               }
+               return new VillageTracker(IDENTITY);
+       }
 }
