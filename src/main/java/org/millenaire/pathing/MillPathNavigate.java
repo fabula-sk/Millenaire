@@ -1,27 +1,27 @@
 package org.millenaire.pathing;
 
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.pathfinding.PathFinder;
-import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.pathfinder.PathFinder;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.level.Level;
 
-public class MillPathNavigate extends PathNavigateGround
+public class MillPathNavigate extends GroundPathNavigation
 {
-	public MillPathNavigate(EntityLiving entitylivingIn, World worldIn) 
-	{
-		super(entitylivingIn, worldIn);
-		this.setBreakDoors(true);
-		this.setAvoidsWater(true);
-		this.setAvoidSun(false);
-	}
+        public MillPathNavigate(Mob entitylivingIn, Level worldIn)
+        {
+                super(entitylivingIn, worldIn);
+                this.setCanOpenDoors(true);
+                this.setCanFloat(true);
+                this.setCanPassDoors(true);
+        }
 	
 	@Override
-	protected PathFinder getPathFinder()
+        protected PathFinder createPathFinder(int range)
     {
         this.nodeProcessor = new MillWalkNodeProcessor();
-        this.nodeProcessor.setEnterDoors(true);
-        this.nodeProcessor.setBreakDoors(true);
-        this.nodeProcessor.setAvoidsWater(true);
-        return new PathFinder(this.nodeProcessor);
+        this.nodeProcessor.setCanEnterDoors(true);
+        this.nodeProcessor.setCanOpenDoors(true);
+        this.nodeProcessor.setCanFloat(true);
+        return new PathFinder(this.nodeProcessor, range);
     }
 }
