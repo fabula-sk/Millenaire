@@ -19,7 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 
-import org.millenaire.gui.EmptyMenu;
+import org.millenaire.gui.MillChestMenu;
 import org.millenaire.gui.MillMenus;
 import org.millenaire.blocks.MillBlocks;
 
@@ -42,7 +42,7 @@ public class BlockMillChest extends ChestBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
             BlockHitResult hit) {
         if (!level.isClientSide) {
-            MenuProvider provider = new SimpleMenuProvider((id, inv, p) -> new EmptyMenu(MillMenus.CHEST_MENU.get(), id),
+            MenuProvider provider = new SimpleMenuProvider((id, inv, p) -> new MillChestMenu(MillMenus.CHEST_MENU.get(), id),
                     new TextComponent("Mill Chest"));
             NetworkHooks.openGui((ServerPlayer) player, provider, pos);
         }

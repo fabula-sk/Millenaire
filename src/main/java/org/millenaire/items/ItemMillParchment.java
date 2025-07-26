@@ -13,7 +13,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import org.millenaire.gui.EmptyMenu;
+import org.millenaire.gui.ParchmentMenu;
 import org.millenaire.gui.MillMenus;
 
 public class ItemMillParchment extends ItemWritableBook
@@ -31,9 +31,9 @@ public class ItemMillParchment extends ItemWritableBook
         public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand hand)
     {
                 ItemStack itemStackIn = playerIn.getItemInHand(hand);
-                if(worldIn.isClientSide)
+                if(!worldIn.isClientSide && playerIn instanceof ServerPlayer)
                 {
-                        MenuProvider provider = new SimpleMenuProvider((id, inv, player) -> new EmptyMenu(MillMenus.PARCHMENT_MENU.get(), id), new TextComponent("Parchment"));
+                        MenuProvider provider = new SimpleMenuProvider((id, inv, player) -> new ParchmentMenu(MillMenus.PARCHMENT_MENU.get(), id), new TextComponent("Parchment"));
                         NetworkHooks.openGui((ServerPlayer)playerIn, provider);
                 }
 
