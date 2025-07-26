@@ -29,10 +29,16 @@ import javax.annotation.Nullable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.core.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraftforge.network.NetworkHooks;
+import org.millenaire.gui.OptionsMenu;
+import org.millenaire.gui.MillMenus;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -77,9 +83,10 @@ public class ItemMillWand extends Item
                                 nbt.putInt("Y", pos.getY());
                                 nbt.putInt("Z", pos.getZ());
 
-                                if(worldIn.isClientSide)
+                                if(!worldIn.isClientSide && playerIn instanceof ServerPlayer)
                                 {
-                                        // TODO migrate GUI opening to new Menu API
+                                        MenuProvider provider = new SimpleMenuProvider((id, inv, p) -> new OptionsMenu(MillMenus.OPTIONS_MENU.get(), id), new TextComponent("Options"));
+                                        NetworkHooks.openGui((ServerPlayer)playerIn, provider, pos);
                                 }
 			}
 		}
@@ -290,9 +297,10 @@ public class ItemMillWand extends Item
                         player.getMainHandItem().setTag(nbt);
                         nbt.putInt("ID", entity.getEntityId());
 
-                        if(player.level.isClientSide)
+                        if(!player.level.isClientSide && player instanceof ServerPlayer)
                         {
-                                // TODO migrate GUI opening to new Menu API
+                                MenuProvider provider = new SimpleMenuProvider((id, inv, p) -> new OptionsMenu(MillMenus.OPTIONS_MENU.get(), id), new TextComponent("Options"));
+                                NetworkHooks.openGui((ServerPlayer)player, provider, entity.blockPosition());
                         }
 		}
 		return false;

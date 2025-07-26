@@ -4,9 +4,10 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.entity.player.Inventory;
 import com.mojang.blaze3d.vertex.PoseStack;
+import org.millenaire.gui.MillChestMenu;
 
-public class MillChestScreen extends AbstractContainerScreen<EmptyMenu> {
-    public MillChestScreen(EmptyMenu menu, Inventory inv, Component title) {
+public class MillChestScreen extends AbstractContainerScreen<MillChestMenu> {
+    public MillChestScreen(MillChestMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);
     }
 

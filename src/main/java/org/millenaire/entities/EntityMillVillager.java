@@ -43,6 +43,14 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.network.chat.TextComponent;
+import org.millenaire.gui.OptionsMenu;
+import org.millenaire.gui.ChiefMenu;
+import org.millenaire.gui.MillMenus;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.init.SoundEvents;
@@ -386,16 +394,22 @@ public class EntityMillVillager extends PathfinderMob
 		playerIn.addStat(MillAchievement.firstContact, 1);
 		if(type.hireCost > 0)
 		{
-			this.isPlayerInteracting = true;
-                        playerIn.openGui(Millenaire.instance, 5, playerIn.level, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ());
-			return true;
-		}
-		if(type.isChief)
-		{
-			this.isPlayerInteracting = true;
-                        playerIn.openGui(Millenaire.instance, 4, playerIn.level, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ());
-			return true;
-		}
+                        this.isPlayerInteracting = true;
+                        if(playerIn instanceof ServerPlayer) {
+                            MenuProvider provider = new SimpleMenuProvider((id, inv, p) -> new OptionsMenu(MillMenus.OPTIONS_MENU.get(), id), new TextComponent("Options"));
+                            NetworkHooks.openGui((ServerPlayer)playerIn, provider, this.blockPosition());
+                        }
+                        return true;
+                }
+                if(type.isChief)
+                {
+                        this.isPlayerInteracting = true;
+                        if(playerIn instanceof ServerPlayer) {
+                            MenuProvider provider = new SimpleMenuProvider((id, inv, p) -> new ChiefMenu(MillMenus.CHIEF_MENU.get(), id), new TextComponent("Chief"));
+                            NetworkHooks.openGui((ServerPlayer)playerIn, provider, this.blockPosition());
+                        }
+                        return true;
+                }
 		//for Sadhu and Alchemist maitrepenser achievement
 		//Display Quest GUI if appropriate
 		//Display Hire GUI if Appropriate
