@@ -1,32 +1,41 @@
 package org.millenaire.entities;
 
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerChest;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import org.millenaire.blocks.MillBlocks;
 
-public class TileEntityMillChest extends TileEntityChest
+public class TileEntityMillChest extends ChestBlockEntity implements MenuProvider
 {
 	private boolean isLocked = true;
 	
-	public TileEntityMillChest() { super(); }
-	
-	public boolean setLock()
-	{
-		isLocked = !isLocked;
-
-		
-		checkForAdjacentChests();
-		if(adjacentChestZNeg != null || adjacentChestZPos != null ||
-                adjacentChestXNeg != null || adjacentChestXPos != null) {
-            assert adjacentChestZNeg != null;
-            ((TileEntityMillChest)adjacentChestZNeg).isLocked = this.isLocked;
+        public TileEntityMillChest() {
+                super(MillBlocks.MILL_CHEST_TILE.get());
         }
-		
-		return isLocked;
-	}
+	
+        public boolean setLock()
+        {
+                isLocked = !isLocked;
+
+                if (level != null) {
+                        for (Direction dir : Direction.Plane.HORIZONTAL) {
+                                BlockPos pos = worldPosition.relative(dir);
+                                if (level.getBlockEntity(pos) instanceof TileEntityMillChest other) {
+                                        other.isLocked = this.isLocked;
+                                }
+                        }
+                }
+
+                return isLocked;
+        }
 	
 	public boolean isLockedFor(Player playerIn)
 	{
@@ -47,33 +56,34 @@ public class TileEntityMillChest extends TileEntityChest
 	}
 	
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+        public void load(CompoundTag compound)
     {
-        super.readFromNBT(compound);
-        
-        if(compound.hasKey("millChestLocked"))
+        super.load(compound);
+
+        if(compound.contains("millChestLocked"))
         {
             isLocked = compound.getBoolean("millChestLocked");
         }
     }
 	
 	@Override
-	public void writeToNBT(NBTTagCompound compound)
+        public CompoundTag save(CompoundTag compound)
     {
-        super.writeToNBT(compound);
-        
-        compound.setBoolean("millChestLocked", isLocked);
+        super.save(compound);
+
+        compound.putBoolean("millChestLocked", isLocked);
+        return compound;
     }
 	
-	@Override
-    public String getGuiID()
+        @Override
+        public Component getDisplayName()
     {
-        return "millenaire:chest";
+        return new TextComponent("Mill Chest");
     }
-    
-	@Override
-	public Container createContainer(InventoryPlayer playerInventory, Player playerIn)
+
+        @Override
+        public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player)
     {
-        return new ContainerChest(playerInventory, this, playerIn);
+        return ChestMenu.threeRows(id, playerInventory, this);
     }
 }
