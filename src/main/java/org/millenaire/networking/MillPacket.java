@@ -4,17 +4,16 @@ import org.millenaire.blocks.BlockVillageStone;
 import org.millenaire.blocks.MillBlocks;
 import org.millenaire.items.MillItems;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.World;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.SoundEvents;
 public class MillPacket
 {
         private int eventID;
@@ -29,26 +28,26 @@ public class MillPacket
 	
 	public int getID() { return eventID; }
 
-        public static void encode(MillPacket msg, FriendlyByteBuf buf) {
+        public static void encode(MillPacket msg, PacketBuffer buf) {
                 buf.writeInt(msg.eventID);
         }
 
-        public static MillPacket decode(FriendlyByteBuf buf) {
+        public static MillPacket decode(PacketBuffer buf) {
                 return new MillPacket(buf.readInt());
         }
 
         public static void handle(MillPacket message, Supplier<NetworkEvent.Context> ctx) {
                 ctx.get().enqueueWork(() -> {
-                        ServerPlayer sendingPlayer = ctx.get().getSender();
+                        ServerPlayerEntity sendingPlayer = ctx.get().getSender();
                         if (sendingPlayer != null) {
                                 if(message.getID() == 2) {
-                                        ItemStack heldItem = sendingPlayer.getMainHandItem();
+                                        ItemStack heldItem = sendingPlayer.getHeldItemMainhand();
                                         if(heldItem.getItem() == MillItems.wandNegation) {
-                                                Level world = sendingPlayer.level;
-                                                CompoundTag nbt = heldItem.getTag();
-                                                int posX = nbt.getInteger("X");
-                                                int posY = nbt.getInteger("Y");
-                                                int posZ = nbt.getInteger("Z");
+                                                World world = sendingPlayer.world;
+                                                CompoundNBT nbt = heldItem.getTag();
+                                                int posX = nbt.getInt("X");
+                                                int posY = nbt.getInt("Y");
+                                                int posZ = nbt.getInt("Z");
                                                 BlockVillageStone villStone = (BlockVillageStone)world.getBlockState(new BlockPos(posX, posY, posZ)).getBlock();
                                                 villStone.negate(world, new BlockPos(posX, posY, posZ), sendingPlayer);
                                         } else {
@@ -56,27 +55,27 @@ public class MillPacket
                                         }
                                 }
                                 if(message.getID() == 3) {
-                                        ItemStack heldItem = sendingPlayer.getMainHandItem();
+                                        ItemStack heldItem = sendingPlayer.getHeldItemMainhand();
                                         if(heldItem.getItem() == MillItems.wandNegation) {
-                                                Level world = sendingPlayer.level;
-                                                CompoundTag nbt = heldItem.getTag();
-                                                int id = nbt.getInteger("ID");
-                                                world.createExplosion(world.getEntityByID(id), world.getEntityByID(id).getX(), world.getEntityByID(id).getY(), world.getEntityByID(id).getZ(), 0.0F, false);
-                                                world.playSound(null, world.getEntityByID(id).getPosition(), SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1.0F, 0.4F);
-                                                world.removeEntity(world.getEntityByID(id));
+                                                World world = sendingPlayer.world;
+                                                CompoundNBT nbt = heldItem.getTag();
+                                                int id = nbt.getInt("ID");
+                                                world.createExplosion(world.getEntityById(id), world.getEntityById(id).getPosX(), world.getEntityById(id).getPosY(), world.getEntityById(id).getPosZ(), 0.0F, false);
+                                                world.playSound(null, world.getEntityById(id).getPosition(), SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1.0F, 0.4F);
+                                                world.removeEntity(world.getEntityById(id));
                                         } else {
                                                 System.err.println("Player not holding Wand of Negation when attempting to delete Villager");
                                         }
                                 }
                                 if(message.getID() == 4) {
-                                        ItemStack heldItem = sendingPlayer.getMainHandItem();
+                                        ItemStack heldItem = sendingPlayer.getHeldItemMainhand();
                                         if(heldItem.getItem() == MillItems.wandSummoning) {
-                                                Level world = sendingPlayer.level;
-                                                CompoundTag nbt = heldItem.getTag();
-                                                int posX = nbt.getInteger("X");
-                                                int posY = nbt.getInteger("Y");
-                                                int posZ = nbt.getInteger("Z");
-                                                world.setBlockState(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.get().getDefaultState());
+                                                World world = sendingPlayer.world;
+                                                CompoundNBT nbt = heldItem.getTag();
+                                                int posX = nbt.getInt("X");
+                                                int posY = nbt.getInt("Y");
+                                                int posZ = nbt.getInt("Z");
+                                                world.setBlockState(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.get().getDefaultState(), 3);
                                         } else {
                                                 System.err.println("Player not holding Wand of Summoning when attempting to create Village");
                                         }

@@ -14,22 +14,24 @@ public class MillNetwork {
             PROTOCOL_VERSION::equals
     );
 
+    private static int id = 0;
+
+    private static int nextId() {
+        return id++;
+    }
+
     public static void init() {
-        int id = 0;
-        CHANNEL.messageBuilder(PacketSayTranslatedMessage.class, id++)
-                .encoder(PacketSayTranslatedMessage::encode)
-                .decoder(PacketSayTranslatedMessage::decode)
-                .consumer(PacketSayTranslatedMessage::handle)
-                .add();
-        CHANNEL.messageBuilder(PacketImportBuilding.class, id++)
-                .encoder(PacketImportBuilding::encode)
-                .decoder(PacketImportBuilding::decode)
-                .consumer(PacketImportBuilding::handle)
-                .add();
-        CHANNEL.messageBuilder(PacketExportBuilding.class, id++)
-                .encoder(PacketExportBuilding::encode)
-                .decoder(PacketExportBuilding::decode)
-                .consumer(PacketExportBuilding::handle)
-                .add();
+        CHANNEL.registerMessage(nextId(), PacketSayTranslatedMessage.class,
+                PacketSayTranslatedMessage::encode,
+                PacketSayTranslatedMessage::decode,
+                PacketSayTranslatedMessage::handle);
+        CHANNEL.registerMessage(nextId(), PacketImportBuilding.class,
+                PacketImportBuilding::encode,
+                PacketImportBuilding::decode,
+                PacketImportBuilding::handle);
+        CHANNEL.registerMessage(nextId(), PacketExportBuilding.class,
+                PacketExportBuilding::encode,
+                PacketExportBuilding::decode,
+                PacketExportBuilding::handle);
     }
 }
