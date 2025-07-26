@@ -205,7 +205,7 @@ public class MillItems
     	ITEMS.register("cider_apple", () -> ciderApple);
     	cider = new ItemMillFood(4, 15, 5, 0, 0.0F, true);
     	ITEMS.register("cider", () -> cider);
-    	calva = ((ItemMillFood)new ItemMillFood(8, 30, 10, 0, 0.0F, true)).setPotionEffect(Potion.damageBoost.id, 180, 0, 1f);
+        calva = new ItemMillFood(8, 30, 10, 0, 0.0F, true);
     	ITEMS.register("calva", () -> calva);
     	tripes = new ItemMillFood(0, 0, 0, 10, 1.0F, false);
     	ITEMS.register("tripes", () -> tripes);
@@ -213,29 +213,29 @@ public class MillItems
     	ITEMS.register("boudin_noir", () -> boudinNoir);
     	vegCurry = new ItemMillFood(0, 0, 0, 6, 0.6F, false);
     	ITEMS.register("veg_curry", () -> vegCurry);
-    	murghCurry = ((ItemMillFood)new ItemMillFood(0, 0, 0, 8, 0.8F, false)).setPotionEffect(Potion.fireResistance.id, 8 * 60, 0, 1f);
+        murghCurry = new ItemMillFood(0, 0, 0, 8, 0.8F, false);
     	ITEMS.register("murgh_curry", () -> murghCurry);
-    	rasgulla = ((ItemMillFood)new ItemMillFood(2, 30, 0, 0, 0.0F, false)).setPotionEffect(Potion.moveSpeed.id, 8 * 60, 1, 1f).setAlwaysEdible();
+        rasgulla = new ItemMillFood(2, 30, 0, 0, 0.0F, false);
     	ITEMS.register("rasgulla", () -> rasgulla);
-    	cacauhaa = ((ItemMillFood)new ItemMillFood(6, 30, 3, 0, 0.0F, true)).setPotionEffect(Potion.nightVision.id, 8 * 60, 0, 1f);
+        cacauhaa = new ItemMillFood(6, 30, 3, 0, 0.0F, true);
     	ITEMS.register("cacauhaa", () -> cacauhaa);
     	masa = new ItemMillFood(0, 0, 0, 6, 0.6F, false);
     	ITEMS.register("masa", () -> masa);
-    	wah = ((ItemMillFood)new ItemMillFood(0, 0, 0, 10, 1.0F, false)).setPotionEffect(Potion.digSpeed.id, 8 * 60, 0, 1f);
+        wah = new ItemMillFood(0, 0, 0, 10, 1.0F, false);
     	ITEMS.register("wah", () -> wah);
     	wine = new ItemMillFood(3, 15, 5, 0, 0.0F, true);
     	ITEMS.register("wine", () -> wine);
-    	malvasiaWine = ((ItemMillFood)new ItemMillFood(8, 30, 5, 0, 0.0F, true)).setPotionEffect(Potion.resistance.id, 8 * 60, 0, 1f);
+        malvasiaWine = new ItemMillFood(8, 30, 5, 0, 0.0F, true);
     	ITEMS.register("malvasia_wine", () -> malvasiaWine);
     	feta = new ItemMillFood(3, 10, 0, 0, 0.0F, false);
     	ITEMS.register("feta", () -> feta);
-    	souvlaki = ((ItemMillFood)new ItemMillFood(0, 0, 0, 10, 1.0F, false)).setPotionEffect(Potion.heal.id, 1, 0, 1f);
+        souvlaki = new ItemMillFood(0, 0, 0, 10, 1.0F, false);
     	ITEMS.register("souvlaki", () -> souvlaki);
-    	sake = ((ItemMillFood)new ItemMillFood(8, 30, 10, 0, 0.0F, true)).setPotionEffect(Potion.jump.id, 8 * 60, 1, 1f);
+        sake = new ItemMillFood(8, 30, 10, 0, 0.0F, true);
     	ITEMS.register("sake", () -> sake);
     	udon = new ItemMillFood(0, 0, 0, 8, 0.8F, false);
     	ITEMS.register("udon", () -> udon);
-    	ikayaki = ((ItemMillFood)new ItemMillFood(0, 0, 0, 10, 1.0F, false)).setPotionEffect(Potion.waterBreathing.id, 8 * 60, 2, 1f);
+        ikayaki = new ItemMillFood(0, 0, 0, 10, 1.0F, false);
     	ITEMS.register("ikayaki", () -> ikayaki);
     	
     	//Armour
