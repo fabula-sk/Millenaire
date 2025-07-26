@@ -3,7 +3,7 @@
     "defaults": {
     	"textures": {
     		"top": "millenaire:block/tilestopvert",
-    		"bottom": "block/stonebrick",
+    		"bottom": "minecraft:block/stone_bricks",
     		"front": "millenaire:block/tilesfront",
         	"back": "millenaire:block/tilesfront",
         	"side": "millenaire:block/tilesfront"

@@ -2,7 +2,7 @@
     "parent": "block/cube_bottom_top",
     "textures": {
         "side": "millenaire:block/sod_pine",
-        "top": "minecraft:block/planks_spruce",
-        "bottom": "minecraft:block/planks_spruce"
+        "top": "minecraft:block/spruce_planks",
+        "bottom": "minecraft:block/spruce_planks"
     }
 }

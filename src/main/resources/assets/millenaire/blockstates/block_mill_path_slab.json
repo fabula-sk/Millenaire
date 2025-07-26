@@ -3,14 +3,14 @@
     	"half=top,variant=dirt": { "model": "millenaire:path_dirt_upper_half" },
         "half=top,variant=gravel": { "model": "millenaire:path_gravel_upper_half" },
         "half=top,variant=slab": { "model": "millenaire:path_slab_upper_half" },
-        "half=top,variant=sandstoneslab": { "model": "millenaire:path_sandstone_slab_upper_half" },
-        "half=top,variant=ochreslab": { "model": "millenaire:path_ochre_slab_upper_half" },
-        "half=top,variant=slabandgravel": { "model": "millenaire:path_slab_and_gravel_upper_half" },
+        "half=top,variant=sandstoneSlab": { "model": "millenaire:path_sandstone_slab_upper_half" },
+        "half=top,variant=ochreSlab": { "model": "millenaire:path_ochre_slab_upper_half" },
+        "half=top,variant=slabAndGravel": { "model": "millenaire:path_slab_and_gravel_upper_half" },
         "half=bottom,variant=dirt": { "model": "millenaire:path_dirt_lower_half" },
         "half=bottom,variant=gravel": { "model": "millenaire:path_gravel_lower_half" },
         "half=bottom,variant=slab": { "model": "millenaire:path_slab_lower_half" },
-        "half=bottom,variant=sandstoneslab": { "model": "millenaire:path_sandstone_slab_lower_half" },
-        "half=bottom,variant=ochreslab": { "model": "millenaire:path_ochre_slab_lower_half" },
-        "half=bottom,variant=slabandgravel": { "model": "millenaire:path_slab_and_gravel_lower_half" }
+        "half=bottom,variant=sandstoneSlab": { "model": "millenaire:path_sandstone_slab_lower_half" },
+        "half=bottom,variant=ochreSlab": { "model": "millenaire:path_ochre_slab_lower_half" },
+        "half=bottom,variant=slabAndGravel": { "model": "millenaire:path_slab_and_gravel_lower_half" }
     }
 }

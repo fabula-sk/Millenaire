@@ -3,8 +3,8 @@
     	"variant=dirt": { "model": "millenaire:path_dirt" },
         "variant=gravel": { "model": "millenaire:path_gravel" },
         "variant=slab": { "model": "millenaire:path_slab" },
-        "variant=sandstoneslab": { "model": "millenaire:path_sandstone_slab" },
-        "variant=ochreslab": { "model": "millenaire:pathochre_slab" },
-        "variant=slabandgravel": { "model": "millenaire:path_slab_and_gravel" }
+        "variant=sandstoneSlab": { "model": "millenaire:path_sandstone_slab" },
+        "variant=ochreSlab": { "model": "millenaire:path_ochre_slab" },
+        "variant=slabAndGravel": { "model": "millenaire:path_slab_and_gravel" }
     }
 }

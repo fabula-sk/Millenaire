@@ -1,7 +1,7 @@
 {
     "parent": "block/pane_nse",
     "textures": {
-        "edge": "block/planks_spruce",
+        "edge": "minecraft:block/spruce_planks",
         "pane": "millenaire:block/paperwall"
     }
 }
