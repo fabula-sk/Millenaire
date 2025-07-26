@@ -9,7 +9,7 @@ import net.minecraft.entity.player.Player;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -141,20 +141,15 @@ public class ItemMillAmulet extends Item
 			visScore = level / 8;
 		}
 
-		NBTTagCompound nbt;
-		if(stack.getTagCompound() == null)
-			nbt = new NBTTagCompound();
-		else
-			nbt = stack.getTagCompound();
-
-		nbt.setInteger("score", visScore);
-		stack.setTagCompound(nbt);
+                CompoundNBT nbt = stack.getTag() == null ? new CompoundNBT() : stack.getTag();
+                nbt.putInt("score", visScore);
+                stack.setTag(nbt);
 	}
 
        @OnlyIn(Dist.CLIENT)
        public int getColor(ItemStack stack, int tintIndex)
        {
-               NBTTagCompound nbt = stack.getTagCompound();
+               CompoundNBT nbt = stack.getTag();
 
                if(tintIndex != 0)
                {
@@ -167,7 +162,7 @@ public class ItemMillAmulet extends Item
           if(this == MillItems.amuletYggdrasil.get())
                                        return colorYggdrasil[16];
                        }
-                       int score = nbt.getInteger("score");
+                       int score = nbt.getInt("score");
 
   if(this == MillItems.amuletAlchemist.get())
                                return colorAlchemist[score];
