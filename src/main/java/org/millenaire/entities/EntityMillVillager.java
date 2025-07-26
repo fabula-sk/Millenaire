@@ -13,8 +13,8 @@ import org.millenaire.pathing.MillPathNavigate;
 import org.millenaire.rendering.RenderMillVillager;
 
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.entity.ai.goal.FloatGoal;
 import net.minecraft.entity.ai.goal.RandomStrollGoal;
@@ -620,12 +620,12 @@ public class EntityMillVillager extends PathfinderMob
 	
 	//////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	public static class millVillagerRenderFactory implements IRenderFactory<EntityMillVillager>
-	{
-		@Override
-		public Render<EntityMillVillager> createRenderFor(RenderManager manager) 
-		{
-			return new RenderMillVillager(manager, new ModelBiped(), 0.5F);
-		}
-	}
+        public static class millVillagerRenderFactory implements IRenderFactory<EntityMillVillager>
+        {
+                @Override
+                public EntityRenderer<? super EntityMillVillager> createRenderFor(EntityRendererProvider.Context context)
+                {
+                        return new RenderMillVillager(context);
+                }
+        }
 }
