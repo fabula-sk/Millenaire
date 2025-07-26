@@ -2,11 +2,11 @@
     "forge_marker": 1,
     "defaults": {
     	"textures": {
-    		"top": "millenaire:blocks/tilestopvert",
-    		"bottom": "blocks/stonebrick",
-    		"front": "millenaire:blocks/tilesfront",
-        	"back": "millenaire:blocks/tilesfront",
-        	"side": "millenaire:blocks/tilesfront"
+    		"top": "millenaire:block/tilestopvert",
+    		"bottom": "block/stonebrick",
+    		"front": "millenaire:block/tilesfront",
+        	"back": "millenaire:block/tilesfront",
+        	"side": "millenaire:block/tilesfront"
         }
 	},
 	"variants": {

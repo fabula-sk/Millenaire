@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/boudin"
+        "layer0": "millenaire:item/boudin"
     },
     "display": {
         "thirdperson": {

@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/calva"
+        "layer0": "millenaire:item/calva"
     },
     "display": {
         "thirdperson": {

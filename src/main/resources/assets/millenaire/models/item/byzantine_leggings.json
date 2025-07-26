@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/byzantinelegs"
+        "layer0": "millenaire:item/byzantinelegs"
     },
     "display": {
         "thirdperson": {

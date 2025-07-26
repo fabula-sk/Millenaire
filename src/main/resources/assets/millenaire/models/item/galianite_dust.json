@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/galianite_dust"
+        "layer0": "millenaire:item/galianite_dust"
     },
     "display": {
         "thirdperson": {

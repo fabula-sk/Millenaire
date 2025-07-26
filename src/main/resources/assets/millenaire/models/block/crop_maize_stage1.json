@@ -1,6 +1,6 @@
 {
     "parent": "block/crop",
     "textures": {
-        "crop": "millenaire:blocks/maize0"
+        "crop": "millenaire:block/maize0"
     }
 }

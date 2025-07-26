@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/normanlegs"
+        "layer0": "millenaire:item/normanlegs"
     },
     "display": {
         "thirdperson": {

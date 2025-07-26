@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/ikayaki"
+        "layer0": "millenaire:item/ikayaki"
     },
     "display": {
         "thirdperson": {

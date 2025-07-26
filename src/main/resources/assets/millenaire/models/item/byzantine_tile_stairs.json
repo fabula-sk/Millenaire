@@ -1,9 +1,9 @@
 {
     "parent": "block/stairs",
     "textures": {
-        "bottom": "millenaire:blocks/tilesstairbottom",
-        "top": "millenaire:blocks/tilestopvert",
-        "side": "millenaire:blocks/tilesfront"
+        "bottom": "millenaire:block/tilesstairbottom",
+        "top": "millenaire:block/tilestopvert",
+        "side": "millenaire:block/tilesfront"
     },
     "display": {
         "thirdperson": {

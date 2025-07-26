@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/normanplate"
+        "layer0": "millenaire:item/normanplate"
     },
     "display": {
         "thirdperson": {

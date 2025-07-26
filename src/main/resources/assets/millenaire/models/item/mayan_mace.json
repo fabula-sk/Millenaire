@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/mayanmace"
+        "layer0": "millenaire:item/mayanmace"
     },
     "display": {
         "thirdperson": {

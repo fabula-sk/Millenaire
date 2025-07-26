@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "millenaire:items/summoningwand"
+        "layer0": "millenaire:item/summoningwand"
     },
     "display": {
         "thirdperson": {
