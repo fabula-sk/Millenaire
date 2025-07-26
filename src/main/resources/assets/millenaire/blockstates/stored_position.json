@@ -1,10 +1,10 @@
 {
     "variants": {
-        "variant=tradepos": { "model": "millenaire:stored_position" },
-        "variant=sourcepos": { "model": "millenaire:stored_position" },
-        "variant=pathpos": { "model": "millenaire:stored_position" },
-        "variant=hidepos": { "model": "millenaire:stored_position" },
-        "variant=defendpos": { "model": "millenaire:stored_position" },
-        "variant=sleeppos": { "model": "millenaire:stored_position" }
+        "variant=tradePos": { "model": "millenaire:stored_position" },
+        "variant=sourcePos": { "model": "millenaire:stored_position" },
+        "variant=pathPos": { "model": "millenaire:stored_position" },
+        "variant=hidePos": { "model": "millenaire:stored_position" },
+        "variant=defendPos": { "model": "millenaire:stored_position" },
+        "variant=sleepPos": { "model": "millenaire:stored_position" }
     }
 }

@@ -1,7 +1,7 @@
 {
     "parent": "block/cube_bottom_top",
     "textures": {
-        "bottom": "block/stonebrick",
+        "bottom": "minecraft:block/stone_bricks",
         "top": "millenaire:block/tilestophor",
         "side": "millenaire:block/tileshalfside"
     },

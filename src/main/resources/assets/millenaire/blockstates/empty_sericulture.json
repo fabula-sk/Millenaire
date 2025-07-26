@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "millenaire:empty_sericulture" }
+        "": { "model": "millenaire:empty_sericulture" }
     }
 }

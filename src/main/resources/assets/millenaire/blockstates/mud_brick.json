@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "millenaire:mud_brick" }
+        "": { "model": "millenaire:mud_brick" }
     }
 }

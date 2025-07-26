@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "millenaire:village_stone" }
+        "": { "model": "millenaire:village_stone" }
     }
 }

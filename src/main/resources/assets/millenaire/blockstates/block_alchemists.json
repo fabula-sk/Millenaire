@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "millenaire:block_alchemists" }
+        "": { "model": "millenaire:block_alchemists" }
     }
 }

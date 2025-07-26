@@ -2,7 +2,7 @@
     "parent": "block/cube_bottom_top",
     "textures": {
         "side": "millenaire:block/sod_jungle",
-        "top": "minecraft:block/planks_jungle",
-        "bottom": "minecraft:block/planks_jungle"
+        "top": "minecraft:block/jungle_planks",
+        "bottom": "minecraft:block/jungle_planks"
     }
 }
