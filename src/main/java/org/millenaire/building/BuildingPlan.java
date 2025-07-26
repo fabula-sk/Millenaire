@@ -259,7 +259,7 @@ public class BuildingPlan
 	private boolean freeBuild(BlockState state)
 	{
                 return state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.WATER || state.getBlock() == Blocks.OAK_LEAVES || state.getBlock() == Blocks.ACACIA_LEAVES || state.getBlock() == Blocks.GRASS_BLOCK || state.getBlock() == Blocks.TALL_GRASS || state.getBlock() == Blocks.POPPY || state.getBlock() == Blocks.DANDELION || state.getBlock() == Blocks.LILAC || state.getBlock() == Blocks.DEAD_BUSH
-				|| state.getBlock() == MillBlocks.blockMillPath || state.getBlock() == MillBlocks.blockMillPathSlab || state.equals(MillBlocks.blockDecorativeEarth.getDefaultState().withProperty(BlockDecorativeEarth.VARIANT, BlockDecorativeEarth.EnumType.DIRTWALL));
+                                || state.getBlock() == MillBlocks.blockMillPath.get() || state.getBlock() == MillBlocks.blockMillPathSlab.get() || state.equals(MillBlocks.blockDecorativeEarth.get().getDefaultState().withProperty(BlockDecorativeEarth.VARIANT, BlockDecorativeEarth.EnumType.DIRTWALL));
 	}
 	
 	private void computeCost()
@@ -305,11 +305,11 @@ public class BuildingPlan
                                                 plankAcaciaCost++;
                                         else if (state.getBlock() == Blocks.DARK_OAK_PLANKS)
                                                 plankDarkCost++;
-					else if (state.getBlock() == MillBlocks.byzantineTile)
+                                        else if (state.getBlock() == MillBlocks.byzantineTile.get())
 						byzBricksHalf += 2;
-					else if (state.getBlock() == MillBlocks.byzantineTileSlab)
+                                        else if (state.getBlock() == MillBlocks.byzantineTileSlab.get())
 						byzBricksHalf++;
-					else if (state.getBlock() == MillBlocks.byzantineStoneTile) 
+                                        else if (state.getBlock() == MillBlocks.byzantineStoneTile.get())
 					{
 						byzBricksHalf++;
 						addToCost(new ItemStack(Blocks.stone), 1);
@@ -398,7 +398,7 @@ public class BuildingPlan
 						addToCost(new ItemStack(Items.iron_ingot), 7);
 					else if (state.getBlock() == Blocks.cobblestone_wall)
 						addToCost(new ItemStack(Blocks.cobblestone), 1);
-					else if (state.getBlock() == MillBlocks.blockMillChest)
+                                        else if (state.getBlock() == MillBlocks.blockMillChest.get())
 						plankCost += 8;
 					else if (state.getBlock() == Blocks.oak_stairs)
 						plankOakCost += 2;
@@ -447,7 +447,7 @@ public class BuildingPlan
                                                plankCost += 3;
                                                addToCost(ItemTags.WOOL, 3);
                                        }
-					else if (state.getBlock() == MillBlocks.emptySericulture)
+                                        else if (state.getBlock() == MillBlocks.emptySericulture.get())
 						plankCost += 4;
                                         else if (state.getBlock() != Blocks.AIR && !freeBuild(state))
                                         {
@@ -497,7 +497,7 @@ public class BuildingPlan
 		}
 
 		if (byzBricksHalf > 0) {
-			addToCost(new ItemStack(MillBlocks.byzantineTile), (int) Math.max(Math.ceil(byzBricksHalf / 2), 1));
+                        addToCost(new ItemStack(MillBlocks.byzantineTile.get()), (int) Math.max(Math.ceil(byzBricksHalf / 2), 1));
 		}
 	}
 	
@@ -1006,21 +1006,21 @@ public class BuildingPlan
 	}
 	
 	private boolean firstPass(BlockState state) {
-               return state.getBlock().getCreativeTabToDisplayOn() == CreativeModeTab.TAB_BUILDING_BLOCKS || state.getBlock() instanceof BlockDecorativeEarth || state.getBlock() instanceof BlockDecorativeWood || state.getBlock() instanceof BlockDecorativeStone || state.getBlock() == MillBlocks.byzantineStoneTile || state.getBlock() == MillBlocks.byzantineTile || state.getBlock() == MillBlocks.byzantineTileSlab || state.getBlock() == MillBlocks.byzantineTileSlabDouble;
+               return state.getBlock().getCreativeTabToDisplayOn() == CreativeModeTab.TAB_BUILDING_BLOCKS || state.getBlock() instanceof BlockDecorativeEarth || state.getBlock() instanceof BlockDecorativeWood || state.getBlock() instanceof BlockDecorativeStone || state.getBlock() == MillBlocks.byzantineStoneTile.get() || state.getBlock() == MillBlocks.byzantineTile.get() || state.getBlock() == MillBlocks.byzantineTileSlab.get() || state.getBlock() == MillBlocks.byzantineTileSlabDouble.get();
 	}
 	
 	private void setReferencePositions(BlockState state, BlockPos pos, BuildingLocation location)
 	{
 		if(state.getBlock() instanceof BlockMillChest)
 			location.chestPos.add(pos);
-		else if(state.getBlock() == MillBlocks.storedPosition && state.getValue(StoredPosition.VARIANT) == StoredPosition.EnumType.TRADEPOS)
+                else if(state.getBlock() == MillBlocks.storedPosition.get() && state.getValue(StoredPosition.VARIANT) == StoredPosition.EnumType.TRADEPOS)
 			location.tradePos = (pos);
 		//else if BlockMillSign add to Sign Positions
 		else if(state.getBlock() instanceof BlockBed && state.getValue(BlockBed.PART) == BlockBed.EnumPartType.HEAD)
 			location.sleepPos.add(pos);
-		else if(state.getBlock() == MillBlocks.storedPosition && state.getValue(StoredPosition.VARIANT) == StoredPosition.EnumType.SLEEPPOS)
+                else if(state.getBlock() == MillBlocks.storedPosition.get() && state.getValue(StoredPosition.VARIANT) == StoredPosition.EnumType.SLEEPPOS)
 			location.sleepPos.add(pos);
-		else if(state.getBlock() == MillBlocks.storedPosition && state.getValue(StoredPosition.VARIANT) == StoredPosition.EnumType.SOURCEPOS)
+                else if(state.getBlock() == MillBlocks.storedPosition.get() && state.getValue(StoredPosition.VARIANT) == StoredPosition.EnumType.SOURCEPOS)
 			location.sourcePos.add(pos);
 		else if(state.getBlock() == Blocks.furnace)
 			location.craftPos.add(pos);
@@ -1030,9 +1030,9 @@ public class BuildingPlan
 			location.craftPos.add(pos);
 		else if(state.getBlock() == Blocks.anvil)
 			location.craftPos.add(pos);
-		else if(state.getBlock() == MillBlocks.storedPosition && state.getValue(StoredPosition.VARIANT) == StoredPosition.EnumType.HIDEPOS)
+                else if(state.getBlock() == MillBlocks.storedPosition.get() && state.getValue(StoredPosition.VARIANT) == StoredPosition.EnumType.HIDEPOS)
 			location.hidePos.add(pos);
-		else if(state.getBlock() == MillBlocks.storedPosition && state.getValue(StoredPosition.VARIANT) == StoredPosition.EnumType.DEFENDPOS)
+                else if(state.getBlock() == MillBlocks.storedPosition.get() && state.getValue(StoredPosition.VARIANT) == StoredPosition.EnumType.DEFENDPOS)
 			location.defendPos.add(pos);
 	}
 	

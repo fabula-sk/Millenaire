@@ -38,7 +38,7 @@ public class VillageGenerator {
 		else {
 			Player generatingPlayer = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), -1);
                         if(rand.nextInt(50) == 1 && world.getChunkFromBlockCoords(pos).isLoaded()) {
-                                world.setBlockState(pos, MillBlocks.villageStone.getDefaultState());
+                                world.setBlockState(pos, MillBlocks.villageStone.get().getDefaultState());
                         }
 			return false;
 		}

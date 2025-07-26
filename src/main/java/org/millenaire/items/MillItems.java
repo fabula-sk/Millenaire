@@ -188,17 +188,17 @@ public class MillItems
                 ITEMS.register("galianite_dust", () -> galianiteDust);
 		
 		//Crops
-		turmeric = new ItemMillSeeds(MillBlocks.cropTurmeric);
-    	((BlockMillCrops) MillBlocks.cropTurmeric).setSeed((IPlantable) turmeric);
+                turmeric = new ItemMillSeeds(MillBlocks.cropTurmeric.get());
+        ((BlockMillCrops) MillBlocks.cropTurmeric.get()).setSeed((IPlantable) turmeric);
     	ITEMS.register("turmeric", () -> turmeric);
-    	rice = new ItemMillSeeds(MillBlocks.cropRice);
-    	((BlockMillCrops) MillBlocks.cropRice).setSeed((IPlantable) rice);
+        rice = new ItemMillSeeds(MillBlocks.cropRice.get());
+        ((BlockMillCrops) MillBlocks.cropRice.get()).setSeed((IPlantable) rice);
     	ITEMS.register("rice", () -> rice);
-    	maize = new ItemMillSeeds(MillBlocks.cropMaize);
-    	((BlockMillCrops) MillBlocks.cropMaize).setSeed((IPlantable) maize);
+        maize = new ItemMillSeeds(MillBlocks.cropMaize.get());
+        ((BlockMillCrops) MillBlocks.cropMaize.get()).setSeed((IPlantable) maize);
     	ITEMS.register("maize", () -> maize);
-    	grapes = new ItemMillSeeds(MillBlocks.cropGrapeVine);
-    	((BlockMillCrops) MillBlocks.cropGrapeVine).setSeed((IPlantable) grapes);
+        grapes = new ItemMillSeeds(MillBlocks.cropGrapeVine.get());
+        ((BlockMillCrops) MillBlocks.cropGrapeVine.get()).setSeed((IPlantable) grapes);
     	ITEMS.register("grapes", () -> grapes);
     	ciderApple = new ItemMillFood(0, 0, 0, 1, 0.05F, false);
     	ITEMS.register("cider_apple", () -> ciderApple);

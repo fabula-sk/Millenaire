@@ -81,7 +81,6 @@ public class Millenaire
 
                 setForbiddenBlocks();
 
-                MillBlocks.preinitialize();
                 MillBlocks.recipes();
 
                 MillItems.preinitialize();
