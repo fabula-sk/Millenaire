@@ -26,7 +26,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.text.ITextComponent;
 import javax.annotation.Nullable;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -77,7 +77,7 @@ public class ItemMillWand extends Item
 		{
                         if(worldIn.getBlockState(pos).getBlock() == MillBlocks.villageStone.get())
 			{
-                                CompoundTag nbt = new CompoundTag();
+                                CompoundNBT nbt = new CompoundNBT();
                                 stack.setTag(nbt);
                                 nbt.putInt("X", pos.getX());
                                 nbt.putInt("Y", pos.getY());
@@ -106,7 +106,7 @@ public class ItemMillWand extends Item
 			{	
 				System.out.println("Obsidian Creation");
 
-                                CompoundTag nbt = new CompoundTag();
+                                CompoundNBT nbt = new CompoundNBT();
                                 stack.setTag(nbt);
                                 nbt.putInt("X", pos.getX());
                                 nbt.putInt("Y", pos.getY());
@@ -293,7 +293,7 @@ public class ItemMillWand extends Item
 		{
 			((EntityMillVillager)entity).isPlayerInteracting = true;
 
-                        CompoundTag nbt = new CompoundTag();
+                        CompoundNBT nbt = new CompoundNBT();
                         player.getMainHandItem().setTag(nbt);
                         nbt.putInt("ID", entity.getEntityId());
 

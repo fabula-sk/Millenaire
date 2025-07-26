@@ -223,7 +223,7 @@ public class PlanIO {
 	}
 
        public static BuildingPlan loadSchematic(CompoundNBT nbt, MillCulture culture, int level) throws IOException {
-		//Convert Stream to NBTTagCompound
+                //Convert Stream to CompoundNBT
 
 		//width = x-axis, height = y-axis, length = z-axis
                 short width, height, length;

@@ -1,14 +1,14 @@
 package org.millenaire.capability;
 
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
-public class PlayerCropProvider implements ICapabilitySerializable<NBTTagCompound> {
+public class PlayerCropProvider implements ICapabilitySerializable<CompoundNBT> {
 
     @CapabilityInject(IPlayerCropData.class)
     public static final Capability<IPlayerCropData> CROP_CAPABILITY = null;
@@ -18,13 +18,13 @@ public class PlayerCropProvider implements ICapabilitySerializable<NBTTagCompoun
     public static void register() {
         CapabilityManager.INSTANCE.register(IPlayerCropData.class, new Capability.IStorage<IPlayerCropData>() {
             @Override
-            public NBTBase writeNBT(Capability<IPlayerCropData> capability, IPlayerCropData instance, EnumFacing side) {
+            public INBT writeNBT(Capability<IPlayerCropData> capability, IPlayerCropData instance, EnumFacing side) {
                 return instance.writeNBT();
             }
 
             @Override
-            public void readNBT(Capability<IPlayerCropData> capability, IPlayerCropData instance, EnumFacing side, NBTBase nbt) {
-                instance.readNBT((NBTTagCompound) nbt);
+            public void readNBT(Capability<IPlayerCropData> capability, IPlayerCropData instance, EnumFacing side, INBT nbt) {
+                instance.readNBT((CompoundNBT) nbt);
             }
         }, PlayerCropData::new);
     }
@@ -43,12 +43,12 @@ public class PlayerCropProvider implements ICapabilitySerializable<NBTTagCompoun
     }
 
     @Override
-    public NBTTagCompound serializeNBT() {
-        return instance == null ? new NBTTagCompound() : instance.writeNBT();
+    public CompoundNBT serializeNBT() {
+        return instance == null ? new CompoundNBT() : instance.writeNBT();
     }
 
     @Override
-    public void deserializeNBT(NBTTagCompound nbt) {
+    public void deserializeNBT(CompoundNBT nbt) {
         if (instance != null) {
             instance.readNBT(nbt);
         }

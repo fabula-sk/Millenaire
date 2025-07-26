@@ -24,8 +24,8 @@ import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.util.DamageSource;
@@ -513,38 +513,38 @@ public class EntityMillVillager extends PathfinderMob
 	//performNightActions() does not appear to be called in the code anymore...perhaps it has been outdated?  This undoes growChildSize, conception, and ForiegnMerchantNightAction
 	
 	@Override
-	public void writeToNBT(final NBTTagCompound nbt) 
-	{
-		super.writeToNBT(nbt);
-		nbt.setInteger("villagerID", villagerID);
-		nbt.setString("culture", culture.cultureName);
-               nbt.setInteger("gender", this.entityData.get(GENDER));
-		nbt.setString("villagerType", type.id);
-		nbt.setBoolean("sleeping", isVillagerSleeping);
+        public void writeToNBT(final CompoundNBT nbt)
+        {
+                super.writeToNBT(nbt);
+                nbt.putInt("villagerID", villagerID);
+                nbt.putString("culture", culture.cultureName);
+               nbt.putInt("gender", this.entityData.get(GENDER));
+                nbt.putString("villagerType", type.id);
+                nbt.putBoolean("sleeping", isVillagerSleeping);
 		
-               nbt.setString("texture", this.entityData.get(TEXTURE));
-               nbt.setInteger("age", this.entityData.get(AGE));
-               nbt.setString("name", this.entityData.get(NAME));
-		
-		NBTTagList nbttaglist = new NBTTagList();
+               nbt.putString("texture", this.entityData.get(TEXTURE));
+               nbt.putInt("age", this.entityData.get(AGE));
+               nbt.putString("name", this.entityData.get(NAME));
+
+                ListNBT nbttaglist = new ListNBT();
         for (int i = 0; i < this.villagerInventory.getSizeInventory(); ++i)
         {
             ItemStack itemstack = this.villagerInventory.getStackInSlot(i);
 
             if (itemstack != null)
             {
-                nbttaglist.appendTag(itemstack.writeToNBT(new NBTTagCompound()));
+                nbttaglist.add(itemstack.save(new CompoundNBT()));
             }
         }
-        nbt.setTag("Inventory", nbttaglist);
+        nbt.put("Inventory", nbttaglist);
 		//Write in All relevant data
 	}
 	
 	@Override
-	public void readFromNBT(final NBTTagCompound nbt) 
-	{
-		super.readFromNBT(nbt);
-		villagerID = nbt.getInteger("villagerID");
+        public void readFromNBT(final CompoundNBT nbt)
+        {
+                super.readFromNBT(nbt);
+                villagerID = nbt.getInt("villagerID");
 		try 
 		{
 			culture = MillCulture.getCulture(nbt.getString("culture"));
@@ -554,7 +554,7 @@ public class EntityMillVillager extends PathfinderMob
 			System.err.println("Villager failed to read from NBT correctly");
 			ex.printStackTrace();
 		}
-                this.entityData.set(GENDER, nbt.getInteger("gender"));
+                this.entityData.set(GENDER, nbt.getInt("gender"));
                 if(culture == null)
                 {
                         LOGGER.warn("Unknown culture '{}' for villager {}. Using default.", nbt.getString("culture"), villagerID);
@@ -572,13 +572,13 @@ public class EntityMillVillager extends PathfinderMob
                 isVillagerSleeping = nbt.getBoolean("sleeping");
 		
                this.entityData.set(TEXTURE, nbt.getString("texture"));
-               this.entityData.set(AGE, nbt.getInteger("age"));
+               this.entityData.set(AGE, nbt.getInt("age"));
                this.entityData.set(NAME, nbt.getString("name"));
 		
-		NBTTagList nbttaglist = nbt.getTagList("Inventory", 10);
-        for (int i = 0; i < nbttaglist.tagCount(); ++i)
+                ListNBT nbttaglist = nbt.getList("Inventory", 10);
+        for (int i = 0; i < nbttaglist.size(); ++i)
         {
-            ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbttaglist.getCompoundTagAt(i));
+            ItemStack itemstack = ItemStack.of(nbttaglist.getCompound(i));
 
             if (itemstack != null)
             {
