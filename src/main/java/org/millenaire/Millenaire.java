@@ -73,58 +73,62 @@ public class Millenaire
 	
         private void setup(final FMLCommonSetupEvent event)
         {
-                MillConfig.register();
-                PlayerCropProvider.register();
-                new CapabilityEvents();
-                MinecraftForge.EVENT_BUS.register(new RaidEvent.RaidEventHandler());
-                MinecraftForge.EVENT_BUS.register(new MillenaireEventHandler());
+                event.enqueueWork(() -> {
+                        MillConfig.register();
+                        PlayerCropProvider.register();
+                        new CapabilityEvents();
+                        MinecraftForge.EVENT_BUS.register(new RaidEvent.RaidEventHandler());
+                        MinecraftForge.EVENT_BUS.register(new MillenaireEventHandler());
 
-                setForbiddenBlocks();
+                        setForbiddenBlocks();
 
-                MillBlocks.recipes();
+                        MillBlocks.recipes();
 
-                MillItems.preinitialize();
-                MillItems.recipies();
-                EntityMillVillager.preinitialize();
+                        MillItems.preinitialize();
+                        MillItems.recipies();
+                        EntityMillVillager.preinitialize();
 
-                MillCulture.preinitialize();
+                        MillCulture.preinitialize();
 
-                MillAchievement.preinitialize();
+                        MillAchievement.preinitialize();
 
-                MillNetwork.init();
+                        MillNetwork.init();
 
-                MinecraftForge.EVENT_BUS.addListener(VillageGenerator::onBiomeLoading);
+                        MinecraftForge.EVENT_BUS.addListener(VillageGenerator::onBiomeLoading);
+                });
         }
 
         private void clientSetup(final FMLClientSetupEvent event)
         {
-                MillBlocks.prerender();
-                MillItems.prerender();
+                event.enqueueWork(() -> {
+                        MillBlocks.prerender();
+                        MillItems.prerender();
 
-                EntityMillVillager.prerender();
+                        EntityMillVillager.prerender();
 
-                MillBlocks.render();
-                MillItems.render();
+                        MillBlocks.render();
+                        MillItems.render();
 
-                ScreenManager.registerFactory(MillMenus.PARCHMENT_MENU.get(), ParchmentScreen::new);
-                ScreenManager.registerFactory(MillMenus.CHEST_MENU.get(), MillChestScreen::new);
-                ScreenManager.registerFactory(MillMenus.OPTIONS_MENU.get(), OptionsScreen::new);
-                ScreenManager.registerFactory(MillMenus.CHIEF_MENU.get(), ChiefScreen::new);
+                        ScreenManager.registerFactory(MillMenus.PARCHMENT_MENU.get(), ParchmentScreen::new);
+                        ScreenManager.registerFactory(MillMenus.CHEST_MENU.get(), MillChestScreen::new);
+                        ScreenManager.registerFactory(MillMenus.OPTIONS_MENU.get(), OptionsScreen::new);
+                        ScreenManager.registerFactory(MillMenus.CHIEF_MENU.get(), ChiefScreen::new);
 
-                // Bind tile entity renderers
-                ClientRegistry.bindTileEntityRenderer(MillBlocks.MILL_CHEST_TILE.get(), TileEntityChestRenderer::new);
-                ClientRegistry.bindTileEntityRenderer(MillBlocks.MILL_SIGN_TILE.get(), TileEntitySignRenderer::new);
+                        // Bind tile entity renderers
+                        ClientRegistry.bindTileEntityRenderer(MillBlocks.MILL_CHEST_TILE.get(), TileEntityChestRenderer::new);
+                        ClientRegistry.bindTileEntityRenderer(MillBlocks.MILL_SIGN_TILE.get(), TileEntitySignRenderer::new);
 
-                // Register item color handlers
-                ItemColors colors = Minecraft.getInstance().getItemColors();
-                colors.register((stack, tint) ->
-                        stack.getItem() instanceof ItemMillAmulet ?
-                                ((ItemMillAmulet) stack.getItem()).getColor(stack, tint) : 0xFFFFFF,
-                        MillItems.amuletAlchemist,
-                        MillItems.amuletVishnu,
-                        MillItems.amuletYggdrasil);
+                        // Register item color handlers
+                        ItemColors colors = Minecraft.getInstance().getItemColors();
+                        colors.register((stack, tint) ->
+                                stack.getItem() instanceof ItemMillAmulet ?
+                                        ((ItemMillAmulet) stack.getItem()).getColor(stack, tint) : 0xFFFFFF,
+                                MillItems.amuletAlchemist,
+                                MillItems.amuletVishnu,
+                                MillItems.amuletYggdrasil);
 
-                isServer = false;
+                        isServer = false;
+                });
         }
 	
 	private void setForbiddenBlocks()
