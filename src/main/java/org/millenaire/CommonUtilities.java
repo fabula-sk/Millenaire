@@ -58,16 +58,16 @@ public class CommonUtilities
 
                 argent.setCount(argent.getCount() % 64);
 
-                playerIn.getInventory().addItemStackToInventory(denier);
-                playerIn.getInventory().addItemStackToInventory(argent);
+                playerIn.getInventory().placeItemBackInInventory(denier);
+                playerIn.getInventory().placeItemBackInInventory(argent);
 
                 while(or.getCount() > 64)
                 {
-                        playerIn.getInventory().addItemStackToInventory(new ItemStack(MillItems.denierOr, 64, 0));
+                        playerIn.getInventory().placeItemBackInInventory(new ItemStack(MillItems.denierOr, 64, 0));
                         or.shrink(64);
                 }
 
-                playerIn.getInventory().addItemStackToInventory(or);
+                playerIn.getInventory().placeItemBackInInventory(or);
 	}
 	
 	/**

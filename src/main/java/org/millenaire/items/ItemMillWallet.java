@@ -131,19 +131,19 @@ public InteractionResultHolder<ItemStack> use(World worldIn, Player playerIn, In
 			if(nbt.hasKey("DenierOr") && nbt.getInteger("DenierOr") > 0)
 			{
 				ItemStack or = new ItemStack(MillItems.denierOr, nbt.getInteger("DenierOr"), 0);
-				playerIn.getInventory().addItemStackToInventory(or);
+                                playerIn.getInventory().placeItemBackInInventory(or);
 			}
 			
 			if(nbt.hasKey("DenierArgent") && nbt.getInteger("DenierArgent") > 0)
 			{
 				ItemStack argent = new ItemStack(MillItems.denierArgent, nbt.getInteger("DenierArgent"), 0);
-				playerIn.getInventory().addItemStackToInventory(argent);
+                                playerIn.getInventory().placeItemBackInInventory(argent);
 			}
 			
 			if(nbt.hasKey("Denier") && nbt.getInteger("Denier") > 0)
 			{
 				ItemStack denier = new ItemStack(MillItems.denier, nbt.getInteger("Denier"), 0);
-				playerIn.getInventory().addItemStackToInventory(denier);
+                                playerIn.getInventory().placeItemBackInInventory(denier);
 			}
 			
 			stack.setTagCompound(null);

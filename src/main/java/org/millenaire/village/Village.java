@@ -65,7 +65,7 @@ public class Village {
                                 EntityMillVillager v = new EntityMillVillager(EntityMillVillager.MILL_VILLAGER.get(), world, 100100, culture);
 				v.setPosition(mainBlock.getX(), mainBlock.getY(), mainBlock.getZ());
 				v.setTypeAndGender(MillCulture.normanCulture.getVillagerType("normanKnight"), 1);
-				world.spawnEntityInWorld(v);
+                                world.addFreshEntity(v);
 				
 				BuildingLocation loc = p.findBuildingLocation(geo, new MillPathNavigate(v, world), mainBlock, 64, new Random(), p.buildingOrientation);
 				PlanIO.placeBuilding(p, loc, world);
