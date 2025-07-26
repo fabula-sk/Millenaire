@@ -131,7 +131,7 @@ public class VillageGeography
 	private static boolean isForbiddenBlockForConstruction(final Block block)
 	{
         return block == Blocks.WATER || block == Blocks.ICE || block == Blocks.LAVA || block == Blocks.OAK_PLANKS || block == Blocks.COBBLESTONE || block == Blocks.BRICKS || block == Blocks.CHEST || block == Blocks.GLASS || block == Blocks.STONE_BRICKS || block == Blocks.PRISMARINE
-				|| block instanceof BlockWall || block instanceof BlockFence || block == MillBlocks.blockDecorativeEarth || block == MillBlocks.blockDecorativeStone || block == MillBlocks.blockDecorativeWood || block == MillBlocks.byzantineTile || block == MillBlocks.byzantineTileSlab || block == MillBlocks.byzantineStoneTile || block == MillBlocks.paperWall || block == MillBlocks.emptySericulture;
+                                || block instanceof BlockWall || block instanceof BlockFence || block == MillBlocks.blockDecorativeEarth.get() || block == MillBlocks.blockDecorativeStone.get() || block == MillBlocks.blockDecorativeWood.get() || block == MillBlocks.byzantineTile.get() || block == MillBlocks.byzantineTileSlab.get() || block == MillBlocks.byzantineStoneTile.get() || block == MillBlocks.paperWall.get() || block == MillBlocks.emptySericulture.get();
 	}
 	
 	private void registerBuildingLocation(final BuildingLocation bl) 
@@ -384,7 +384,7 @@ public class VillageGeography
 
                                 tree[mx][mz] = (soilBlock == Blocks.OAK_LOG);
 
-				path[mx][mz] = (soilBlock == MillBlocks.blockMillPath || soilBlock == MillBlocks.blockMillPathSlab || soilBlock == MillBlocks.blockMillPathSlabDouble);
+                                path[mx][mz] = (soilBlock == MillBlocks.blockMillPath.get() || soilBlock == MillBlocks.blockMillPathSlab.get() || soilBlock == MillBlocks.blockMillPathSlabDouble.get());
 
 				boolean blocked = false;
 
@@ -740,7 +740,7 @@ public class VillageGeography
 	
 	private static boolean isBlockSolid(Block block)
 	{
-		return block.isFullCube() || block == Blocks.glass || block == Blocks.glass_pane || block instanceof BlockSlab || block instanceof BlockStairs || block instanceof BlockFence || block instanceof BlockWall || block == MillBlocks.paperWall;
+                return block.isFullCube() || block == Blocks.glass || block == Blocks.glass_pane || block instanceof BlockSlab || block instanceof BlockStairs || block instanceof BlockFence || block instanceof BlockWall || block == MillBlocks.paperWall.get();
 	}
 	
 	//////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

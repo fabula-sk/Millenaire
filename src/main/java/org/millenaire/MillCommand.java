@@ -47,7 +47,7 @@ public class MillCommand {
                 source.sendSuccess(Component.literal("loneBuildings not implemented"), false);
                 break;
             case "showBuildPoints":
-                StoredPosition posBlock = (StoredPosition) MillBlocks.storedPosition;
+                StoredPosition posBlock = (StoredPosition) MillBlocks.storedPosition.get();
                 posBlock.setShowParticles(!posBlock.getShowParticles());
                 source.sendSuccess(Component.literal("Toggled build point particles"), true);
                 break;

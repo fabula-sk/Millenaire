@@ -66,7 +66,7 @@ public class ItemMillWand extends Item
                 float hitZ = (float)context.getClickLocation().z;
 		if(this == MillItems.wandNegation)
 		{
-			if(worldIn.getBlockState(pos).getBlock() == MillBlocks.villageStone)
+                        if(worldIn.getBlockState(pos).getBlock() == MillBlocks.villageStone.get())
 			{
                                 CompoundTag nbt = new CompoundTag();
                                 stack.setTag(nbt);

@@ -33,151 +33,52 @@ public class MillBlocks {
         public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Millenaire.MODID);
         public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Millenaire.MODID);
 
-        public static RegistryObject<BlockEntityType<TileEntityMillChest>> MILL_CHEST_TILE;
-        public static RegistryObject<BlockEntityType<TileEntityMillSign>> MILL_SIGN_TILE;
-        public static RegistryObject<BlockEntityType<TileEntityVillageStone>> VILLAGE_STONE_TILE;
+        public static final RegistryObject<Block> blockDecorativeStone = BLOCKS.register("block_decorative_stone", BlockDecorativeStone::new);
+        public static final RegistryObject<Block> blockDecorativeWood = BLOCKS.register("block_decorative_wood", BlockDecorativeWood::new);
+        public static final RegistryObject<Block> blockDecorativeEarth = BLOCKS.register("block_decorative_earth", BlockDecorativeEarth::new);
 
-	public static Block blockDecorativeStone;
-	public static Block blockDecorativeWood;
-	public static Block blockDecorativeEarth;
+        public static final RegistryObject<Block> blockSodPlanks = BLOCKS.register("block_sod_plank", BlockDecorativeSodPlank::new);
+        public static final RegistryObject<Block> emptySericulture = BLOCKS.register("empty_sericulture", () -> new BlockDecorativeUpdate(Material.wood, blockDecorativeWood.get().getDefaultState().withProperty(BlockDecorativeWood.VARIANT, BlockDecorativeWood.EnumType.SERICULTURE)));
+        public static final RegistryObject<Block> mudBrick = BLOCKS.register("mud_brick", () -> new BlockDecorativeUpdate(Material.ground, blockDecorativeEarth.get().getDefaultState().withProperty(BlockDecorativeEarth.VARIANT, BlockDecorativeEarth.EnumType.DRIEDBRICK)));
 
-	public static Block emptySericulture;
-	public static Block mudBrick;
-	
-	public static Block thatchSlab;
-	public static Block thatchSlabDouble;
-	public static Block thatchStairs;
+        public static final RegistryObject<Block> thatchSlab = BLOCKS.register("thatch_slab", () -> new BlockDecorativeOrientedSlabHalf(Material.wood));
+        public static final RegistryObject<Block> thatchSlabDouble = BLOCKS.register("thatch_slab_double", () -> new BlockDecorativeOrientedSlabDouble(Material.wood, thatchSlab.get()));
+        public static final RegistryObject<Block> thatchStairs = BLOCKS.register("thatch_stairs", () -> new BlockDecorativeOrientedStairs(blockDecorativeWood.get().getDefaultState().withProperty(BlockDecorativeWood.VARIANT, BlockDecorativeWood.EnumType.THATCH)));
 
-	public static Block byzantineTile;
-	public static Block byzantineStoneTile;
-	public static Block byzantineTileSlab;
-	public static Block byzantineTileSlabDouble;
-	public static Block byzantineTileStairs;
+        public static final RegistryObject<Block> byzantineTile = BLOCKS.register("byzantine_tile", () -> new BlockDecorativeOriented(Material.rock));
+        public static final RegistryObject<Block> byzantineStoneTile = BLOCKS.register("byzantine_stone_tile", () -> new BlockDecorativeOriented(Material.rock));
+        public static final RegistryObject<Block> byzantineTileSlab = BLOCKS.register("byzantine_tile_slab", () -> new BlockDecorativeOrientedSlabHalf(Material.rock));
+        public static final RegistryObject<Block> byzantineTileSlabDouble = BLOCKS.register("byzantine_tile_slab_double", () -> new BlockDecorativeOrientedSlabDouble(Material.rock, byzantineTileSlab.get()));
+        public static final RegistryObject<Block> byzantineTileStairs = BLOCKS.register("byzantine_tile_stairs", () -> new BlockDecorativeOrientedStairs(byzantineStoneTile.get().getDefaultState()));
 
-	public static Block paperWall;
+        public static final RegistryObject<Block> paperWall = BLOCKS.register("paper_wall", () -> new BlockDecorativePane(Material.cloth));
 
-	public static Block blockSodPlanks;
-	public static Block blockCarving;
+        public static final RegistryObject<Block> blockCarving = BLOCKS.register("inuit_carving", () -> new BlockDecorativeCarving(Material.rock));
 
-	public static Block cropTurmeric;
-	public static Block cropRice;
-	public static Block cropMaize;
-	public static Block cropGrapeVine;
+        public static final RegistryObject<Block> cropTurmeric = BLOCKS.register("crop_turmeric", () -> new BlockMillCrops(false, false));
+        public static final RegistryObject<Block> cropRice = BLOCKS.register("crop_rice", () -> new BlockMillCrops(true, false));
+        public static final RegistryObject<Block> cropMaize = BLOCKS.register("crop_maize", () -> new BlockMillCrops(false, true));
+        public static final RegistryObject<Block> cropGrapeVine = BLOCKS.register("crop_grape_vine", () -> new BlockMillCrops(false, false));
 
-	public static Block blockMillChest;
+        public static final RegistryObject<Block> blockMillChest = BLOCKS.register("block_mill_chest", BlockMillChest::new);
+        public static final RegistryObject<Block> blockMillSign = BLOCKS.register("block_mill_sign", BlockMillSign::new);
 
-	public static Block blockMillSign;
+        public static RegistryObject<BlockEntityType<TileEntityMillChest>> MILL_CHEST_TILE = TILE_ENTITIES.register("mill_chest", () -> BlockEntityType.Builder.of(TileEntityMillChest::new, blockMillChest.get()).build(null));
+        public static RegistryObject<BlockEntityType<TileEntityMillSign>> MILL_SIGN_TILE = TILE_ENTITIES.register("mill_sign", () -> BlockEntityType.Builder.of(TileEntityMillSign::new, blockMillSign.get()).build(null));
 
-	public static Block blockAlchemists;
+        public static final RegistryObject<Block> blockAlchemists = BLOCKS.register("block_alchemists", BlockAlchemists::new);
 
-	public static Block blockMillPath;
-	public static Block blockMillPathSlab;
-	public static Block blockMillPathSlabDouble;
-	
-	public static Block galianiteOre;
-	
-	public static Block villageStone;
-	
-	public static Block storedPosition;
+        public static final RegistryObject<Block> blockMillPath = BLOCKS.register("block_mill_path", BlockMillPath::new);
+        public static final RegistryObject<Block> blockMillPathSlab = BLOCKS.register("block_mill_path_slab", BlockMillPathSlabHalf::new);
+        public static final RegistryObject<Block> blockMillPathSlabDouble = BLOCKS.register("block_mill_path_slab_double", BlockMillPathSlabDouble::new);
 
-	public static void preinitialize() {
+        public static final RegistryObject<Block> galianiteOre = BLOCKS.register("galianite_ore", BlockGalianiteOre::new);
 
-		//Decorative
-                blockDecorativeStone = new BlockDecorativeStone();
-                BLOCKS.register("block_decorative_stone", () -> blockDecorativeStone);
+        public static final RegistryObject<Block> villageStone = BLOCKS.register("village_stone", BlockVillageStone::new);
+        public static RegistryObject<BlockEntityType<TileEntityVillageStone>> VILLAGE_STONE_TILE = TILE_ENTITIES.register("village_stone", () -> BlockEntityType.Builder.of(TileEntityVillageStone::new, villageStone.get()).build(null));
 
-                blockDecorativeWood = new BlockDecorativeWood();
-                BLOCKS.register("block_decorative_wood", () -> blockDecorativeWood);
+        public static final RegistryObject<Block> storedPosition = BLOCKS.register("stored_position", StoredPosition::new);
 
-                blockDecorativeEarth = new BlockDecorativeEarth();
-                BLOCKS.register("block_decorative_earth", () -> blockDecorativeEarth);
-
-                blockSodPlanks = new BlockDecorativeSodPlank();
-                BLOCKS.register("block_sod_plank", () -> blockSodPlanks);
-
-                emptySericulture = new BlockDecorativeUpdate(Material.wood, blockDecorativeWood.getDefaultState().withProperty(BlockDecorativeWood.VARIANT, BlockDecorativeWood.EnumType.SERICULTURE));
-                BLOCKS.register("empty_sericulture", () -> emptySericulture);
-
-                mudBrick = new BlockDecorativeUpdate(Material.ground, blockDecorativeEarth.getDefaultState().withProperty(BlockDecorativeEarth.VARIANT, BlockDecorativeEarth.EnumType.DRIEDBRICK));
-                BLOCKS.register("mud_brick", () -> mudBrick);
-
-                thatchSlab = new BlockDecorativeOrientedSlabHalf(Material.wood);
-		thatchSlabDouble = new BlockDecorativeOrientedSlabDouble(Material.wood, thatchSlab);
-                BLOCKS.register("thatch_slab", () -> thatchSlab);
-                BLOCKS.register("thatch_slab_double", () -> thatchSlabDouble);
-		
-                thatchStairs = new BlockDecorativeOrientedStairs(blockDecorativeWood.getDefaultState().withProperty(BlockDecorativeWood.VARIANT, BlockDecorativeWood.EnumType.THATCH));
-                BLOCKS.register("thatch_stairs", () -> thatchStairs);
-		
-                byzantineTile = new BlockDecorativeOriented(Material.rock);
-                BLOCKS.register("byzantine_tile", () -> byzantineTile);
-
-                byzantineStoneTile = new BlockDecorativeOriented(Material.rock);
-                BLOCKS.register("byzantine_stone_tile", () -> byzantineStoneTile);
-
-                byzantineTileSlab = new BlockDecorativeOrientedSlabHalf(Material.rock);
-		byzantineTileSlabDouble = new BlockDecorativeOrientedSlabDouble(Material.rock, byzantineTileSlab);
-                BLOCKS.register("byzantine_tile_slab", () -> byzantineTileSlab);
-                BLOCKS.register("byzantine_tile_slab_double", () -> byzantineTileSlabDouble);
-
-                byzantineTileStairs = new BlockDecorativeOrientedStairs(byzantineStoneTile.getDefaultState());
-                BLOCKS.register("byzantine_tile_stairs", () -> byzantineTileStairs);
-
-                paperWall = new BlockDecorativePane(Material.cloth);
-                BLOCKS.register("paper_wall", () -> paperWall);
-
-                blockCarving = new BlockDecorativeCarving(Material.rock);
-                BLOCKS.register("inuit_carving", () -> blockCarving);
-
-		//Crops
-                cropTurmeric = new BlockMillCrops(false, false);
-                BLOCKS.register("crop_turmeric", () -> cropTurmeric);
-
-                cropRice = new BlockMillCrops(true, false);
-                BLOCKS.register("crop_rice", () -> cropRice);
-
-                cropMaize = new BlockMillCrops(false, true);
-                BLOCKS.register("crop_maize", () -> cropMaize);
-
-                cropGrapeVine = new BlockMillCrops(false, false);
-                BLOCKS.register("crop_grape_vine", () -> cropGrapeVine);
-
-		//Chests
-                blockMillChest = new BlockMillChest();
-                BLOCKS.register("block_mill_chest", () -> blockMillChest);
-                MILL_CHEST_TILE = TILE_ENTITIES.register("mill_chest", () -> BlockEntityType.Builder.of(TileEntityMillChest::new, blockMillChest).build(null));
-
-		//Sign
-                blockMillSign = new BlockMillSign();
-                BLOCKS.register("block_mill_sign", () -> blockMillSign);
-                MILL_SIGN_TILE = TILE_ENTITIES.register("mill_sign", () -> BlockEntityType.Builder.of(TileEntityMillSign::new, blockMillSign).build(null));
-
-		//Alchemists
-                blockAlchemists = new BlockAlchemists();
-                BLOCKS.register("block_alchemists", () -> blockAlchemists);
-
-		//Paths
-                blockMillPath = new BlockMillPath();
-                BLOCKS.register("block_mill_path", () -> blockMillPath);
-
-                blockMillPathSlab = new BlockMillPathSlabHalf();
-                blockMillPathSlabDouble = new BlockMillPathSlabDouble();
-                BLOCKS.register("block_mill_path_slab", () -> blockMillPathSlab);
-                BLOCKS.register("block_mill_path_slab_double", () -> blockMillPathSlabDouble);
-
-                //Ores
-                galianiteOre = new BlockGalianiteOre();
-                BLOCKS.register("galianite_ore", () -> galianiteOre);
-    	
-    	//Village Stone
-        villageStone = new BlockVillageStone();
-                BLOCKS.register("village_stone", () -> villageStone);
-                VILLAGE_STONE_TILE = TILE_ENTITIES.register("village_stone", () -> BlockEntityType.Builder.of(TileEntityVillageStone::new, villageStone).build(null));
-		
-		//StoredPosition
-                storedPosition = new StoredPosition();
-                BLOCKS.register("stored_position", () -> storedPosition);
-	}
 
         public static void recipes() {
                 // crafting and smelting recipes moved to JSON files in data/millenaire/recipes

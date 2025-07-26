@@ -51,7 +51,7 @@ public class ItemMillSign extends Item
                         }
                         else
                         {
-                                worldIn.setBlockState(pos, MillBlocks.blockMillSign.getDefaultState().withProperty(BlockMillSign.FACING, side), 3);
+                                worldIn.setBlockState(pos, MillBlocks.blockMillSign.get().getDefaultState().withProperty(BlockMillSign.FACING, side), 3);
 
                                 stack.shrink(1);
                                 TileEntity tileentity = worldIn.getTileEntity(pos);

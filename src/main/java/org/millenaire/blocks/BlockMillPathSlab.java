@@ -46,11 +46,11 @@ public class BlockMillPathSlab extends BlockSlab
 	@Override
     public Item getItemDropped(BlockState state, Random rand, int fortune)
     {
-        return Item.getItemFromBlock(MillBlocks.blockMillPathSlab);
+        return Item.getItemFromBlock(MillBlocks.blockMillPathSlab.get());
     }
 
     @SideOnly(Side.CLIENT)
-    public Item getItem(World worldIn, BlockPos pos) { return Item.getItemFromBlock(MillBlocks.blockMillPathSlab); }
+    public Item getItem(World worldIn, BlockPos pos) { return Item.getItemFromBlock(MillBlocks.blockMillPathSlab.get()); }
     
         /**
          * Shapes replacing the old setBlockBounds based logic.
@@ -104,7 +104,7 @@ public class BlockMillPathSlab extends BlockSlab
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list)
     {
         Item itemIn = Item.getItemFromBlock(this);
-        if (itemIn != Item.getItemFromBlock(MillBlocks.blockMillPathSlabDouble))
+        if (itemIn != Item.getItemFromBlock(MillBlocks.blockMillPathSlabDouble.get()))
         {
             BlockMillPath.EnumType[] aenumtype = BlockMillPath.EnumType.values();
 

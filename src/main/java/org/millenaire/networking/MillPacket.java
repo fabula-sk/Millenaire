@@ -76,7 +76,7 @@ public class MillPacket
                                                 int posX = nbt.getInteger("X");
                                                 int posY = nbt.getInteger("Y");
                                                 int posZ = nbt.getInteger("Z");
-                                                world.setBlockState(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.getDefaultState());
+                                                world.setBlockState(new BlockPos(posX, posY, posZ), MillBlocks.villageStone.get().getDefaultState());
                                         } else {
                                                 System.err.println("Player not holding Wand of Summoning when attempting to create Village");
                                         }
