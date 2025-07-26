@@ -43,7 +43,7 @@ public class MillPacket
                         if (sendingPlayer != null) {
                                 if(message.getID() == 2) {
                                         ItemStack heldItem = sendingPlayer.getHeldItemMainhand();
-                                        if(heldItem.getItem() == MillItems.wandNegation) {
+                                        if(heldItem.getItem() == MillItems.wandNegation.get()) {
                                                 Level level = sendingPlayer.level;
                                                 CompoundNBT nbt = heldItem.getTag();
                                                 int posX = nbt.getInt("X");
@@ -57,7 +57,7 @@ public class MillPacket
                                 }
                                 if(message.getID() == 3) {
                                         ItemStack heldItem = sendingPlayer.getHeldItemMainhand();
-                                        if(heldItem.getItem() == MillItems.wandNegation) {
+                                        if(heldItem.getItem() == MillItems.wandNegation.get()) {
                                                 Level level = sendingPlayer.level;
                                                 CompoundNBT nbt = heldItem.getTag();
                                                 int id = nbt.getInt("ID");
@@ -70,7 +70,7 @@ public class MillPacket
                                 }
                                 if(message.getID() == 4) {
                                         ItemStack heldItem = sendingPlayer.getHeldItemMainhand();
-                                        if(heldItem.getItem() == MillItems.wandSummoning) {
+                                        if(heldItem.getItem() == MillItems.wandSummoning.get()) {
                                                 Level level = sendingPlayer.level;
                                                 CompoundNBT nbt = heldItem.getTag();
                                                 int posX = nbt.getInt("X");

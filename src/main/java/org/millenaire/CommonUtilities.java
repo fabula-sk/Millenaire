@@ -21,9 +21,9 @@ public class CommonUtilities
 	 */
        public static void changeMoney(Player playerIn)
        {
-               ItemStack denier = new ItemStack(MillItems.denier, 0);
-               ItemStack argent = new ItemStack(MillItems.denierArgent, 0);
-               ItemStack or = new ItemStack(MillItems.denierOr, 0);
+               ItemStack denier = new ItemStack(MillItems.denier.get(), 0);
+               ItemStack argent = new ItemStack(MillItems.denierArgent.get(), 0);
+               ItemStack or = new ItemStack(MillItems.denierOr.get(), 0);
 		
                Inventory inv = playerIn.inventory;
                for(int i = 0; i < inv.getContainerSize(); i++)
@@ -31,17 +31,17 @@ public class CommonUtilities
                        ItemStack stack = inv.getItem(i);
                        if(stack != null)
                        {
-                               if(stack.getItem() == MillItems.denier)
+                               if(stack.getItem() == MillItems.denier.get())
                                {
                                        denier.grow(stack.getCount());
                                        inv.removeItemNoUpdate(i);
                                }
-                               if(stack.getItem() == MillItems.denierArgent)
+                               if(stack.getItem() == MillItems.denierArgent.get())
                                {
                                        argent.grow(stack.getCount());
                                        inv.removeItemNoUpdate(i);
                                }
-                               if(stack.getItem() == MillItems.denierOr)
+                               if(stack.getItem() == MillItems.denierOr.get())
                                {
                                        or.grow(stack.getCount());
                                        inv.removeItemNoUpdate(i);
@@ -65,7 +65,7 @@ public class CommonUtilities
 
                 while(or.getCount() > 64)
                 {
-                       inv.addItemStackToInventory(new ItemStack(MillItems.denierOr, 64));
+                       inv.addItemStackToInventory(new ItemStack(MillItems.denierOr.get(), 64));
                        or.shrink(64);
                }
 

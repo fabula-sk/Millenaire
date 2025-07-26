@@ -25,7 +25,7 @@ public class ItemMillWallet extends Item
 public InteractionResultHolder<ItemStack> use(World worldIn, Player playerIn, InteractionHand hand)
     {
                 ItemStack itemStackIn = playerIn.getItemInHand(hand);
-                if(playerIn.getInventory().hasItem(MillItems.denier) || playerIn.getInventory().hasItem(MillItems.denierArgent) || playerIn.getInventory().hasItem(MillItems.denierOr))
+                if(playerIn.getInventory().hasItem(MillItems.denier.get()) || playerIn.getInventory().hasItem(MillItems.denierArgent.get()) || playerIn.getInventory().hasItem(MillItems.denierOr.get()))
                 {
                         addDenierToWallet(itemStackIn, playerIn);
                 }
@@ -84,17 +84,17 @@ public InteractionResultHolder<ItemStack> use(World worldIn, Player playerIn, In
                                 if(playerIn.getInventory().getStackInSlot(i) != null)
                                 {
                                         ItemStack invStack = playerIn.getInventory().getStackInSlot(i);
-                                        if(invStack.getItem() == MillItems.denier)
+                                        if(invStack.getItem() == MillItems.denier.get())
                                         {
                                                 denier += invStack.getCount();
                                                 playerIn.getInventory().removeStackFromSlot(i);
                                         }
-                                        else if(invStack.getItem() == MillItems.denierArgent)
+                                        else if(invStack.getItem() == MillItems.denierArgent.get())
                                         {
                                                 argent += invStack.getCount();
                                                 playerIn.getInventory().removeStackFromSlot(i);
                                         }
-                                        else if(invStack.getItem() == MillItems.denierOr)
+                                        else if(invStack.getItem() == MillItems.denierOr.get())
                                         {
                                                 or += invStack.getCount();
                                                 playerIn.getInventory().removeStackFromSlot(i);
@@ -133,19 +133,19 @@ public InteractionResultHolder<ItemStack> use(World worldIn, Player playerIn, In
 			
 			if(nbt.hasKey("DenierOr") && nbt.getInteger("DenierOr") > 0)
 			{
-				ItemStack or = new ItemStack(MillItems.denierOr, nbt.getInteger("DenierOr"), 0);
+                                ItemStack or = new ItemStack(MillItems.denierOr.get(), nbt.getInteger("DenierOr"), 0);
                                 playerIn.getInventory().placeItemBackInInventory(or);
 			}
 			
 			if(nbt.hasKey("DenierArgent") && nbt.getInteger("DenierArgent") > 0)
 			{
-				ItemStack argent = new ItemStack(MillItems.denierArgent, nbt.getInteger("DenierArgent"), 0);
+                                ItemStack argent = new ItemStack(MillItems.denierArgent.get(), nbt.getInteger("DenierArgent"), 0);
                                 playerIn.getInventory().placeItemBackInInventory(argent);
 			}
 			
 			if(nbt.hasKey("Denier") && nbt.getInteger("Denier") > 0)
 			{
-				ItemStack denier = new ItemStack(MillItems.denier, nbt.getInteger("Denier"), 0);
+                                ItemStack denier = new ItemStack(MillItems.denier.get(), nbt.getInteger("Denier"), 0);
                                 playerIn.getInventory().placeItemBackInInventory(denier);
 			}
 			
