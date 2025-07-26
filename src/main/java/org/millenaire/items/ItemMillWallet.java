@@ -5,7 +5,7 @@ import java.util.List;
 import org.millenaire.CommonUtilities;
 import org.millenaire.gui.MillAchievement;
 
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

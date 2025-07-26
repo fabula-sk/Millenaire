@@ -18,7 +18,7 @@ import org.millenaire.networking.PacketSayTranslatedMessage;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -277,7 +277,7 @@ public class ItemMillWand extends Item
         }
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, net.minecraft.world.entity.player.Player player, EntityLivingBase entity)
+	public boolean itemInteractionForEntity(ItemStack stack, net.minecraft.entity.player.Player player, EntityLivingBase entity)
 	{
 		if(stack.getItem() == MillItems.wandNegation && entity instanceof EntityMillVillager)
 		{

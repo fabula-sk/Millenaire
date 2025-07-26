@@ -2,7 +2,7 @@ package org.millenaire.items;
 
 import org.millenaire.Millenaire;
 
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemWritableBook;
 import net.minecraft.world.level.Level;

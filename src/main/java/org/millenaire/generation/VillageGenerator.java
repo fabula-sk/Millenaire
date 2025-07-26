@@ -6,7 +6,7 @@ import org.millenaire.MillConfig;
 import org.millenaire.VillageTracker;
 import org.millenaire.blocks.MillBlocks;
 
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Player;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BiomeLoadingEvent;

@@ -3,7 +3,7 @@ package org.millenaire.items;
 import org.millenaire.PlayerTracker;
 
 import net.minecraft.block.Block;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.Player;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
