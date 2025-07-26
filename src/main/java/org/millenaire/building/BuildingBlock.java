@@ -228,7 +228,7 @@ public class BuildingBlock
                 {
                         worldIn.setBlock(position, Blocks.DISPENSER.defaultBlockState());
                         final DispenserBlockEntity dispenser = (DispenserBlockEntity)worldIn.getBlockEntity(position);
-                        dispenser.addItem(new ItemStack(MillItems.unknownPowder, 2));
+                        dispenser.addItem(new ItemStack(MillItems.unknownPowder.get(), 2));
                 }
 	}
 	

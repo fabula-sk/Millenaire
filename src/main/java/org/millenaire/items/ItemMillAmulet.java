@@ -34,7 +34,7 @@ public class ItemMillAmulet extends Item
        public InteractionResultHolder<ItemStack> use(final Level level, final Player entityplayer, InteractionHand hand)
        {
                ItemStack itemstack = entityplayer.getItemInHand(hand);
-               if(this == MillItems.amuletSkollHati && !level.isClientSide)
+               if(this == MillItems.amuletSkollHati.get() && !level.isClientSide)
                {
                        final long time = level.getWorldTime() + 24000L;
 
@@ -56,12 +56,12 @@ public class ItemMillAmulet extends Item
 	@Override
        public void onUpdate(ItemStack stack, Level level, Entity entityIn, int itemSlot, boolean isSelected)
        {
-               if(this == MillItems.amuletSkollHati)
+               if(this == MillItems.amuletSkollHati.get())
                        return;
 
 		int visScore = 0;
 
-		if(this == MillItems.amuletAlchemist && entityIn instanceof Player)
+                if(this == MillItems.amuletAlchemist.get() && entityIn instanceof Player)
 		{
 			int radius = 5;
 			BlockPos pos = entityIn.getPosition();
@@ -102,7 +102,7 @@ public class ItemMillAmulet extends Item
 			visScore = (visScore * 15) / 100;
 		}
 
-		if(this == MillItems.amuletVishnu && entityIn instanceof Player)
+                if(this == MillItems.amuletVishnu.get() && entityIn instanceof Player)
 		{
 			double level;
 			final int radius = 20;
@@ -125,7 +125,7 @@ public class ItemMillAmulet extends Item
 			visScore = (int) (level * 15);
 		}
 
-		if(this == MillItems.amuletYggdrasil && entityIn instanceof Player)
+                if(this == MillItems.amuletYggdrasil.get() && entityIn instanceof Player)
 		{
                         int level = (int) Math.floor(entityIn.getY());
 
@@ -160,20 +160,20 @@ public class ItemMillAmulet extends Item
                {
                        if(nbt== null)
                        {
-                               if(this == MillItems.amuletAlchemist)
+          if(this == MillItems.amuletAlchemist.get())
                                        return colorAlchemist[0];
-                               if(this == MillItems.amuletVishnu)
+          if(this == MillItems.amuletVishnu.get())
                                        return colorVishnu[0];
-                               if(this == MillItems.amuletYggdrasil)
+          if(this == MillItems.amuletYggdrasil.get())
                                        return colorYggdrasil[16];
                        }
                        int score = nbt.getInteger("score");
 
-                       if(this == MillItems.amuletAlchemist)
+  if(this == MillItems.amuletAlchemist.get())
                                return colorAlchemist[score];
-                       if(this == MillItems.amuletVishnu)
+  if(this == MillItems.amuletVishnu.get())
                                return colorVishnu[score];
-                       if(this == MillItems.amuletYggdrasil)
+  if(this == MillItems.amuletYggdrasil.get())
                                return colorYggdrasil[score];
                }
                return 16777215;

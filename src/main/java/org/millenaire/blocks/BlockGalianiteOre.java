@@ -21,7 +21,7 @@ public class BlockGalianiteOre extends Block {
 
     @Override
     public Item getItemDropped(BlockState state, Random rand, int fortune) {
-        return MillItems.galianiteDust;
+        return MillItems.galianiteDust.get();
     }
 
     @Override

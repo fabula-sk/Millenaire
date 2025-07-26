@@ -123,9 +123,9 @@ public class Millenaire
                         colors.register((stack, tint) ->
                                 stack.getItem() instanceof ItemMillAmulet ?
                                         ((ItemMillAmulet) stack.getItem()).getColor(stack, tint) : 0xFFFFFF,
-                                MillItems.amuletAlchemist,
-                                MillItems.amuletVishnu,
-                                MillItems.amuletYggdrasil);
+                                MillItems.amuletAlchemist.get(),
+                                MillItems.amuletVishnu.get(),
+                                MillItems.amuletYggdrasil.get());
 
                         isServer = false;
                 });

@@ -49,12 +49,12 @@ public class ItemMillWand extends Item
 	@Override
         public boolean onItemUseFirst(ItemStack stack, Player playerIn, Level worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ)
 	{
-                if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isClientSide && this == MillItems.wandNegation) {
+                if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isClientSide && this == MillItems.wandNegation.get()) {
 			PacketExportBuilding packet = new PacketExportBuilding(pos);
                         Millenaire.channel.sendToServer(packet);
 			return true;
 		}
-                else if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isClientSide && this == MillItems.wandSummoning) {
+                else if(worldIn.getBlockState(pos).getBlock() == Blocks.OAK_SIGN && worldIn.isClientSide && this == MillItems.wandSummoning.get()) {
 			PacketImportBuilding packet =  new PacketImportBuilding(pos);
                         Millenaire.channel.sendToServer(packet);
 			return true;
@@ -73,7 +73,7 @@ public class ItemMillWand extends Item
                 float hitX = (float)context.getClickLocation().x;
                 float hitY = (float)context.getClickLocation().y;
                 float hitZ = (float)context.getClickLocation().z;
-		if(this == MillItems.wandNegation)
+                if(this == MillItems.wandNegation.get())
 		{
                         if(worldIn.getBlockState(pos).getBlock() == MillBlocks.villageStone.get())
 			{
@@ -91,7 +91,7 @@ public class ItemMillWand extends Item
 			}
 		}
 
-		if(this == MillItems.wandSummoning)
+                if(this == MillItems.wandSummoning.get())
 		{
 			if(worldIn.getBlockState(pos).getBlock() == Blocks.gold_block)
 			{
@@ -154,7 +154,7 @@ public class ItemMillWand extends Item
 //			}
 		}
 
-		if(this == MillItems.wandCreative)
+                if(this == MillItems.wandCreative.get())
 		{
 			//Control whether or not you can plant crops
 			if(worldIn.getBlockState(pos).getBlock() instanceof BlockMillCrops)
@@ -205,24 +205,24 @@ public class ItemMillWand extends Item
 			//Allow you to plant all Crops
 			else if(worldIn.getBlockState(pos).getBlock() == Blocks.cake)
 			{
-				if(!PlayerTracker.get(playerIn).canPlayerUseCrop(MillItems.grapes))
+                                if(!PlayerTracker.get(playerIn).canPlayerUseCrop(MillItems.grapes.get()))
 				{
-                    PlayerTracker.get(playerIn).setCanUseCrop(MillItems.grapes, true);
+                    PlayerTracker.get(playerIn).setCanUseCrop(MillItems.grapes.get(), true);
                 }
 
-				if(!PlayerTracker.get(playerIn).canPlayerUseCrop(MillItems.maize))
+                                if(!PlayerTracker.get(playerIn).canPlayerUseCrop(MillItems.maize.get()))
 				{
-                    PlayerTracker.get(playerIn).setCanUseCrop(MillItems.maize, true);
+                    PlayerTracker.get(playerIn).setCanUseCrop(MillItems.maize.get(), true);
                 }
 
-				if(!PlayerTracker.get(playerIn).canPlayerUseCrop(MillItems.rice))
+                                if(!PlayerTracker.get(playerIn).canPlayerUseCrop(MillItems.rice.get()))
 				{
-                    PlayerTracker.get(playerIn).setCanUseCrop(MillItems.rice, true);
+                    PlayerTracker.get(playerIn).setCanUseCrop(MillItems.rice.get(), true);
                 }
 
-				if(!PlayerTracker.get(playerIn).canPlayerUseCrop(MillItems.turmeric))
+                                if(!PlayerTracker.get(playerIn).canPlayerUseCrop(MillItems.turmeric.get()))
 				{
-                    PlayerTracker.get(playerIn).setCanUseCrop(MillItems.turmeric, true);
+                    PlayerTracker.get(playerIn).setCanUseCrop(MillItems.turmeric.get(), true);
                 }
 
                                 if(worldIn.isClientSide)
@@ -269,7 +269,7 @@ public class ItemMillWand extends Item
 			}
 		}
 
-		if(this == MillItems.tuningFork)
+            if(this == MillItems.tuningFork.get())
 		{
                         BlockState state = worldIn.getBlockState(pos);
 			String output = state.getBlock().getUnlocalizedName() + " -";
@@ -289,7 +289,7 @@ public class ItemMillWand extends Item
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, net.minecraft.entity.player.Player player, EntityLivingBase entity)
 	{
-		if(stack.getItem() == MillItems.wandNegation && entity instanceof EntityMillVillager)
+            if(stack.getItem() == MillItems.wandNegation.get() && entity instanceof EntityMillVillager)
 		{
 			((EntityMillVillager)entity).isPlayerInteracting = true;
 
@@ -310,7 +310,7 @@ public class ItemMillWand extends Item
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip, ITooltipFlag flag)
     {
-            if(stack.getItem() == MillItems.wandCreative)
+            if(stack.getItem() == MillItems.wandCreative.get())
             {
         tooltip.add("§lCreative Mode ONLY");
     }

@@ -8,7 +8,7 @@ public class MillTabs {
     public static final ItemGroup MILLENAIRE_TAB = new ItemGroup("milltab") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(MillItems.denierOr);
+            return new ItemStack(MillItems.denierOr.get());
         }
     };
 }
