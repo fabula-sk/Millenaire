@@ -1,21 +1,23 @@
 package org.millenaire.pathing;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFenceGate;
-import net.minecraft.entity.Entity;
-import net.minecraft.pathfinding.PathPoint;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BlockFenceGate;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.pathfinder.PathPoint;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.pathfinder.WalkNodeProcessor;
+import net.minecraft.world.level.pathfinder.WalkNodeProcessor;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.BlockGetter;
 
 public class MillWalkNodeProcessor extends WalkNodeProcessor
 {
 	@Override
-	public int findPathOptions(PathPoint[] pathOptions, Entity entityIn, PathPoint currentPoint, PathPoint targetPoint, float maxDistance)
+        public int findPathOptions(PathPoint[] pathOptions, Mob entityIn, PathPoint currentPoint, PathPoint targetPoint, float maxDistance)
     {
         int i = 0;
         int j = 0;
-
-        if (this.getMillVerticalOffset(entityIn, currentPoint.xCoord, currentPoint.yCoord + 1, currentPoint.zCoord) == 1)
+        if (this.getMillVerticalOffset(entityIn, currentPoint.xCoord, currentPoint.yCoord + 1, currentPoint.zCoord) == PathType.WALKABLE)
         {
             j = 1;
         }
@@ -51,43 +53,43 @@ public class MillWalkNodeProcessor extends WalkNodeProcessor
     /**
      * Returns a point that the entity can safely move to
      */
-    private PathPoint getMillSafePoint(Entity entityIn, int x, int y, int z, int p_176171_5_)
+    private PathPoint getMillSafePoint(Mob entityIn, int x, int y, int z, int dy)
     {
         PathPoint pathpoint = null;
-        int i = this.getMillVerticalOffset(entityIn, x, y, z);
+        PathType i = this.getMillVerticalOffset(entityIn, x, y, z);
 
-        if (i == 2)
+        if (i == PathType.WALKABLE)
         {
             return this.openPoint(x, y, z);
         }
         else
         {
-            if (i == 1)
+            if (i == PathType.OPEN)
             {
                 pathpoint = this.openPoint(x, y, z);
             }
 
-            if (pathpoint == null && p_176171_5_ > 0 && i != -3 && i != -4 && this.getMillVerticalOffset(entityIn, x, y + p_176171_5_, z) == 1)
+            if (pathpoint == null && dy > 0 && i != PathType.FENCE && i != PathType.DOOR_WOOD_CLOSED && this.getMillVerticalOffset(entityIn, x, y + dy, z) == PathType.WALKABLE)
             {
-                pathpoint = this.openPoint(x, y + p_176171_5_, z);
-                y += p_176171_5_;
+                pathpoint = this.openPoint(x, y + dy, z);
+                y += dy;
             }
 
             if (pathpoint != null)
             {
                 int j = 0;
-                int k;
+                PathType k;
 
                 for (k = 0; y > 0; pathpoint = this.openPoint(x, y, z))
                 {
                     k = this.getMillVerticalOffset(entityIn, x, y - 1, z);
 
-                    if (this.getAvoidsWater() && k == -1)
+                    if (this.getAvoidsWater() && k == PathType.WATER)
                     {
                         return null;
                     }
 
-                    if (k != 1)
+                    if (k != PathType.WALKABLE)
                     {
                         break;
                     }
@@ -105,7 +107,7 @@ public class MillWalkNodeProcessor extends WalkNodeProcessor
                     }
                 }
 
-                if (k == -2)
+                if (k == PathType.LAVA)
                 {
                     return null;
                 }
@@ -121,13 +123,13 @@ public class MillWalkNodeProcessor extends WalkNodeProcessor
      * -2 for lava, -3 for fence and wall, -4 for closed trapdoor, 2 if otherwise clear except for open trapdoor or
      * water(if not avoiding)
      */
-    private int getMillVerticalOffset(Entity entityIn, int x, int y, int z)
+    private PathType getMillVerticalOffset(Mob entityIn, int x, int y, int z)
     {
-    	BlockPos pos = new BlockPos(x, y, z);
-    	Block block = this.blockaccess.getBlockState(pos).getBlock();
-
-        return block instanceof BlockFenceGate && this.blockaccess.isAirBlock(pos.up()) ? 2 :
-                func_176170_a(this.blockaccess, entityIn, x, y, z, this.entitySizeX, this.entitySizeY, this.entitySizeZ,
-                        this.getAvoidsWater(), true, this.getEnterDoors());
+        BlockPos pos = new BlockPos(x, y, z);
+        BlockState state = this.blockaccess.getBlockState(pos);
+        if (state.getBlock() instanceof BlockFenceGate && this.blockaccess.isEmptyBlock(pos.above()))
+            return PathType.WALKABLE;
+        PathType type = state.getBlock().getAiPathNodeType(state, (BlockGetter)this.blockaccess, pos, entityIn);
+        return type == null ? PathType.BLOCKED : type;
     }
 }
