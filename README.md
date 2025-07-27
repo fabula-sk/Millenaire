@@ -21,13 +21,13 @@ Feel free to include the mod in your modpack! Although, we'd love it if you shar
 Check out the LICENSE file.
 
 ## Development setup
-This 1.14 version of Millénaire requires **Java 8**. To install the correct JDK
+This 1.14 version of Millénaire requires **Java 16**. To install the correct JDK
 and prefetch dependencies, run:
 
 ```
 ./scripts/setup.sh
 ```
 
-The script installs OpenJDK 8 by default and works around a bug in
+The script installs OpenJDK 16 by default and works around a bug in
 `ca-certificates-java` on minimal systems by creating a symlink at
 `/lib/security/cacerts` if it is missing.
