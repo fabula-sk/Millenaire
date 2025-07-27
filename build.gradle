@@ -11,7 +11,7 @@ buildscript {
 
 apply plugin: "net.minecraftforge.gradle"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '16'
 
 project.group = "org.millenaire.millenaire"
 project.version = "1.14.4-7.0.0"
