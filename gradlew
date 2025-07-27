@@ -28,7 +28,16 @@ APP_NAME="Gradle"
 APP_BASE_NAME=`basename "$0"`
 
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+# Gradle 4.x requires additional options when running on Java 9+. We check the
+# detected Java version and only add the --add-opens flags when running on a
+# modular JDK.
 DEFAULT_JVM_OPTS=""
+java_cmd="${JAVA_HOME:+$JAVA_HOME/bin/java}"
+java_cmd="${java_cmd:-java}"
+java_version="$($java_cmd -version 2>&1 | head -n 1)"
+if ! echo "$java_version" | grep -q '"1\.'; then
+    DEFAULT_JVM_OPTS="--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED"
+fi
 
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD="maximum"
